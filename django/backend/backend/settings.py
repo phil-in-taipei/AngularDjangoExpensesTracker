@@ -51,6 +51,8 @@ INSTALLED_APPS = [
     'djoser',
     'authapp',
 
+    'currencies',
+    'financial_accounts',
     'user_profiles',
 ]
 
