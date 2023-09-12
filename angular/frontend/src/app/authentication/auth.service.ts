@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
 import { AuthDataModel } from '../models/auth-data.model';
 import { AuthLoginModel, AuthLoginResponseModel, 
   AuthTokenRefreshResponseModel } from '../models/auth-login.model';
+import { CurrenciesCleared } from '../authenticated-user/currencies/currencies.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -204,6 +205,7 @@ export class AuthService {
     localStorage.removeItem('refreshExpiration');
     localStorage.removeItem('userId');
     this.store.dispatch(new UserProfileCleared());
+    this.store.dispatch(new CurrenciesCleared());
     this.router.navigate(['/']);
   }
 
