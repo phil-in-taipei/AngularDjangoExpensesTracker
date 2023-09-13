@@ -15,7 +15,7 @@ import { userRegistrationData,
   from '../test-data/registration-tests/registration-data';
 import { UserRegistrationResponseModel } from '../models/user-registration.model';
 
-fdescribe('RegistrationComponent', () => {
+describe('RegistrationComponent', () => {
   let component: RegistrationComponent;
   let fixture: ComponentFixture<RegistrationComponent>;
   let registrationResponse$: Observable<
