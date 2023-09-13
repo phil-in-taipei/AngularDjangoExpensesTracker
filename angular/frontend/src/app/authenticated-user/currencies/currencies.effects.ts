@@ -13,7 +13,7 @@ import { currenciesLoaded } from './currencies.selectors';
 
 @Injectable()
 export class CurrenciesEffects {
-    loadLocations$ = createEffect(() => {
+    loadCurrencies$ = createEffect(() => {
         return this.actions$
           .pipe(
             ofType<CurrenciesRequested>(CurrenciesActionTypes.CurrenciesRequested),
