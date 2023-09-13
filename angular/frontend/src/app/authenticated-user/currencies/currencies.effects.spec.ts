@@ -1,23 +1,23 @@
 import { TestBed, fakeAsync, flush } from '@angular/core/testing';
 import { Action } from '@ngrx/store';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { from, Observable, of, throwError } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { toArray } from 'rxjs/operators';
 import { provideMockStore } from '@ngrx/store/testing';
 
-import { currenciesReducer, 
+import {  
     initialCurrenciesState } from "./currencies.reducers";
 import { 
     currenciesData 
 } from "src/app/test-data/authenticated-user-module-tests/currencies-tests/currencies-data";
-import { CurrenciesCleared, CurrenciesLoaded, 
-    CurrenciesRequested } from "./currencies.actions";
+import { CurrenciesLoaded, 
+         CurrenciesRequested } from "./currencies.actions";
 import { CurrenciesEffects } from './currencies.effects';
 import { currenciesLoaded } from "./currencies.selectors";
 import { CurrenciesService } from './currencies.service';
 import { CurrencyModel } from 'src/app/models/currency.model';
 
-fdescribe('CurrenciesEffects', () => {
+describe('CurrenciesEffects', () => {
     let effects: CurrenciesEffects;
     let currenciesService: CurrenciesService;
 
