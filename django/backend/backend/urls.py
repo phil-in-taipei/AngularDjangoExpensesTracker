@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authapp.urls')),
     path('api/currencies/', include('currencies.urls')),
+    path('api/financial-accounts/', include('financial_accounts.urls')),
     path('api/profiles/', include('user_profiles.urls')),
     re_path(r'^.*$', TemplateView.as_view(template_name='index.html')),
 ]

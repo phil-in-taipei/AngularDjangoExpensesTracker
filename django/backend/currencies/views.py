@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, status, viewsets
 from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
 
 from .models import Currency
 from .serializers import CurrencySerializer

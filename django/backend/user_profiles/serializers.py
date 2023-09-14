@@ -1,5 +1,4 @@
 from rest_framework import serializers
-#from djoser.serializers import UserCreateSerializer as BaseUserRegistrationSerializer
 from django.contrib.auth import get_user_model
 from .models import UserProfile
 
