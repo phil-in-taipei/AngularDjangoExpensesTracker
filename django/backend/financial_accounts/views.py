@@ -9,8 +9,12 @@ from .models import SavingsAccount
 from .serializers import SavingsAccountSerializer
 
 
-class SavingsAccountView(generics.RetrieveUpdateDestroyAPIView):
-    permission_classes = (IsAuthenticated,)
+class SavingsAccountEditAndDeleteView(
+        generics.RetrieveUpdateDestroyAPIView
+        ):
+    permission_classes = (
+        IsAuthenticated,
+    )
     lookup_field = 'id'
     serializer_class = SavingsAccountSerializer
     model = serializer_class.Meta.model

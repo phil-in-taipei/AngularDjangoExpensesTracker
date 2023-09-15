@@ -7,6 +7,7 @@ from currencies.models import Currency
 
 
 CURRENCIES_LIST_URL = '/api/currencies/'
+User = get_user_model()
 
 
 class CurrenciesPublicApiTests(TestCase):
