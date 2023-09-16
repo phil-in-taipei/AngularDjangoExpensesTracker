@@ -1,12 +1,25 @@
 from django.shortcuts import render
 from django.shortcuts import get_object_or_404
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import SavingsAccount
-from .serializers import SavingsAccountSerializer
+from .models import Bank, SavingsAccount
+from .serializers import BankSerializer, SavingsAccountSerializer
+
+
+# This viewset is currently read only
+# (admin can create bank objects in the admin panel)
+class BankViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (
+        IsAuthenticated,
+    )
+    queryset = Bank.objects.all()
+    serializer_class = BankSerializer
+    lookup_field = 'id'
+    model = serializer_class.Meta.model
+
 
 
 class SavingsAccountEditAndDeleteView(
