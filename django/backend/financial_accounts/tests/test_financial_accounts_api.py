@@ -1,6 +1,5 @@
 from django.test import TestCase
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import status
 from rest_framework.test import APIClient
 
@@ -33,11 +32,6 @@ def get_test_user():
         'testuser',
         'testpassword'
     )
-
-
-
-#data={"message": "Account successfully deleted!"},
-                        #status=status.HTTP_204_NO_CONTENT
 
 
 class FinancialAccountsPublicApiTests(TestCase):
@@ -121,9 +115,7 @@ class FinancialAccountsPrivateApiTests(TestCase):
         """Test that authenticated user can edit savings account"""
         print("Test that authenticated user can edit savings account")
         id_url = SAVINGS_ACCOUNT_URL + str(self.test_savings_account.id) + '/'
-        print(id_url)
         res = self.client.patch(id_url, EDIT_ACCOUNT_PAYLOAD)
-        print(res)
         self.assertEquals(res.data['account_name'], EDIT_ACCOUNT_PAYLOAD['account_name'])
         self.assertTrue(
             res.status_code == status.HTTP_200_OK)
@@ -133,9 +125,7 @@ class FinancialAccountsPrivateApiTests(TestCase):
         print("Test that authenticated user can delete savings account")
         account_id = self.test_savings_account.id
         id_url = SAVINGS_ACCOUNT_URL + str(account_id) + '/'
-        print(id_url)
         res = self.client.delete(id_url)
-        print(res)
         self.assertTrue(
             res.status_code == status.HTTP_204_NO_CONTENT)
 

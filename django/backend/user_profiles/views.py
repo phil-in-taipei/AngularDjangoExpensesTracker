@@ -63,6 +63,8 @@ class UserList(generics.ListCreateAPIView):
                 )
             serializer = UserCreateSerializer(user)
             headers = self.get_success_headers(serializer.data)
-            return Response(data={"message": "User successfully created!"}, status=status.HTTP_201_CREATED,
+            return Response(data={"message": "User successfully created!"},
+                            status=status.HTTP_201_CREATED,
                             headers=headers)
-        return Response(status=status.HTTP_400_BAD_REQUEST, data={"message": "Error creating user!"})
+        return Response(status=status.HTTP_400_BAD_REQUEST,
+                        data={"message": "Error creating user!"})
