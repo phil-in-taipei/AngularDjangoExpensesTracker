@@ -50,7 +50,7 @@ describe('CurrenciesEffects', () => {
     });
 
     it('should call fetch the currencies if the currencies have ' 
-        + 'not already be loaded into state', 
+        + 'not already been loaded into state', 
         fakeAsync(() => {
         spyOn(currenciesService, 'fetchAllCurrencies').and.returnValue(of(currenciesData));
         let actualActions: Action[] | undefined;

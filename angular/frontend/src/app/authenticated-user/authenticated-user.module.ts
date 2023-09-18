@@ -9,6 +9,8 @@ import { AuthenticatedUserComponent } from './authenticated-user.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AuthenticatedHeaderComponent } from './authenticated-layout/authenticated-header/authenticated-header.component';
 import { AuthenticatedFooterComponent } from './authenticated-layout/authenticated-footer/authenticated-footer.component';
+import { BanksEffects } from './banks/banks.effects';
+import { banksReducer } from './banks/banks.reducers';
 import { CurrenciesEffects } from './currencies/currencies.effects';
 import { currenciesReducer } from './currencies/currencies.reducers';
 import { UserEffects } from './user.effects';
@@ -27,8 +29,10 @@ import { EditProfileFormComponent } from './user-profile/edit-profile-form/edit-
     CommonModule,
     FormsModule,
     AuthenticatedUserRoutingModule,
+    StoreModule.forFeature('banks', banksReducer),
     StoreModule.forFeature('currencies', currenciesReducer),
     StoreModule.forFeature('user', userProfileReducer),
+    EffectsModule.forFeature([BanksEffects]),
     EffectsModule.forFeature([CurrenciesEffects]),
     EffectsModule.forFeature([UserEffects]),
   ]

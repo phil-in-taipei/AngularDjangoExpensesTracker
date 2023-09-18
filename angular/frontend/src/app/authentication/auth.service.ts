@@ -4,13 +4,16 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 //import * as CryptoJS from 'crypto-js';
 import {Store} from '@ngrx/store';
-import { AppState } from './../reducers';
-import { UserProfileCleared } from './../authenticated-user/user.actions';
 import { environment } from '../../environments/environment';
 import { AuthDataModel } from '../models/auth-data.model';
 import { AuthLoginModel, AuthLoginResponseModel, 
   AuthTokenRefreshResponseModel } from '../models/auth-login.model';
+import { AppState } from './../reducers';
+import { BanksCleared } from '../authenticated-user/banks/banks.actions';
 import { CurrenciesCleared } from '../authenticated-user/currencies/currencies.actions';
+import { UserProfileCleared } from './../authenticated-user/user.actions';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -205,6 +208,7 @@ export class AuthService {
     localStorage.removeItem('refreshExpiration');
     localStorage.removeItem('userId');
     this.store.dispatch(new UserProfileCleared());
+    this.store.dispatch(new BanksCleared());
     this.store.dispatch(new CurrenciesCleared());
     this.router.navigate(['/']);
   }
