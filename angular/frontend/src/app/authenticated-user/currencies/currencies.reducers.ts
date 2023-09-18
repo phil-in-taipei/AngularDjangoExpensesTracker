@@ -8,7 +8,7 @@ import { CurrencyModel } from 'src/app/models/currency.model';
 
 export interface CurrenciesState extends EntityState<CurrencyModel> {
     currenciesLoaded:boolean;
-}
+};
 
 export const adapter: EntityAdapter<CurrencyModel> = createEntityAdapter<CurrencyModel>();
 

@@ -12,7 +12,7 @@ import {
   banksData 
 } from 'src/app/test-data/authenticated-user-module-tests/banks-tests/banks-data';
 
-fdescribe('BanksService', () => {
+describe('BanksService', () => {
   let service: BanksService;
   let httpTestingController: HttpTestingController;
   let authServiceSpy: jasmine.SpyObj<AuthService>;

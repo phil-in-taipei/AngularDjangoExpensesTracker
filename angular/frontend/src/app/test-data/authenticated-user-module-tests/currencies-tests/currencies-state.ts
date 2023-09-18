@@ -1,6 +1,8 @@
+import { Dictionary } from "@ngrx/entity";
+
 import { currenciesData } from "./currencies-data";
 import { CurrencyModel } from "src/app/models/currency.model";
-import { Dictionary } from "@ngrx/entity";
+
 
 
 const ids:number[] = [ currenciesData[0].id, currenciesData[1].id ];
