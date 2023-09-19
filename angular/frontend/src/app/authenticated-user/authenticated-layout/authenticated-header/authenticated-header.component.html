@@ -8,23 +8,21 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle mydropnav"
             href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              JWT Experiment
+              Financial Information
             </a>
             <ul class="dropdown-menu mydropnav bg-dark" aria-labelledby="navbarDropdown">
-              <li *ngIf="userIsAuthenticated">
-                <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
-              </li>
               <li><a class="dropdown-item bg-dark" 
-                routerLink="user-profile" 
-                href="#">Profile</a></li>
+                routerLink="finance/savings-accounts" 
+                href="#">Savings Accounts</a>
+              </li>
             </ul>
+          </li>
+          <li><a class="nav-link" 
+            routerLink="user-profile" 
+            href="#">Profile</a>
           </li>
           <li *ngIf="userIsAuthenticated">
             <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
-          </li>
-          <li><a class="nav-link" 
-            routerLink="finance/savings-accounts" 
-            href="#">Savings Accounts</a>
           </li>
         </ul>
       </div>
