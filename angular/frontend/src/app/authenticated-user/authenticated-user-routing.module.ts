@@ -6,6 +6,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 const routes: Routes = [
   { path: '', component: AuthenticatedUserComponent, children: [ 
     { path: 'user-profile', component: UserProfileComponent },
+    { path: 'finance', loadChildren: () => import('./finance/finance.module').then(m => m.FinanceModule) },
     {
       path: "**",
       redirectTo: '/user-profile'

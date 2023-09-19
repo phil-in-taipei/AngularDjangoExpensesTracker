@@ -15,12 +15,16 @@
                 <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
               </li>
               <li><a class="dropdown-item bg-dark" 
-                routerLink="authenticated-user/user-profile" 
+                routerLink="user-profile" 
                 href="#">Profile</a></li>
             </ul>
           </li>
           <li *ngIf="userIsAuthenticated">
             <a class="nav-link" href="#" (click)="onLogout()">Logout</a>
+          </li>
+          <li><a class="nav-link" 
+            routerLink="finance/savings-accounts" 
+            href="#">Savings Accounts</a>
           </li>
         </ul>
       </div>

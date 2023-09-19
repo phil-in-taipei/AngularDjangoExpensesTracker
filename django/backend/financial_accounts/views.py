@@ -21,7 +21,6 @@ class BankViewSet(viewsets.ReadOnlyModelViewSet):
     model = serializer_class.Meta.model
 
 
-
 class SavingsAccountEditAndDeleteView(
         generics.RetrieveUpdateDestroyAPIView
         ):
