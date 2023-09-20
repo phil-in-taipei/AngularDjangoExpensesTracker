@@ -3,7 +3,7 @@ import { CurrencyModel } from "./currency.model";
 import { UserModel } from "./user-profile.model";
 
 export interface SavingsAccountModel {
-    id: number;
+    id?: number;
     bank: BankModel,
     account_name: string;
     account_owner: UserModel;

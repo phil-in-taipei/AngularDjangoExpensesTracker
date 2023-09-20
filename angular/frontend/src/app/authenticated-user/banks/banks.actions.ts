@@ -5,7 +5,7 @@ import { BankModel } from "src/app/models/bank.model";
 export enum BanksActionTypes {
     BanksRequested = '[View Authenticated User Page] Currencies Requested',
     BanksLoaded = '[Banks API] All Banks Loaded',
-    BanksCleared = '[View User Logout] Currencies Removed',
+    BanksCleared = '[View User Logout] Banks Removed',
 }
 
 
