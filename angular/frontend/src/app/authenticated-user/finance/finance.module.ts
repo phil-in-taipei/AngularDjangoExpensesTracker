@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule }   from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 import { FinanceRoutingModule } from './finance-routing.module';
 import { FinanceComponent } from './finance.component';
 import { SavingsAccountsComponent } from './savings-accounts/savings-accounts.component';
+import { SavingsAccountsEffects } from './savings-accounts/savings-accounts.effects';
+import { savingsAccountsReducer } from './savings-accounts/savings-accounts.reducers';
 
 
 @NgModule({
@@ -13,7 +18,9 @@ import { SavingsAccountsComponent } from './savings-accounts/savings-accounts.co
   ],
   imports: [
     CommonModule,
-    FinanceRoutingModule
+    FinanceRoutingModule,
+    StoreModule.forFeature('savings-accounts', savingsAccountsReducer),
+    EffectsModule.forFeature([SavingsAccountsEffects]),
   ]
 })
 export class FinanceModule { }

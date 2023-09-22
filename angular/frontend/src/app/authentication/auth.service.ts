@@ -11,6 +11,9 @@ import { AuthLoginModel, AuthLoginResponseModel,
 import { AppState } from './../reducers';
 import { BanksCleared } from '../authenticated-user/banks/banks.actions';
 import { CurrenciesCleared } from '../authenticated-user/currencies/currencies.actions';
+import { 
+  SavingsAccountsCleared 
+} from '../authenticated-user/finance/savings-accounts/savings-accounts.actions';
 import { UserProfileCleared } from './../authenticated-user/user.actions';
 
 
@@ -210,6 +213,7 @@ export class AuthService {
     this.store.dispatch(new UserProfileCleared());
     this.store.dispatch(new BanksCleared());
     this.store.dispatch(new CurrenciesCleared());
+    this.store.dispatch(new SavingsAccountsCleared());
     this.router.navigate(['/']);
   }
 

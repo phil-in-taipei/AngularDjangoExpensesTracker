@@ -49,12 +49,31 @@ export function savingsAccountsReducer(
                   successMessage: 'You have successfully submitted a new account!'}
                 );
 
+        case SavingsAccountsActionTypes.SavingsAccountAddedCancelled:
+            console.log('error adding savings account!');
+            console.log(action.payload);
+            let errorMessage: string = "Error! Savings Account Submission Failed!";
+            if (action.payload.err.error.Error) {
+                console.log(action.payload.err.error.Error)
+                errorMessage = action.payload.err.error.Error;
+            }
+            return {
+                ...state,  successMessage: undefined,
+                errorMessage: errorMessage
+            }
+
         case SavingsAccountsActionTypes.SavingsAccountsCleared:
             return initialSavingsAccountsState;
 
         case SavingsAccountsActionTypes.SavingsAccountsLoaded:
-            return adapter.setAll(action.payload.savingsAcounts, 
+            return adapter.setAll(action.payload.savingsAccounts, 
                 {...state, savingsAccountsLoaded:true});
+
+        case SavingsAccountsActionTypes.SavingsAccountsMessagesCleared:
+            return {...state,  successMessage: undefined,
+               errorMessage: undefined
+            }
+                
 
 
         default: {
