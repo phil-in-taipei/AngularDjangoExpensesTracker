@@ -12,11 +12,11 @@ const entities:Dictionary<SavingsAccountModel> = {
 };
 
 export const stateWithLoadedSavingsAccounts = {
-    savingsAccounts: {
+    accounts: {
       ids: ids,
       entities: entities,
+      errorMessage: undefined,
       savingsAccountsLoaded: true,
-      errorMesage: undefined,
       successMessage: undefined
     }
 };

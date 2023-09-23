@@ -19,7 +19,7 @@ import { savingsAccountsReducer } from './savings-accounts/savings-accounts.redu
   imports: [
     CommonModule,
     FinanceRoutingModule,
-    StoreModule.forFeature('savings-accounts', savingsAccountsReducer),
+    StoreModule.forFeature('accounts', savingsAccountsReducer),
     EffectsModule.forFeature([SavingsAccountsEffects]),
   ]
 })

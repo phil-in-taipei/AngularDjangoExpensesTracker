@@ -3,7 +3,7 @@ import {createFeatureSelector, createSelector} from '@ngrx/store';
 import { SavingsAccountsState } from './savings-accounts.reducers';
 import * as fromSavingsAccounts from './savings-accounts.reducers';
 
-export const selectSavingsAccountsState = createFeatureSelector<SavingsAccountsState>("savings-accounts");
+export const selectSavingsAccountsState = createFeatureSelector<SavingsAccountsState>("accounts");
 
 export const selectSavingsAccountById = (id:number) => createSelector(
     selectSavingsAccountsState,
