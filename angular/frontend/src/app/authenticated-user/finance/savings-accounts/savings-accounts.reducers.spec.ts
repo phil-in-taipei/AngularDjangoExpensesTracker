@@ -6,7 +6,7 @@ import {
     stateWithLoadedSavingsAccounts 
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-state';
 import { SavingsAccountsCleared, SavingsAccountsLoaded } from './savings-accounts.actions';
-import { savingsAccountsLoaded } from './savings-accounts.selectors';
+
 
 fdescribe('savingsAccountsReducer', () => {
     it('returns an initial state when cleared', () =>{
