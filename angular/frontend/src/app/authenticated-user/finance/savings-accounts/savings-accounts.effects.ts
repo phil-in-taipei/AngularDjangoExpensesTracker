@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AppState } from '../../../reducers';
 import { select, Store } from '@ngrx/store';
-import { throwError } from 'rxjs';
-import { catchError, filter, map, 
+import { throwError, of } from 'rxjs';
+import { catchError, filter, map,
     mergeMap, withLatestFrom } from "rxjs/operators";
 
-import { SavingsAccountsActionTypes, 
+import { SavingsAccountAdded, SavingsAccountAddedCancelled, SavingsAccountSubmitted, SavingsAccountsActionTypes, 
     SavingsAccountsLoaded, 
     SavingsAccountsRequested } from './savings-accounts.actions';
 import { SavingsAccountsService } from './savings-accounts.service';
@@ -30,6 +30,27 @@ export class SavingsAccountsEffects {
                 )
             )
     });
+
+    submitSavingsAccount$ = createEffect(() => {
+        return this.actions$
+            .pipe(
+                ofType<SavingsAccountSubmitted>(
+                    SavingsAccountsActionTypes.SavingsAccountSubmitted),
+                    mergeMap(action => this.savingsAccountsService.submitNewSavingsAccount(
+                      action.payload.savingsAccount,
+                      ).pipe(catchError(err => {
+                        console.log('error loading lessons page', err);
+                        this.store.dispatch(new SavingsAccountAddedCancelled({ err }));
+                        return of();
+                      }),
+                    )
+                  ),
+                  map(savingsAccount => new SavingsAccountAdded({ savingsAccount }),
+                  )
+            )
+    });
+
+
 
     constructor(private actions$: Actions, 
         private savingsAccountsService: SavingsAccountsService, 

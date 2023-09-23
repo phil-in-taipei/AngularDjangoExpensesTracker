@@ -1,6 +1,8 @@
 import { Action} from "@ngrx/store";
 
-import { SavingsAccountModel } from "src/app/models/savings-account.model";
+import { SavingsAccountCreateModel, 
+    SavingsAccountEditModel,
+    SavingsAccountModel } from "src/app/models/savings-account.model";
 
 export enum SavingsAccountsActionTypes {
     SavingsAccountsRequested = '[View Finance Component Base Page] Savings Accounts Requested',
@@ -55,7 +57,7 @@ export class SavingsAccountSubmitted implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountSubmitted;
   
     constructor(
-        public payload: { savingsAccount: SavingsAccountModel }
+        public payload: { savingsAccount: SavingsAccountCreateModel }
         ){}
   }
 

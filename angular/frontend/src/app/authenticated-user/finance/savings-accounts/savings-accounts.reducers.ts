@@ -73,8 +73,6 @@ export function savingsAccountsReducer(
             return {...state,  successMessage: undefined,
                errorMessage: undefined
             }
-                
-
 
         default: {
             return state
