@@ -9,12 +9,16 @@ import { FinanceComponent } from './finance.component';
 import { SavingsAccountsComponent } from './savings-accounts/savings-accounts.component';
 import { SavingsAccountsEffects } from './savings-accounts/savings-accounts.effects';
 import { savingsAccountsReducer } from './savings-accounts/savings-accounts.reducers';
+import { CreateAccountComponent } from './savings-accounts/create-account/create-account.component';
+import { AccountSubmitFormComponent } from './savings-accounts/create-account/account-submit-form/account-submit-form.component';
 
 
 @NgModule({
   declarations: [
     FinanceComponent,
-    SavingsAccountsComponent
+    SavingsAccountsComponent,
+    CreateAccountComponent,
+    AccountSubmitFormComponent
   ],
   imports: [
     CommonModule,
