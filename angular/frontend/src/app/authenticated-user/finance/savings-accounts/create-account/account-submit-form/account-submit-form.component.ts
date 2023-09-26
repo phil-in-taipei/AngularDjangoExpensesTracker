@@ -24,4 +24,16 @@ export class AccountSubmitFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  onSubmitSavingsAccount(form: NgForm) {
+    console.log('submit savings account now ...')
+    console.log(form.value);
+    if (form.invalid) {
+      console.log('single recurring submit form is invalid')
+      console.log(form.errors);
+      return;
+    }
+    console.log('valid!')
+    
+  }
+
 }

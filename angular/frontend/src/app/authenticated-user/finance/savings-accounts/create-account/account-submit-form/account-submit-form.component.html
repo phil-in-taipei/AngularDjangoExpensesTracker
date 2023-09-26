@@ -1,1 +1,86 @@
-<p>account-submit-form works!</p>
+<div>
+  <form (submit)="onSubmitSavingsAccount(savingsAccountForm)" #savingsAccountForm="ngForm">
+    <div>
+        <label>Bank</label>
+          <select
+          class="form-control"
+          name="bank"
+          class="form-control"
+          ngModel
+          required
+          #bank="ngModel"
+          >
+          <option *ngFor="let bank of banks"
+              [value]=currency
+          >{{ bank.bank_name}}
+          </option>
+          </select>
+          <div *ngIf="bank.touched && bank.invalid">
+            Please select a bank.
+          </div>
+    </div>
+    <br />
+    <div>
+        <label>Account Description</label>
+        <input
+        class="form-control"
+        type="text"
+        minlength="2"
+        rows="4"
+        name="account_name"
+        ngModel
+        required
+        placeholder="Savings Account Description"
+        #account_name="ngModel"
+        >
+      <div *ngIf="account_name.touched && account_name.invalid">Please enter an account description.</div>
+    </div>
+    <br />
+    <div>
+        <label>Account Balance</label>
+        <input
+        class="form-control"
+        type="number"
+        min="0.00"
+        max="20000"
+        rows="4"
+        name="account_balance"
+        ngModel
+        required
+        placeholder="0.00"
+        #account_balance="ngModel"
+        >
+        <div *ngIf="account_balance.touched && account_balance.invalid">
+          Please enter an account balance.
+        </div>
+    </div>
+    <br />
+    <div>
+        <label>Currency</label>
+          <select
+          class="form-control"
+          name="currency"
+          class="form-control"
+          ngModel
+          required
+          #currency="ngModel"
+          >
+          <option *ngFor="let currency of currencies"
+              [value]=currency
+          >{{ currency.currency_name}},
+           {{ currency.currency_code }}
+          </option>
+          </select>
+          <div *ngIf="currency.touched && currency.invalid">
+            Please select a currency.
+          </div>
+    </div>
+    <br />
+    <div>
+      <button class="btn btn-outline-secondary" type="submit">
+        Submit
+      </button>
+    </div>
+  </form>
+  <br />
+</div>

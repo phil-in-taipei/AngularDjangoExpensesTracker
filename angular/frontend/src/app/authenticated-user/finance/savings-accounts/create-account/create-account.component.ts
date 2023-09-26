@@ -35,6 +35,11 @@ export class CreateAccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(new SavingsAccountMessagesCleared());
+    this.usrProfile$ = this.store.pipe(select(selectUserProfile));
+    this.banks$ = this.store.pipe(select(selectAllBanks));
+    this.currencies$ = this.store.pipe(select(selectAllCurrencies));
+    this.accountSubmitErrMsg$ = this.store.pipe(select(savingsAccountSubmissionErrorMsg));
+    this.accountSubmitSuccessMsg$ = this.store.pipe(select(savingsAccountSubmissionSuccessMsg));
   }
 
   onClearStatusMsgs() {

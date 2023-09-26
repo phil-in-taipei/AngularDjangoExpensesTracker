@@ -23,6 +23,7 @@ import { AccountSubmitFormComponent } from './savings-accounts/create-account/ac
   imports: [
     CommonModule,
     FinanceRoutingModule,
+    FormsModule,
     StoreModule.forFeature('accounts', savingsAccountsReducer),
     EffectsModule.forFeature([SavingsAccountsEffects]),
   ]
