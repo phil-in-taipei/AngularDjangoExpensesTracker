@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { NgForm, NgModel } from '@angular/forms';
-import { select, Store } from '@ngrx/store';
+import { NgForm } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 import { AppState } from 'src/app/reducers';
 import { BankModel } from 'src/app/models/bank.model';
@@ -25,26 +25,21 @@ export class AccountSubmitFormComponent implements OnInit {
   }
 
   onSubmitSavingsAccount(form: NgForm) {
-    console.log('submit savings account now ...')
-    console.log(form.value);
     if (form.invalid) {
-      console.log('single recurring submit form is invalid')
-      console.log(form.errors);
       return;
     }
-    console.log('valid!')
     const data: SavingsAccountCreateModel = {
       bank: form.value.bank,
       account_name: form.value.account_name,
       currency: form.value.currency,
       account_balance: form.value.account_balance,
       account_owner: this.usrProfile.user
-    }
-    console.log(data);
+    };
     this.store.dispatch(
-      new SavingsAccountSubmitted({ savingsAccount: data} )
+      new SavingsAccountSubmitted({ savingsAccount: data })
       );
     form.reset();
-  }
+  };
 
 }
+
