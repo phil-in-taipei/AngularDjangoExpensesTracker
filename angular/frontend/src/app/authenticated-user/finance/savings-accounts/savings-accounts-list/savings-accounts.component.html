@@ -1,0 +1,21 @@
+<h3>Savings Accounts</h3>
+<div *ngIf="savingsAccounts$ | async as savingsAccounts" class="container">
+    <div class="large-scr-tbl">
+        <table class="table">
+            <thead class="table-dark">
+              <tr class="row">
+                <th class="col"><h5 class="text-secondary">Bank</h5></th>
+                <th class="col"><h5 class="text-secondary">Description</h5></th>
+                <th class="col"><h5 class="text-secondary">Balance</h5></th>
+                <th class="col"><h5 class="text-secondary">Currency</h5></th>
+              </tr>
+            </thead>
+            <tbody class="table-dark">
+              <div *ngFor="let savingsAccount of savingsAccounts" >
+                <app-single-savings-account [savingsAccount]=savingsAccount>
+                </app-single-savings-account>
+              </div>
+            </tbody>
+        </table>
+    </div>
+</div>
