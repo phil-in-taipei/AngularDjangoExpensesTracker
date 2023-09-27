@@ -33,7 +33,18 @@ export class AccountSubmitFormComponent implements OnInit {
       return;
     }
     console.log('valid!')
-    
+    const data: SavingsAccountCreateModel = {
+      bank: form.value.bank,
+      account_name: form.value.account_name,
+      currency: form.value.currency,
+      account_balance: form.value.account_balance,
+      account_owner: this.usrProfile.user
+    }
+    console.log(data);
+    this.store.dispatch(
+      new SavingsAccountSubmitted({ savingsAccount: data} )
+      );
+    form.reset();
   }
 
 }
