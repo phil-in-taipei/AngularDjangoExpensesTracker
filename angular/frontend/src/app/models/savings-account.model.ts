@@ -10,6 +10,11 @@ export interface SavingsAccountCreateModel {
   currency: CurrencyModel;
 }
 
+export interface SavingsAccountDeletionResponse {
+  id: number;
+  message: string;
+}
+
 export interface SavingsAccountEditModel {
   account_name: string;
   account_balance: number;

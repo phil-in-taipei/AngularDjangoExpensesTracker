@@ -35,9 +35,10 @@ class SavingsAccountEditAndDeleteView(
 
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
+        id = instance.id
         self.perform_destroy(instance)
-        return Response(data={"message": "Account successfully deleted!"},
-                        status=status.HTTP_204_NO_CONTENT)
+        return Response(data={"id": id, 
+                        "message": "Account successfully deleted!"})
 
     def patch(self, request, *args, **kwargs):
         return self.update(request, *args, **kwargs)

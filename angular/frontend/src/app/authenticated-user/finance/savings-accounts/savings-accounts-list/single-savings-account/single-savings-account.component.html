@@ -19,4 +19,31 @@
         {{ savingsAccount.currency.currency_code }}
       </h5>
     </th>
+    <th class="col">
+      <div *ngIf="!deletionPopupVisible; else delAccount" class="text-center">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="showDeletionPopup()"
+          >
+          Remove
+        </button>
+      </div>
+      <ng-template #delAccount class="row">
+        <div class="col text-center">
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="hideDeletionPopup()">
+            Don't Delete
+          </button>
+        </div>
+        <div class="col text-center">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="onRemoveSavingsAccount()"
+            >
+            Confirm Delete
+          </button>
+        </div>
+      </ng-template>
+    </th>
   </tr>

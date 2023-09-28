@@ -6,7 +6,10 @@ import { throwError, of } from 'rxjs';
 import { catchError, filter, map,
     mergeMap, withLatestFrom } from "rxjs/operators";
 
-import { SavingsAccountAdded, SavingsAccountAddedCancelled, SavingsAccountSubmitted, SavingsAccountsActionTypes, 
+import { SavingsAccountAdded, SavingsAccountAddedCancelled, 
+    SavingsAccountDeletionCancelled,
+    SavingsAccountDeletionRequested, SavingsAccountsDeletionSaved,
+    SavingsAccountSubmitted, SavingsAccountsActionTypes, 
     SavingsAccountsLoaded, 
     SavingsAccountsRequested } from './savings-accounts.actions';
 import { SavingsAccountsService } from './savings-accounts.service';
@@ -17,33 +20,64 @@ export class SavingsAccountsEffects {
     loadSavingsAccounts$ = createEffect(() => {
         return this.actions$
             .pipe(
-                ofType<SavingsAccountsRequested>(SavingsAccountsActionTypes.SavingsAccountsRequested),
-                withLatestFrom(this.store.pipe(select(savingsAccountsLoaded))),
-                filter(([action, savingsAccountsLoaded]) => !savingsAccountsLoaded),
-                mergeMap(action => this.savingsAccountsService.fetchAllSavingsAccounts()
-                    .pipe(
-                        map(savingsAccounts => new SavingsAccountsLoaded({ savingsAccounts })),
-                        catchError(err => {
-                            return throwError(() => err);
-                        })
-                    )
-                )
+                ofType<SavingsAccountsRequested>(SavingsAccountsActionTypes
+                    .SavingsAccountsRequested),
+                        withLatestFrom(this.store.pipe(
+                            select(savingsAccountsLoaded))
+                        ),
+                        filter(
+                            ([action, savingsAccountsLoaded]) => !savingsAccountsLoaded),
+                        mergeMap(action => this.savingsAccountsService
+                            .fetchAllSavingsAccounts()
+                                .pipe(
+                                    map(savingsAccounts => new SavingsAccountsLoaded(
+                                        { savingsAccounts })
+                                    ),
+                                    catchError(err => {
+                                        return throwError(() => err);
+                                    })
+                                )
+                        )
             )
     });
+
+    removeSavingsAccount$ = createEffect(() => {
+        return this.actions$
+            .pipe(
+                ofType<SavingsAccountDeletionRequested>(
+                    SavingsAccountsActionTypes.SavingsAccountDeletionRequested),
+                    mergeMap(action => this.savingsAccountsService
+                        .deleteSavingsAccount(action.payload.id)
+                            .pipe(
+                                map(deletionResponse => new SavingsAccountsDeletionSaved(
+                                    deletionResponse)
+                                ),
+                                catchError(err => {
+                                    this.store.dispatch(
+                                        new SavingsAccountAddedCancelled({ err })
+                                    );
+                                    return of();
+                                })
+                            )
+                    )
+            )
+    });  
 
     submitSavingsAccount$ = createEffect(() => {
         return this.actions$
             .pipe(
                 ofType<SavingsAccountSubmitted>(
                     SavingsAccountsActionTypes.SavingsAccountSubmitted),
-                    mergeMap(action => this.savingsAccountsService.submitNewSavingsAccount(
-                      action.payload.savingsAccount,
-                      ).pipe(catchError(err => {
-                        console.log('error loading lessons page', err);
-                        this.store.dispatch(new SavingsAccountAddedCancelled({ err }));
-                        return of();
-                      }),
-                    )
+                    mergeMap(action => this.savingsAccountsService
+                        .submitNewSavingsAccount(
+                            action.payload.savingsAccount,
+                            ).pipe(catchError(err => {
+                                this.store.dispatch(
+                                    new SavingsAccountAddedCancelled({ err })
+                                );
+                                return of();
+                            }),
+                        )
                   ),
                   map(savingsAccount => new SavingsAccountAdded({ savingsAccount }),
                   )

@@ -4,8 +4,12 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../authentication/auth.service';
-import { SavingsAccountModel, SavingsAccountCreateModel, 
-  SavingsAccountEditModel } from 'src/app/models/savings-account.model';
+import { SavingsAccountModel, 
+  SavingsAccountCreateModel, 
+  SavingsAccountDeletionResponse,
+  SavingsAccountEditModel 
+} from 'src/app/models/savings-account.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +19,15 @@ export class SavingsAccountsService {
   constructor(
     private http: HttpClient,
     private authService: AuthService) { }
+
+    deleteSavingsAccount(id: number) {
+      let token = this.authService.getAuthToken();
+      return this.http.delete<SavingsAccountDeletionResponse>(
+        `${environment.apiUrl}/api/financial-accounts/savings-account/${id}/`,
+          {
+            headers: new HttpHeaders({ 'Authorization': `Token ${token}` })
+          })
+    }
 
     fetchAllSavingsAccounts() {
       let token = this.authService.getAuthToken();

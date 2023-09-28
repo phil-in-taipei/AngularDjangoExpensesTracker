@@ -1,6 +1,9 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
-import { SavingsAccountModel } from 'src/app/models/savings-account.model';
+import { 
+    SavingsAccountModel, 
+    SavingsAccountDeletionResponse 
+} from 'src/app/models/savings-account.model';
 import { SavingsAccountActions, 
     SavingsAccountsActionTypes } from './savings-accounts.actions';
 
@@ -46,8 +49,30 @@ export function savingsAccountsReducer(
             return adapter.addOne(action.payload.savingsAccount, 
                 { ...state,
                   errorMessage: undefined,
-                  successMessage: 'You have successfully submitted a new account!'}
-                );
+                  successMessage: 'You have successfully submitted a new account!'
+                }
+            );
+
+        case SavingsAccountsActionTypes.SavingsAccountDeletionCancelled:
+            let errMsg: string = "Error! Savings Account Deletion Failed!";
+            if (action.payload.err.error.Error) {
+                console.log(action.payload.err.error.Error)
+                errMsg = action.payload.err.error.Error;
+            }
+            return {
+                    ...state,  successMessage: undefined,
+                    errorMessage: errMsg
+            }
+
+        case SavingsAccountsActionTypes.SavingsAccountsDeletionSaved:
+            console.log('now deleting the account')
+            console.log(action.payload);
+            return adapter.removeOne(action.payload.id, 
+                { ...state,
+                  errorMessage: undefined,
+                  successMessage: action.payload.message
+                }
+            );
 
         case SavingsAccountsActionTypes.SavingsAccountAddedCancelled:
             console.log('error adding savings account!');
