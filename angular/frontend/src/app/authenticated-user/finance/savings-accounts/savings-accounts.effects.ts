@@ -54,7 +54,7 @@ export class SavingsAccountsEffects {
                                 ),
                                 catchError(err => {
                                     this.store.dispatch(
-                                        new SavingsAccountAddedCancelled({ err })
+                                        new SavingsAccountDeletionCancelled({ err })
                                     );
                                     return of();
                                 })

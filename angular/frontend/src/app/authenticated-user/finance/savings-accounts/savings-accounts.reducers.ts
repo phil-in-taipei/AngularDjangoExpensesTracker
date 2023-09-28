@@ -56,7 +56,7 @@ export function savingsAccountsReducer(
         case SavingsAccountsActionTypes.SavingsAccountDeletionCancelled:
             let errMsg: string = "Error! Savings Account Deletion Failed!";
             if (action.payload.err.error.Error) {
-                console.log(action.payload.err.error.Error)
+                //console.log(action.payload.err.error.Error)
                 errMsg = action.payload.err.error.Error;
             }
             return {
@@ -65,8 +65,8 @@ export function savingsAccountsReducer(
             }
 
         case SavingsAccountsActionTypes.SavingsAccountsDeletionSaved:
-            console.log('now deleting the account')
-            console.log(action.payload);
+            //console.log('now deleting the account')
+            //console.log(action.payload);
             return adapter.removeOne(action.payload.id, 
                 { ...state,
                   errorMessage: undefined,
@@ -75,11 +75,11 @@ export function savingsAccountsReducer(
             );
 
         case SavingsAccountsActionTypes.SavingsAccountAddedCancelled:
-            console.log('error adding savings account!');
-            console.log(action.payload);
+            //console.log('error adding savings account!');
+            //console.log(action.payload);
             let errorMessage: string = "Error! Savings Account Submission Failed!";
             if (action.payload.err.error.Error) {
-                console.log(action.payload.err.error.Error)
+                //console.log(action.payload.err.error.Error)
                 errorMessage = action.payload.err.error.Error;
             }
             return {
