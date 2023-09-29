@@ -9,10 +9,10 @@ import { environment } from 'src/environments/environment';
 import { SavingsAccountsService } from './savings-accounts.service';
 
 import { 
-  savingsAccountsData
+  createdSavingsAccount, newSavingsAccountData, savingsAccountsData
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
 
-describe('SavingsAccountsService', () => {
+fdescribe('SavingsAccountsService', () => {
   let service: SavingsAccountsService;
   let httpTestingController: HttpTestingController;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
@@ -71,4 +71,24 @@ describe('SavingsAccountsService', () => {
       flush();
 
   }));
+
+  it('should return a new savings account object from backend after submitting ' 
+    + 'data to create a new account', 
+    fakeAsync(() => {
+      authServiceSpy.getAuthToken.and.returnValue(authData.token);
+
+      service.submitNewSavingsAccount(newSavingsAccountData).subscribe(response => {
+        expect(response).toEqual(createdSavingsAccount);
+      });
+
+      const request = httpTestingController.expectOne({
+        method: 'POST',
+        url:`${environment.apiUrl}/api/financial-accounts/savings-accounts/`,
+      });
+
+      request.flush(createdSavingsAccount);
+
+      flush();
+
+    }));
 });

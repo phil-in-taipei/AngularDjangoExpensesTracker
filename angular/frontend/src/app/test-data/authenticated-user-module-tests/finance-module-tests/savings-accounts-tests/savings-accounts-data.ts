@@ -1,7 +1,23 @@
 import { banksData } from "../../banks-tests/banks-data";
 import { currenciesData } from "../../currencies-tests/currencies-data";
 import { userProfileData } from "../../user-related-tests/user-data";
-import { SavingsAccountModel } from "src/app/models/savings-account.model";
+import { SavingsAccountModel, SavingsAccountCreateModel } from "src/app/models/savings-account.model";
+
+export const createdSavingsAccount: SavingsAccountModel = {
+    id: 3, account_name: "Test Savings Account 3", 
+    account_balance: 0.00,
+    account_owner: userProfileData.user,
+    currency: currenciesData[1],
+    bank: banksData[0] 
+};
+
+export const newSavingsAccountData: SavingsAccountCreateModel = {
+    account_name: "Test Savings Account 3", 
+    account_balance: 0.00,
+    account_owner: userProfileData.user,
+    currency: currenciesData[1],
+    bank: banksData[0]
+};
 
 export const savingsAccountsData: SavingsAccountModel[] = [
     { 
@@ -18,4 +34,4 @@ export const savingsAccountsData: SavingsAccountModel[] = [
         currency: currenciesData[1],
         bank: banksData[1] 
     }
-]
+];

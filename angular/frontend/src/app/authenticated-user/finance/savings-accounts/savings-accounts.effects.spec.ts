@@ -7,13 +7,16 @@ import { provideMockStore } from '@ngrx/store/testing';
 
 import { initialSavingsAccountsState } from './savings-accounts.reducers';
 import { 
-    savingsAccountsData
+    createdSavingsAccount, newSavingsAccountData, savingsAccountsData
   } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
-import { SavingsAccountsLoaded, 
-    SavingsAccountsRequested } from './savings-accounts.actions';  
+import { SavingsAccountAdded, SavingsAccountsLoaded, 
+    SavingsAccountsRequested, SavingsAccountSubmitted,
+} from './savings-accounts.actions';  
 import { SavingsAccountsEffects } from './savings-accounts.effects';
 import { savingsAccountsLoaded } from './savings-accounts.selectors';
-import { SavingsAccountModel } from 'src/app/models/savings-account.model';
+import { 
+    SavingsAccountCreateModel, SavingsAccountModel 
+} from 'src/app/models/savings-account.model';
 import { SavingsAccountsService } from './savings-accounts.service';
 
 fdescribe('SavingsAccountsEffects', () => {
@@ -24,7 +27,12 @@ fdescribe('SavingsAccountsEffects', () => {
         const mockSavingsAccountsService = {
             fetchAllSavingsAccounts(): Observable<SavingsAccountModel[]> {
                 return of(savingsAccountsData);
-          }
+            },
+            submitNewSavingsAccount(
+                submissionForm:SavingsAccountCreateModel): 
+                        Observable<SavingsAccountModel> {
+                return of(createdSavingsAccount);
+            }
         };
 
         TestBed.configureTestingModule({    
@@ -38,7 +46,12 @@ fdescribe('SavingsAccountsEffects', () => {
                         }
                       ]
                 }),
-                provideMockActions(from([new SavingsAccountsRequested(),])),
+                provideMockActions(from([
+                    new SavingsAccountsRequested(),
+                    new SavingsAccountSubmitted(
+                        { savingsAccount: newSavingsAccountData}
+                    )
+                ])),
                 SavingsAccountsEffects,
                 { provide: SavingsAccountsService, 
                   useValue: mockSavingsAccountsService }
@@ -62,6 +75,24 @@ fdescribe('SavingsAccountsEffects', () => {
         effects.loadSavingsAccounts$.pipe(toArray()).subscribe((actualActions2) => {
             actualActions = actualActions2;
         }, fail);
+        
+        expect(actualActions).toEqual(expectedActions);
+        flush();
+    }));
+
+    it('should submit new savings account data to backend and save the returned ' 
+        + 'newly created savings account in state', 
+      fakeAsync(() => {
+        spyOn(savingssAccountsService, 'submitNewSavingsAccount')
+                .and.returnValue(of(createdSavingsAccount));
+        let actualActions: Action[] | undefined;
+        const expectedActions: Action[] = [new SavingsAccountAdded(
+            { savingsAccount: createdSavingsAccount }
+        )];
+        
+        effects.submitSavingsAccount$.pipe(toArray()).subscribe((actualActions2) => {
+            actualActions = actualActions2;
+            }, fail);
         
         expect(actualActions).toEqual(expectedActions);
         flush();
