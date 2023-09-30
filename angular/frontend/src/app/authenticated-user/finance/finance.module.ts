@@ -13,6 +13,7 @@ import { CreateAccountComponent } from './savings-accounts/create-account/create
 import { AccountSubmitFormComponent } from './savings-accounts/create-account/account-submit-form/account-submit-form.component';
 import { SingleSavingsAccountComponent } from './savings-accounts/savings-accounts-list/single-savings-account/single-savings-account.component';
 import { EditAccountComponent } from './savings-accounts/edit-account/edit-account.component';
+import { AccountEditFormComponent } from './savings-accounts/edit-account/account-edit-form/account-edit-form.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { EditAccountComponent } from './savings-accounts/edit-account/edit-accou
     CreateAccountComponent,
     AccountSubmitFormComponent,
     SingleSavingsAccountComponent,
-    EditAccountComponent
+    EditAccountComponent,
+    AccountEditFormComponent
   ],
   imports: [
     CommonModule,

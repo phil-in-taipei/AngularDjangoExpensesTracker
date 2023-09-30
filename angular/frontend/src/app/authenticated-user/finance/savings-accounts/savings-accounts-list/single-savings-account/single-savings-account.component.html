@@ -6,7 +6,9 @@
     </th>
     <th class="col">
       <h5 class="text-secondary">
-        {{ savingsAccount.account_name }}
+        <a [routerLink]="['/authenticated-user/finance/edit-account', savingsAccount.id]">
+          {{ savingsAccount.account_name }}
+        </a>
       </h5>
     </th>
     <th class="col">
