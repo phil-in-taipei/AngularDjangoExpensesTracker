@@ -1,4 +1,5 @@
 import { Action} from "@ngrx/store";
+import { Update } from "@ngrx/entity";
 
 import { SavingsAccountCreateModel, SavingsAccountDeletionResponse,
     SavingsAccountEditModel,
@@ -10,11 +11,12 @@ export enum SavingsAccountsActionTypes {
     SavingsAccountSubmitted = '[Create Savings Account Page] Savings Account Submitted',
     SavingsAccountAdded = '[Savings Accounts Page] Savings Account Added',
     SavingsAccountAddedCancelled = '[Create Savings Account Page] Savings Account Added Cancelled',
-    //SavingsAccountEditSubmitted = '[Edit Savings Account Page] Edited Savings Account Submitted',
-    //SavingsAccountEditAdded = '[Savings Accounts Page] Edited Savings Account Added',
     SavingsAccountDeletionCancelled = '[Savings Accounts Page] Removal of Savings Account Cancelled',
     SavingsAccountDeletionRequested = '[Savings Accounts Page]  Removal of Savings Account Requested',
-    SavingsAccountsDeletionSaved = '[Savings Accounts Page] Savings Account Removed',
+    SavingsAccountDeletionSaved = '[Savings Accounts Page] Savings Account Removed',
+    SavingsAccountEditCancelled= '[Edit Savings Account Page] Edit Savings Account Cancelled',
+    SavingsAccountEditSubmitted = '[Edit Savings Account Page] Edited Savings Account Submitted',
+    SavingsAccountEditUpdated = '[Savings Accounts Page] Edited Savings Account Updated',
     SavingsAccountsCleared = '[View User Logout] Savings Accounts Removed',
     SavingsAccountsMessagesCleared = '[Create Savings Accounts Page] Savings Accounts Messages Cleared',
 };
@@ -48,11 +50,34 @@ export class SavingsAccountDeletionRequested implements Action {
     constructor(public payload: { id: number }) {}
 }
 
-export class SavingsAccountsDeletionSaved implements Action {
-    readonly type = SavingsAccountsActionTypes.SavingsAccountsDeletionSaved;
+export class SavingsAccountDeletionSaved implements Action {
+    readonly type = SavingsAccountsActionTypes.SavingsAccountDeletionSaved;
   
     constructor(public payload: { id: number, message: string }) {}
-  }
+}
+
+export class SavingsAccountEditCancelled implements Action {
+    readonly type = SavingsAccountsActionTypes.SavingsAccountEditCancelled;
+  
+    constructor(public payload: {  err: any }) {
+  
+    }
+}
+
+export class SavingsAccountEditSubmitted implements Action {
+
+    readonly type = SavingsAccountsActionTypes.SavingsAccountEditSubmitted;
+  
+    constructor(public payload: 
+        {  id: number, savingsAccount: SavingsAccountEditModel }) {}
+}
+
+export class SavingsAccountEditUpdated implements Action {
+    readonly type = SavingsAccountsActionTypes.SavingsAccountEditUpdated;
+  
+    constructor(public payload: {  savingsAccount: Update<SavingsAccountModel> }) {
+    }
+}
 
 export class SavingsAccountsCleared implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountsCleared;
@@ -83,8 +108,9 @@ export class SavingsAccountSubmitted implements Action {
   }
 
 export type SavingsAccountActions =  SavingsAccountAdded | 
-    SavingsAccountDeletionCancelled |
-    SavingsAccountDeletionRequested | SavingsAccountsDeletionSaved |
+    SavingsAccountEditCancelled | SavingsAccountEditSubmitted |
+    SavingsAccountEditUpdated | SavingsAccountDeletionCancelled |
+    SavingsAccountDeletionRequested | SavingsAccountDeletionSaved |
     SavingsAccountAddedCancelled | SavingsAccountsCleared |
     SavingsAccountsLoaded | SavingsAccountMessagesCleared |
     SavingsAccountsRequested | SavingsAccountSubmitted;

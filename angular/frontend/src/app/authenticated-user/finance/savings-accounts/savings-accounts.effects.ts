@@ -6,12 +6,14 @@ import { throwError, of } from 'rxjs';
 import { catchError, filter, map,
     mergeMap, withLatestFrom } from "rxjs/operators";
 
-import { SavingsAccountAdded, SavingsAccountAddedCancelled, 
-    SavingsAccountDeletionCancelled,
-    SavingsAccountDeletionRequested, SavingsAccountsDeletionSaved,
+import { 
+    SavingsAccountAdded, SavingsAccountAddedCancelled, 
+    SavingsAccountEditCancelled, SavingsAccountEditSubmitted,
+    SavingsAccountEditUpdated, SavingsAccountDeletionCancelled,
+    SavingsAccountDeletionRequested, SavingsAccountDeletionSaved,
     SavingsAccountSubmitted, SavingsAccountsActionTypes, 
-    SavingsAccountsLoaded, 
-    SavingsAccountsRequested } from './savings-accounts.actions';
+    SavingsAccountsLoaded, SavingsAccountsRequested 
+} from './savings-accounts.actions';
 import { SavingsAccountsService } from './savings-accounts.service';
 import { savingsAccountsLoaded } from './savings-accounts.selectors';
 
@@ -49,7 +51,7 @@ export class SavingsAccountsEffects {
                     mergeMap(action => this.savingsAccountsService
                         .deleteSavingsAccount(action.payload.id)
                             .pipe(
-                                map(deletionResponse => new SavingsAccountsDeletionSaved(
+                                map(deletionResponse => new SavingsAccountDeletionSaved(
                                     deletionResponse)
                                 ),
                                 catchError(err => {
@@ -84,7 +86,30 @@ export class SavingsAccountsEffects {
             )
     });
 
-
+    updateSavingsAccount$ = createEffect(() => {
+        return this.actions$
+            .pipe(
+                ofType<SavingsAccountEditSubmitted>(
+                    SavingsAccountsActionTypes.SavingsAccountEditSubmitted),
+                    mergeMap(action => this.savingsAccountsService
+                        .submitEditedSavingsAccount(
+                            action.payload.id,
+                            action.payload.savingsAccount
+                            ).pipe(catchError(err => {
+                                this.store.dispatch(
+                                    new SavingsAccountEditCancelled({ err })
+                                );
+                                return of();
+                            }),
+                        )
+                  ),
+                  map(savingsAccount => new SavingsAccountEditUpdated(
+                    { savingsAccount:
+                        { id: savingsAccount.id, changes: savingsAccount}
+                    }),
+                )
+            )
+    });
 
     constructor(private actions$: Actions, 
         private savingsAccountsService: SavingsAccountsService, 

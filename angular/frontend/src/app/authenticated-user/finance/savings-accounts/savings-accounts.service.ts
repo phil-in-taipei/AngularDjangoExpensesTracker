@@ -38,8 +38,8 @@ export class SavingsAccountsService {
           })
     }
 
-    submitEditedSavingsAccount(
-      submissionForm:SavingsAccountCreateModel, id: number) {
+    submitEditedSavingsAccount(id: number,
+      submissionForm:SavingsAccountEditModel) {
       //console.log('submitting savings account ....');
       let token = this.authService.getAuthToken();
       //console.log(token);

@@ -53,27 +53,6 @@ export function savingsAccountsReducer(
                 }
             );
 
-        case SavingsAccountsActionTypes.SavingsAccountDeletionCancelled:
-            let errMsg: string = "Error! Savings Account Deletion Failed!";
-            if (action.payload.err.error.Error) {
-                //console.log(action.payload.err.error.Error)
-                errMsg = action.payload.err.error.Error;
-            }
-            return {
-                    ...state,  successMessage: undefined,
-                    errorMessage: errMsg
-            }
-
-        case SavingsAccountsActionTypes.SavingsAccountsDeletionSaved:
-            //console.log('now deleting the account')
-            //console.log(action.payload);
-            return adapter.removeOne(action.payload.id, 
-                { ...state,
-                  errorMessage: undefined,
-                  successMessage: action.payload.message
-                }
-            );
-
         case SavingsAccountsActionTypes.SavingsAccountAddedCancelled:
             //console.log('error adding savings account!');
             //console.log(action.payload);
@@ -86,6 +65,43 @@ export function savingsAccountsReducer(
                 ...state,  successMessage: undefined,
                 errorMessage: errorMessage
             }
+
+        case SavingsAccountsActionTypes.SavingsAccountDeletionCancelled:
+            let errMsg: string = "Error! Savings Account Deletion Failed!";
+            if (action.payload.err.error.Error) {
+                //console.log(action.payload.err.error.Error)
+                errMsg = action.payload.err.error.Error;
+            }
+            return {
+                    ...state,  successMessage: undefined,
+                    errorMessage: errMsg
+            }
+
+        case SavingsAccountsActionTypes.SavingsAccountDeletionSaved:
+            //console.log('now deleting the account')
+            //console.log(action.payload);
+            return adapter.removeOne(action.payload.id, 
+                { ...state,
+                  errorMessage: undefined,
+                  successMessage: action.payload.message
+                }
+            );
+
+        case SavingsAccountsActionTypes.SavingsAccountEditCancelled:
+            let editErrMessage: string = "Error! Savings Account Update Failed!";
+            if (action.payload.err.error.Error) {
+                console.log(action.payload.err.error.Error)
+                editErrMessage = action.payload.err.error.Error;
+            }
+            return {...state,  successMessage: undefined,
+                errorMessage: editErrMessage
+            }
+
+        case SavingsAccountsActionTypes.SavingsAccountEditUpdated:
+            return adapter.updateOne(action.payload.savingsAccount, {...state,
+                errMsg:undefined,
+                successMsg: 'You have successfully updated the account info!'}
+            );
 
         case SavingsAccountsActionTypes.SavingsAccountsCleared:
             return initialSavingsAccountsState;
