@@ -1,1 +1,45 @@
-<p>account-edit-form works!</p>
+<div>
+    <form (submit)="onSubmitEditedSavingsAccount(savingsAccountForm)" #savingsAccountForm="ngForm">
+      <div>
+          <label>Account Description</label>
+          <input
+          class="form-control"
+          type="text"
+          minlength="2"
+          rows="4"
+          name="account_name"
+          ngModel
+          required
+          placeholder="{{savingsAccount.account_name}}"
+          #account_name="ngModel"
+          >
+        <div *ngIf="account_name.touched && account_name.invalid">Please enter an account description.</div>
+      </div>
+      <br />
+      <div>
+          <label>Account Balance</label>
+          <input
+          class="form-control"
+          type="number"
+          min="0.00"
+          max="20000"
+          rows="4"
+          name="account_balance"
+          ngModel
+          required
+          placeholder="{{savingsAccount.account_balance}}"
+          #account_balance="ngModel"
+          >
+          <div *ngIf="account_balance.touched && account_balance.invalid">
+            Please enter an account balance.
+          </div>
+      </div>
+      <br />
+      <div>
+        <button class="btn btn-outline-secondary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>

@@ -4,7 +4,7 @@ import { AppState } from '../../../reducers';
 import {select, Store} from '@ngrx/store';
 
 import { UserProfileModel, UserProfileEditModel } from 'src/app/models/user-profile.model';
-import { UserProfileSubmitted } from '../../user.actions';
+import { UserProfileSubmitted, UserProfileSubmissionCancelled } from '../../user.actions';
 
 
 @Component({
@@ -26,6 +26,11 @@ export class EditProfileFormComponent implements OnInit {
 
     if (form.invalid) {
       //console.log('the form is invalid!')
+      this.store.dispatch(new UserProfileSubmissionCancelled({err: {
+        error: {
+          Error: "The form values were not properly filled in!"
+        }
+      }} ));
       form.reset();
       this.closeEvent.emit(false);
       return;

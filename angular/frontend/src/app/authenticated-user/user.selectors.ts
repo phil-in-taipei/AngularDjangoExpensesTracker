@@ -8,3 +8,13 @@ export const selectUserProfile = createSelector(
   selectUserProfileState,
   UserProfileState => UserProfileState.usrProfile
 );
+
+export const userProfileSubmissionErrorMsg = createSelector(
+  selectUserProfileState,
+  userProfileState => userProfileState.errorMessage
+);
+
+export const userProfileSubmissionSuccessMsg = createSelector(
+  selectUserProfileState,
+  userProfileState => userProfileState.successMessage
+);

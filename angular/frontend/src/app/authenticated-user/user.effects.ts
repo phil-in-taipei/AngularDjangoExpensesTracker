@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { select, Store } from '@ngrx/store';
-import { throwError } from 'rxjs';
+import { throwError, of } from 'rxjs';
 import { catchError, filter, map, 
   mergeMap, withLatestFrom}  from "rxjs/operators";
 
 import { AppState } from '../reducers';
 import { selectUserProfile } from './user.selectors';
 import { UserService } from './user.service';
-import { UserProfileActionTypes, UserProfileSubmitted,
+import { UserProfileActionTypes, UserProfileSubmitted, 
+    UserProfileSubmissionCancelled,
     UserProfileLoaded, UserProfileRequested, UserProfileSaved,
      } from './user.actions';
 
@@ -40,8 +41,11 @@ import { UserProfileActionTypes, UserProfileSubmitted,
                 .pipe(
                     map(usrProfile => new UserProfileSaved({ usrProfile })),
                     catchError(err => {
-                      return throwError(() => err);
-                    })
+                      this.store.dispatch(
+                          new UserProfileSubmissionCancelled({ err })
+                      );
+                      return of();
+                  })
                 ),
               )
           )

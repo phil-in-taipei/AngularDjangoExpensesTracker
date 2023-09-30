@@ -93,7 +93,7 @@ export class SavingsAccountsLoaded implements Action {
 
 export class SavingsAccountMessagesCleared implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountsMessagesCleared;
-  }
+}
 
 export class SavingsAccountsRequested implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountsRequested;

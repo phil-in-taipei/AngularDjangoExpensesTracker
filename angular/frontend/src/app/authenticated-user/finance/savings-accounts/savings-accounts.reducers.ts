@@ -29,9 +29,10 @@ export interface SavingsAccountsState extends EntityState<SavingsAccountModel> {
     successMessage: string | undefined,
 };
 
-export const adapter: EntityAdapter<SavingsAccountModel> = createEntityAdapter<SavingsAccountModel>(
-    { sortComparer: compareSavingsAccountsByBankName }
-);
+export const adapter: EntityAdapter<SavingsAccountModel> = 
+    createEntityAdapter<SavingsAccountModel>(
+        { sortComparer: compareSavingsAccountsByBankName }
+    );
 
 export const initialSavingsAccountsState: SavingsAccountsState = adapter.getInitialState({
     errorMessage: undefined,
@@ -54,8 +55,8 @@ export function savingsAccountsReducer(
             );
 
         case SavingsAccountsActionTypes.SavingsAccountAddedCancelled:
-            //console.log('error adding savings account!');
-            //console.log(action.payload);
+            console.log('error adding savings account!');
+            console.log(action.payload);
             let errorMessage: string = "Error! Savings Account Submission Failed!";
             if (action.payload.err.error.Error) {
                 //console.log(action.payload.err.error.Error)
@@ -99,8 +100,8 @@ export function savingsAccountsReducer(
 
         case SavingsAccountsActionTypes.SavingsAccountEditUpdated:
             return adapter.updateOne(action.payload.savingsAccount, {...state,
-                errMsg:undefined,
-                successMsg: 'You have successfully updated the account info!'}
+                errorMessage:undefined,
+                successMessage: 'You have successfully updated the account info!'}
             );
 
         case SavingsAccountsActionTypes.SavingsAccountsCleared:

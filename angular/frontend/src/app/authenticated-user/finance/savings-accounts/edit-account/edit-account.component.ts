@@ -28,6 +28,7 @@ export class EditAccountComponent implements OnInit {
     private store: Store<AppState>) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new SavingsAccountMessagesCleared());
     this.idFromRouteData = this.route.snapshot.params['id'];
     this.savingsAccount$ = this.store.pipe(select(
       selectSavingsAccountById(this.idFromRouteData)

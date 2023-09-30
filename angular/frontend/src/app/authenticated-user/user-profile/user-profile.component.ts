@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, async, of, map, Subscription, Subject } from "rxjs";
+import { Observable } from "rxjs";
 
 import { AppState } from 'src/app/reducers';
-import { selectUserProfile } from './../user.selectors';
+import { UserProfileMessagesCleared } from '../user.actions';
+import { 
+  selectUserProfile, userProfileSubmissionErrorMsg, 
+  userProfileSubmissionSuccessMsg } from './../user.selectors';
 import { UserProfileModel } from '../../models/user-profile.model';
 
 @Component({
@@ -14,13 +17,22 @@ import { UserProfileModel } from '../../models/user-profile.model';
 export class UserProfileComponent implements OnInit {
 
   showForm:boolean = false;
+  userProfileSubmitErrMsg$: Observable<string | undefined>;
+  userProfileSubmitSuccessMsg$: Observable<string | undefined>;
   usrProfile$: Observable<UserProfileModel|undefined>;
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     console.log('initializing the profile component now...')
+    this.store.dispatch(new UserProfileMessagesCleared());
     this.usrProfile$ = this.store.pipe(select(selectUserProfile));
+    this.userProfileSubmitErrMsg$ = this.store.pipe(
+      select(userProfileSubmissionErrorMsg)
+    );
+    this.userProfileSubmitSuccessMsg$ = this.store.pipe(
+      select(userProfileSubmissionSuccessMsg)
+    );
   }
 
   toggleForm() {
@@ -33,5 +45,9 @@ export class UserProfileComponent implements OnInit {
 
   closeFormHander($event: boolean) {
     this.showForm = $event;
+  };
+
+  onClearStatusMsgs() {
+    this.store.dispatch(new UserProfileMessagesCleared());
   }
 }
