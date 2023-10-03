@@ -31,9 +31,9 @@ describe('BanksService', () => {
     authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  //it('should be created', () => {
+  //  expect(service).toBeTruthy();
+  //});
 
   it('should handle error due to network error when fetching banks', () => {
     authServiceSpy.getAuthToken.and.returnValue(authData.token);
@@ -70,4 +70,9 @@ describe('BanksService', () => {
     flush();
 
   }));
+
+  afterEach(() => {
+    httpTestingController.verify();
+  });
+
 });

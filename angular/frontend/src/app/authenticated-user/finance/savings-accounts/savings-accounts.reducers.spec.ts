@@ -2,10 +2,11 @@ import { initialSavingsAccountsState, savingsAccountsReducer } from './savings-a
 import { createdSavingsAccount,
     savingsAccountsData
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
-import { stateAfterNewAccountSubmitted, stateAfterAccountRevised,
+import { stateAfterNewAccountSubmitted, stateAfterNewAccountSubmittedFailure,
+     stateAfterAccountRevised, stateAfterAccountRevisedFailure,
     stateWithLoadedSavingsAccounts, revisedSavingsAccount
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-state';
-import { SavingsAccountAdded, SavingsAccountEditUpdated, SavingsAccountsCleared, 
+import { SavingsAccountAdded, SavingsAccountAddedCancelled, SavingsAccountEditUpdated, SavingsAccountsCleared, 
     SavingsAccountsLoaded } from './savings-accounts.actions';
 
 
@@ -31,10 +32,16 @@ fdescribe('savingsAccountsReducer', () => {
         expect(state).toEqual(stateAfterNewAccountSubmitted.accounts);
     });
 
+    //it('returns the state with original savings accounts entity and indicates that ' 
+    //    + 'submission of a new savings account has been unsucessful', () => {
+    //    const state = savingsAccountsReducer(stateWithLoadedSavingsAccounts.accounts, 
+    //    new SavingsAccountAddedCancelled({ err: "Error!" }));
+    //   expect(state).toEqual(stateAfterNewAccountSubmittedFailure.accounts);
+    //});
+
 
     it('returns the state with updated savings accounts entity and indicates that ' 
        + 'the savings accounts has been sucessfully revised', () => {
-        
         const state = savingsAccountsReducer(stateWithLoadedSavingsAccounts.accounts, 
             new SavingsAccountEditUpdated({ savingsAccount: {id: 2, 
                 changes: revisedSavingsAccount }})

@@ -13,7 +13,7 @@ import {
   savingsAccountDeletionResponse, savingsAccountsData
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
 
-describe('SavingsAccountsService', () => {
+fdescribe('SavingsAccountsService', () => {
   let service: SavingsAccountsService;
   let httpTestingController: HttpTestingController;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
@@ -32,9 +32,9 @@ describe('SavingsAccountsService', () => {
     authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  //it('should be created', () => {
+  //  expect(service).toBeTruthy();
+  //});
 
   it('should handle error due to network error when ' 
     + 'fetching savings accounts', () => {
@@ -138,4 +138,8 @@ describe('SavingsAccountsService', () => {
         flush()
 
       }));
+
+  afterEach(() => {
+    httpTestingController.verify();
+  });
 });

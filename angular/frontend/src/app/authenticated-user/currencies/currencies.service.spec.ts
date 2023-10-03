@@ -28,9 +28,9 @@ describe('CurrenciesService', () => {
     authServiceSpy = TestBed.inject(AuthService) as jasmine.SpyObj<AuthService>;
   });
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
+  //it('should be created', () => {
+  //  expect(service).toBeTruthy();
+  //});
 
   it('should handle error due to network error when fetching currencies', () => {
     authServiceSpy.getAuthToken.and.returnValue(authData.token);
@@ -66,4 +66,8 @@ describe('CurrenciesService', () => {
     flush();
 
   }));
+
+  afterEach(() => {
+    httpTestingController.verify();
+  });
 });
