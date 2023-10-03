@@ -6,8 +6,9 @@ import { stateAfterNewAccountSubmitted, stateAfterNewAccountSubmittedFailure,
      stateAfterAccountRevised, stateAfterAccountRevisedFailure,
     stateWithLoadedSavingsAccounts, revisedSavingsAccount
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-state';
-import { SavingsAccountAdded, SavingsAccountAddedCancelled, SavingsAccountEditUpdated, SavingsAccountsCleared, 
-    SavingsAccountsLoaded } from './savings-accounts.actions';
+import { SavingsAccountAdded, SavingsAccountAddedCancelled, 
+    SavingsAccountEditCancelled, SavingsAccountEditUpdated, 
+    SavingsAccountsCleared, SavingsAccountsLoaded } from './savings-accounts.actions';
 
 
 fdescribe('savingsAccountsReducer', () => {
@@ -32,12 +33,14 @@ fdescribe('savingsAccountsReducer', () => {
         expect(state).toEqual(stateAfterNewAccountSubmitted.accounts);
     });
 
-    //it('returns the state with original savings accounts entity and indicates that ' 
-    //    + 'submission of a new savings account has been unsucessful', () => {
-    //    const state = savingsAccountsReducer(stateWithLoadedSavingsAccounts.accounts, 
-    //    new SavingsAccountAddedCancelled({ err: "Error!" }));
-    //   expect(state).toEqual(stateAfterNewAccountSubmittedFailure.accounts);
-    //});
+    it('returns the state with originally loaded savings accounts entity and indicates that ' 
+        + 'submission of a new savings account has been unsucessful', () => {
+        const state = savingsAccountsReducer(stateWithLoadedSavingsAccounts.accounts, 
+        new SavingsAccountAddedCancelled({ err: {error: {
+            Error: "Error! Savings Account Submission Failed!"
+        } } }));
+       expect(state).toEqual(stateAfterNewAccountSubmittedFailure.accounts);
+    });
 
 
     it('returns the state with updated savings accounts entity and indicates that ' 
@@ -47,5 +50,16 @@ fdescribe('savingsAccountsReducer', () => {
                 changes: revisedSavingsAccount }})
         );
         expect(state).toEqual(stateAfterAccountRevised.accounts);
+    });
+
+
+    it('returns the state with originally loaded savings accounts entity and indicates that ' 
+       + 'the revision of the 2nd savings account was not sucessful', () => {
+        const state = savingsAccountsReducer(stateWithLoadedSavingsAccounts.accounts, 
+            new SavingsAccountEditCancelled({ err: {error: {
+                Error: "Error! Savings Account Update Failed!"
+            } } })
+        );
+        expect(state).toEqual(stateAfterAccountRevisedFailure.accounts);
     });
 });
