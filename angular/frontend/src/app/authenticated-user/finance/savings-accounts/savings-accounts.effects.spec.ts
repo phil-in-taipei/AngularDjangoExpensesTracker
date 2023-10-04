@@ -8,11 +8,12 @@ import { provideMockStore } from '@ngrx/store/testing';
 import { initialSavingsAccountsState } from './savings-accounts.reducers';
 import { 
     createdSavingsAccount, editedSavingsAccountData, 
-    newSavingsAccountData, savingsAccountsData
+    newSavingsAccountData, savingsAccountDeletionResponse, savingsAccountsData
   } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
 import { revisedSavingsAccount 
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-state';
-import { SavingsAccountAdded, SavingsAccountEditSubmitted, SavingsAccountEditUpdated, 
+import { SavingsAccountAdded, SavingsAccountDeletionRequested, SavingsAccountDeletionSaved,
+    SavingsAccountEditSubmitted, SavingsAccountEditUpdated, 
     SavingsAccountsLoaded, SavingsAccountsRequested, SavingsAccountSubmitted,
 } from './savings-accounts.actions';  
 import { SavingsAccountsEffects } from './savings-accounts.effects';
@@ -31,6 +32,10 @@ fdescribe('SavingsAccountsEffects', () => {
         const mockSavingsAccountsService = {
             fetchAllSavingsAccounts(): Observable<SavingsAccountModel[]> {
                 return of(savingsAccountsData);
+            },
+            deleteSavingsAccount(id: number): 
+                Observable<SavingsAccountDeletionResponse> {
+                    return of(savingsAccountDeletionResponse)
             },
             submitEditedSavingsAccount(id: number, 
                     submissionForm:SavingsAccountEditModel): 
@@ -56,6 +61,9 @@ fdescribe('SavingsAccountsEffects', () => {
                       ]
                 }),
                 provideMockActions(from([
+                    new SavingsAccountDeletionRequested(
+                        {id: savingsAccountDeletionResponse.id}
+                    ),
                     new SavingsAccountsRequested(),
                     new SavingsAccountSubmitted(
                         { savingsAccount: newSavingsAccountData}
@@ -74,6 +82,24 @@ fdescribe('SavingsAccountsEffects', () => {
         effects = TestBed.inject(SavingsAccountsEffects);
         savingssAccountsService = TestBed.inject(SavingsAccountsService);
     });
+
+    it('SavingsAccountDeletionRequested should handle the deletion response with message/id ' 
+        + ' by calling the save method to remove the savings account from state', 
+        fakeAsync(() => {
+        spyOn(savingssAccountsService, 'deleteSavingsAccount')
+            .and.returnValue(of(savingsAccountDeletionResponse));
+        let actualActions: Action[] | undefined;
+        const expectedActions: Action[] = [
+            new SavingsAccountDeletionSaved(
+            savingsAccountDeletionResponse)];
+        
+        effects.removeSavingsAccount$.pipe(toArray()).subscribe((actualActions2) => {
+            actualActions = actualActions2;
+        }, fail);
+        
+        expect(actualActions).toEqual(expectedActions);
+        flush();
+    }));
 
     it('SavingsAccountsRequested should call fetch the savings accounts' 
         + ' if the savings accounts have not already been loaded into state', 
