@@ -32,10 +32,32 @@ const entitiesWithNewAccountAdded: Dictionary<SavingsAccountModel> = {
   ...entities, '3': createdSavingsAccount 
 }
 
+const deletedAccountFailureMessage: string = "Error! Savings Account Deletion Failed!";
+const deletedAccountSuccessMessage: string = 'You have successfully deleted an account!';
 const newAccountFailureMessage: string = "Error! Savings Account Submission Failed!";
 const newAccountSuccessMessage: string = 'You have successfully submitted a new account!';
 const revisedAccountFailureMessage: string = "Error! Savings Account Update Failed!";
 const revisedAccountSuccessMessage: string = 'You have successfully updated the account info!';
+
+export const stateAfterAccountDeletedFailure = {
+  accounts: {
+    ids: idsAfterNewAccountAdded,
+    entities: entitiesWithNewAccountAdded,
+    errorMessage: deletedAccountFailureMessage,
+    savingsAccountsLoaded: true,
+    successMessage: undefined
+  }
+};
+
+export const stateAfterAccountDeletedSuccess = {
+  accounts: {
+    ids: ids,
+    entities: entities,
+    errorMessage: undefined,
+    savingsAccountsLoaded: true,
+    successMessage: deletedAccountSuccessMessage
+  }
+};
 
 export const stateAfterAccountRevised = {
   accounts: {

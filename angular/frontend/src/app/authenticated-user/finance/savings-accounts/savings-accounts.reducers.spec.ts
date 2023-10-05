@@ -1,14 +1,22 @@
-import { initialSavingsAccountsState, savingsAccountsReducer } from './savings-accounts.reducers';
-import { createdSavingsAccount,
-    savingsAccountsData
+import { 
+    initialSavingsAccountsState, savingsAccountsReducer 
+} from './savings-accounts.reducers';
+import { 
+    createdSavingsAccount, savingsAccountsData
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
-import { stateAfterNewAccountSubmitted, stateAfterNewAccountSubmittedFailure,
-     stateAfterAccountRevised, stateAfterAccountRevisedFailure,
+import {
+    stateAfterAccountDeletedSuccess, stateAfterAccountDeletedFailure,
+    stateAfterNewAccountSubmitted, stateAfterNewAccountSubmittedFailure,
+    stateAfterAccountRevised, stateAfterAccountRevisedFailure,
     stateWithLoadedSavingsAccounts, revisedSavingsAccount
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-state';
-import { SavingsAccountAdded, SavingsAccountAddedCancelled, 
+
+import { 
+    SavingsAccountAdded, SavingsAccountAddedCancelled, 
+    SavingsAccountDeletionCancelled, SavingsAccountDeletionSaved,
     SavingsAccountEditCancelled, SavingsAccountEditUpdated, 
-    SavingsAccountsCleared, SavingsAccountsLoaded } from './savings-accounts.actions';
+    SavingsAccountsCleared, SavingsAccountsLoaded 
+} from './savings-accounts.actions';
 
 
 fdescribe('savingsAccountsReducer', () => {
@@ -62,4 +70,27 @@ fdescribe('savingsAccountsReducer', () => {
         );
         expect(state).toEqual(stateAfterAccountRevisedFailure.accounts);
     });
+
+    it('returns the original state with one less savings accounts entity and indicates that ' 
+       + 'the third savings account has been sucessfully deleted', () => {
+        const state = savingsAccountsReducer(stateAfterNewAccountSubmitted.accounts, 
+        new SavingsAccountDeletionSaved({ 
+            id: 3, 
+            message: stateAfterAccountDeletedSuccess.accounts.successMessage 
+        }));
+        expect(state).toEqual(stateAfterAccountDeletedSuccess.accounts);
+    });
+
+    it('returns the state after savings accounts entity has been added ' 
+    + 'and indicates that the deletion of the third savings account failed', () => {
+     const state = savingsAccountsReducer(stateAfterNewAccountSubmitted.accounts, 
+     new SavingsAccountDeletionCancelled({ 
+         err: {
+            error: {
+                Error: "Error! Savings Account Deletion Failed!"
+            }
+         } 
+     }));
+     expect(state).toEqual(stateAfterAccountDeletedFailure.accounts);
+ });
 });
