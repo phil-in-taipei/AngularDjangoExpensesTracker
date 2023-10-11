@@ -19,7 +19,7 @@ import {
 } from './savings-accounts.actions';
 
 
-fdescribe('savingsAccountsReducer', () => {
+describe('savingsAccountsReducer', () => {
     it('returns an initial state when cleared', () =>{
         const state = savingsAccountsReducer(
             initialSavingsAccountsState, 

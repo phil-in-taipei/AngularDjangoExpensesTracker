@@ -24,7 +24,7 @@ import {
 } from 'src/app/models/savings-account.model';
 import { SavingsAccountsService } from './savings-accounts.service';
 
-fdescribe('SavingsAccountsEffects', () => {
+describe('SavingsAccountsEffects', () => {
     let effects: SavingsAccountsEffects;
     let savingssAccountsService: SavingsAccountsService;
 

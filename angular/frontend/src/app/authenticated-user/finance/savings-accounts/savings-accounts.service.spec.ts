@@ -13,7 +13,7 @@ import {
   savingsAccountDeletionResponse, savingsAccountsData
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
 
-fdescribe('SavingsAccountsService', () => {
+describe('SavingsAccountsService', () => {
   let service: SavingsAccountsService;
   let httpTestingController: HttpTestingController;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
