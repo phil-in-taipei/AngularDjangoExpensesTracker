@@ -92,7 +92,7 @@ class FinancialAccountsPrivateApiTests(TestCase):
             account_owner=self.test_user,
             currency=self.test_currency
         )
-        self.test_savings_account = SavingsAccount.objects.create(
+        self.test_savings_account2 = SavingsAccount.objects.create(
             bank=self.test_bank,
             account_name='Test Account Name 2',
             account_owner=self.test_user,
@@ -127,7 +127,7 @@ class FinancialAccountsPrivateApiTests(TestCase):
         id_url = SAVINGS_ACCOUNT_URL + str(account_id) + '/'
         res = self.client.delete(id_url)
         self.assertTrue(
-            res.status_code == status.HTTP_204_NO_CONTENT)
+            res.status_code == status.HTTP_200_OK)
 
         # message indicates successful deletion
         self.assertEquals(res.data['message'], "Account successfully deleted!")
