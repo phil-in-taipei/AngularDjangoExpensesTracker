@@ -16,6 +16,9 @@ import { currenciesReducer } from './currencies/currencies.reducers';
 import { UserEffects } from './user.effects';
 import { userProfileReducer } from './user.reducers';
 import { EditProfileFormComponent } from './user-profile/edit-profile-form/edit-profile-form.component';
+import { IncomeSourcesComponent } from './income-sources/income-sources.component';
+import { CreateIncomeSourceComponent } from './income-sources/create-income-source/create-income-source.component';
+import { IncomeSourceSubmitFormComponent } from './income-sources/create-income-source/income-source-submit-form/income-source-submit-form.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,9 @@ import { EditProfileFormComponent } from './user-profile/edit-profile-form/edit-
     AuthenticatedHeaderComponent,
     AuthenticatedFooterComponent,
     EditProfileFormComponent,
+    IncomeSourcesComponent,
+    CreateIncomeSourceComponent,
+    IncomeSourceSubmitFormComponent,
   ],
   imports: [
     CommonModule,
