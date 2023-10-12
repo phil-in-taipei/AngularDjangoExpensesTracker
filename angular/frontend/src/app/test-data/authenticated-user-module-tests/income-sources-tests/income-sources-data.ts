@@ -2,7 +2,7 @@ import {
     IncomeSourceCreateModel, IncomeSourceDeletionResponse, 
     IncomeSourceModel } from "src/app/models/income-source.model";
 
-export const createdSavingsAccount: IncomeSourceModel = {
+export const createdIncomeSource: IncomeSourceModel = {
         id: 3, income_source_name: "Test Income Source 3", 
 };
 
