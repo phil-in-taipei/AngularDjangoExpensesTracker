@@ -5,8 +5,10 @@ import { environment } from '../../../environments/environment';
 import { AuthService } from '../../authentication/auth.service';
 
 import { 
-  IncomeSourceCreateModel, IncomeSourceDeletionResponse,
-  IncomeSourceModel } from 'src/app/models/income-source.model';
+  IncomeSourceCreateAndEditModel, 
+  IncomeSourceDeletionResponse,
+  IncomeSourceModel 
+} from 'src/app/models/income-source.model';
 
 @Injectable({
   providedIn: 'root'
@@ -35,8 +37,20 @@ export class IncomeSourcesService {
         })
   }
 
+  submitEditedIncomeSource(id: number,
+    submissionForm:IncomeSourceCreateAndEditModel) {
+    //console.log('submitting income source ....');
+    let token = this.authService.getAuthToken();
+    //console.log(token);
+    return this.http.patch<IncomeSourceModel>(
+      `${environment.apiUrl}/api/income/income-source/${id}/`, submissionForm,
+      {
+        headers: new HttpHeaders({ 'Authorization': `Token ${token}` })
+      });
+  }
+
   submitNewIncomeSource(
-    submissionForm:IncomeSourceCreateModel) {
+    submissionForm:IncomeSourceCreateAndEditModel) {
     //console.log('submitting income source ....');
     let token = this.authService.getAuthToken();
     //console.log(token);

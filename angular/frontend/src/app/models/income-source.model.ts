@@ -1,4 +1,4 @@
-export interface IncomeSourceCreateModel {
+export interface IncomeSourceCreateAndEditModel {
     income_source_name: string;
 }
 

@@ -7,7 +7,8 @@ import { AuthService } from '../../authentication/auth.service';
 import { environment } from 'src/environments/environment';
 
 import { 
-  createdIncomeSource, incomeSourceDeletionResponse, 
+  createdIncomeSource, editedIncomeSourceData, 
+  incomeSourceDeletionResponse, 
   incomeSourcesData,  newIncomeSourceData 
 } from 'src/app/test-data/authenticated-user-module-tests/income-sources-tests/income-sources-data';
 
@@ -54,6 +55,27 @@ fdescribe('IncomeSourcesService', () => {
       
   });
 
+  it('should return a revised income source from backend after submitting ' 
+    + 'data to edit the income source', 
+      fakeAsync(() => {
+        authServiceSpy.getAuthToken.and.returnValue(authData.token);
+        let revisedIncomeSource = { ...newIncomeSourceData, id: 3 };
+        revisedIncomeSource.income_source_name = editedIncomeSourceData.income_source_name;
+
+        service.submitEditedIncomeSource(3, editedIncomeSourceData).subscribe(response => {
+          expect(response).toEqual(revisedIncomeSource);
+        });
+
+        const request = httpTestingController.expectOne({
+          method: 'PATCH',
+          url:`${environment.apiUrl}/api/income/income-source/3/`,
+        });
+
+        request.flush(revisedIncomeSource);
+
+        flush()
+
+  }));
 
   it('should return a new income source object from backend after submitting ' 
     + 'data to create a new income source', 

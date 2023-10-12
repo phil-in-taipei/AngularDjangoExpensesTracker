@@ -1,9 +1,11 @@
 import { Action} from "@ngrx/store";
 import { Update } from "@ngrx/entity";
 
-import { SavingsAccountCreateModel, SavingsAccountDeletionResponse,
+import { 
+    SavingsAccountCreateModel,
     SavingsAccountEditModel,
-    SavingsAccountModel } from "src/app/models/savings-account.model";
+    SavingsAccountModel 
+} from "src/app/models/savings-account.model";
 
 export enum SavingsAccountsActionTypes {
     SavingsAccountsRequested = '[View Finance Component Base Page] Savings Accounts Requested',
