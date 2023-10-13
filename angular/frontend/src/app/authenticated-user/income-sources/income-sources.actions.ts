@@ -25,7 +25,7 @@ export class IncomeSourceAdded implements Action {
     readonly type = IncomeSourcesActionTypes.IncomeSourceAdded;
   
     constructor(public payload: 
-        {  savingsAccount: IncomeSourceModel }) {}
+        {  incomeSource: IncomeSourceModel }) {}
 }
 
 export class IncomeSourceAddedCancelled implements Action {
@@ -81,7 +81,7 @@ export class IncomeSourcesLoaded implements Action {
     readonly type = IncomeSourcesActionTypes.IncomeSourcesLoaded;
   
     constructor(
-        public payload: { incomeSource: IncomeSourceModel[] }
+        public payload: { incomeSources: IncomeSourceModel[] }
         ) {}
 }
 

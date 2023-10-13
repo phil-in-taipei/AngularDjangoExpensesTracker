@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
 import { 
-    SavingsAccountModel, 
-    SavingsAccountDeletionResponse 
+    SavingsAccountModel 
 } from 'src/app/models/savings-account.model';
-import { SavingsAccountActions, 
-    SavingsAccountsActionTypes } from './savings-accounts.actions';
+import { 
+    SavingsAccountActions, SavingsAccountsActionTypes 
+} from './savings-accounts.actions';
 
 
 function compareSavingsAccountsByBankName(
