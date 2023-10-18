@@ -1,1 +1,23 @@
-<p>create-income-source works!</p>
+<br />
+<h3>Create an Income Source</h3>
+<div *ngIf="incomeSourceSubmitErrMsg$ | async as incomeSourceErrMsg">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <h4 class="text-danger">{{ incomeSourceErrMsg }}</h4>
+    <button type="button" class="btn-close" (click)="onClearStatusMsgs()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<div *ngIf="incomeSourceSubmitSuccessMsg$ | async as incomeSourceSuccessMsg">
+  <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+    <h6>{{ incomeSourceSuccessMsg }}</h6>
+    <button type="button" class="btn-close" (click)="onClearStatusMsgs()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+<div class="container">
+      <hr class="thick-br"/>
+      <app-income-source-submit-form>
+      </app-income-source-submit-form>
+      <hr class="thick-br"/>
+</div>

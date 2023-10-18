@@ -38,8 +38,12 @@ export class CreateAccountComponent implements OnInit {
     this.usrProfile$ = this.store.pipe(select(selectUserProfile));
     this.banks$ = this.store.pipe(select(selectAllBanks));
     this.currencies$ = this.store.pipe(select(selectAllCurrencies));
-    this.accountSubmitErrMsg$ = this.store.pipe(select(savingsAccountSubmissionErrorMsg));
-    this.accountSubmitSuccessMsg$ = this.store.pipe(select(savingsAccountSubmissionSuccessMsg));
+    this.accountSubmitErrMsg$ = this.store.pipe(
+                select(savingsAccountSubmissionErrorMsg)
+              );
+    this.accountSubmitSuccessMsg$ = this.store.pipe(
+                select(savingsAccountSubmissionSuccessMsg)
+              );
   }
 
   onClearStatusMsgs() {

@@ -1,1 +1,30 @@
-<p>income-source-submit-form works!</p>
+<div>
+    <br />
+    <form (submit)="onSubmitIncomeSource(incomeSourceForm)" #incomeSourceForm="ngForm">
+      <div>
+          <label>Income Source Name</label>
+          <input
+          class="form-control"
+          type="text"
+          minlength="2"
+          rows="4"
+          name="income_source_name"
+          ngModel
+          required
+          placeholder="Name of Income Source"
+          #income_source_name="ngModel"
+          >
+        <div *ngIf="income_source_name.touched && income_source_name.invalid">
+            Please enter an income source name.
+        </div>
+      </div>
+      <br />
+      <div>
+        <button class="btn btn-outline-secondary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <br />
+</div>
+  

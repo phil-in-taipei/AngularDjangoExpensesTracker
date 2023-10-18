@@ -7,8 +7,9 @@ import { BankModel } from 'src/app/models/bank.model';
 import { CurrencyModel } from 'src/app/models/currency.model';
 import { SavingsAccountCreateModel } from 'src/app/models/savings-account.model';
 import { 
-  SavingsAccountEditCancelled, 
-  SavingsAccountSubmitted } from '../../savings-accounts.actions';
+  SavingsAccountAddedCancelled,
+  SavingsAccountSubmitted 
+} from '../../savings-accounts.actions';
 import { UserProfileModel } from 'src/app/models/user-profile.model';
 
 @Component({
@@ -28,7 +29,7 @@ export class AccountSubmitFormComponent implements OnInit {
 
   onSubmitSavingsAccount(form: NgForm) {
     if (form.invalid) {
-      this.store.dispatch(new SavingsAccountEditCancelled({err: {
+      this.store.dispatch(new SavingsAccountAddedCancelled({err: {
         error: {
           Error: "The form values were not properly filled in!"
         }

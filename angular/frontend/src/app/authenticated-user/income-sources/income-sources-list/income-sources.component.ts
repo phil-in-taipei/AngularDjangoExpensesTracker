@@ -5,6 +5,10 @@ import { AppState } from 'src/app/reducers';
 
 import { IncomeSourceModel } from 'src/app/models/income-source.model';
 import { selectAllIncomeSources } from '../income-sources.selectors';
+import { IncomeSourceMessagesCleared } from '../income-sources.actions';
+import { 
+  incomeSourceSubmissionErrorMsg, incomeSourceSubmissionSuccessMsg 
+} from '../income-sources.selectors';
 
 @Component({
   selector: 'app-income-sources',
@@ -14,6 +18,8 @@ import { selectAllIncomeSources } from '../income-sources.selectors';
 export class IncomeSourcesComponent implements OnInit {
 
   incomeSources$: Observable<IncomeSourceModel[]>;
+  incomeSourceDeleteErrMsg$: Observable<string | undefined>;
+  incomeSourceDeleteSuccessMsg$: Observable<string | undefined>;
 
   constructor(private store: Store<AppState>) { }
 
@@ -21,6 +27,16 @@ export class IncomeSourcesComponent implements OnInit {
     this.incomeSources$ = this.store.pipe(
       select(selectAllIncomeSources)
     );
+    this.incomeSourceDeleteErrMsg$ = this.store.pipe(
+      select(incomeSourceSubmissionErrorMsg)
+    );
+    this.incomeSourceDeleteSuccessMsg$ = this.store.pipe(
+          select(incomeSourceSubmissionSuccessMsg)
+        );
+  }
+
+  onClearStatusMsgs() {
+    this.store.dispatch(new IncomeSourceMessagesCleared());
   }
 
 }
