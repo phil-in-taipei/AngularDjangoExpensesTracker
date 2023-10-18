@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
+import {select, Store } from '@ngrx/store';
+import { Observable } from "rxjs";
+
+import { AppState } from 'src/app/reducers';
+import { IncomeSourceMessagesCleared } from '../income-sources.actions';
+import { IncomeSourceModel } from 'src/app/models/income-source.model';
+import { 
+  incomeSourceSubmissionErrorMsg, incomeSourceSubmissionSuccessMsg,
+  selectIncomeSourcesById 
+} from '../income-sources.selectors';
 
 @Component({
   selector: 'app-edit-income-source',
@@ -7,9 +18,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditIncomeSourceComponent implements OnInit {
 
-  constructor() { }
+  incomeSourceSubmitErrMsg$: Observable<string | undefined>;
+  incomeSourceSubmitSuccessMsg$: Observable<string | undefined>;
+  idFromRouteData:number;
+  incomeSource$: Observable<IncomeSourceModel | undefined>;
+
+  constructor(
+    private store: Store<AppState>, 
+    private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
+    this.store.dispatch(new IncomeSourceMessagesCleared());
+    this.idFromRouteData = this.route.snapshot.params['id'];
+    this.incomeSource$ = this.store.pipe(select(
+      selectIncomeSourcesById(this.idFromRouteData)
+    ));
+    this.incomeSourceSubmitErrMsg$ = this.store.pipe(
+      select(incomeSourceSubmissionErrorMsg)
+    );
+    this.incomeSourceSubmitSuccessMsg$ = this.store.pipe(
+          select(incomeSourceSubmissionSuccessMsg)
+        );
+  }
+
+  onClearStatusMsgs() {
+    this.store.dispatch(new IncomeSourceMessagesCleared());
   }
 
 }
