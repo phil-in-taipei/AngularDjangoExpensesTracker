@@ -22,12 +22,12 @@ export const incomeSourcesLoaded = createSelector(
         incomeSourcesState => incomeSourcesState.incomeSourcesLoaded
     );
 
-export const savingsAccountSubmissionErrorMsg = createSelector(
+export const incomeSourceSubmissionErrorMsg = createSelector(
         selectIncomeSourcesState,
         incomeSourcesState => incomeSourcesState.errorMessage
     );
       
-export const savingsAccountSubmissionSuccessMsg = createSelector(
+export const incomeSourceSubmissionSuccessMsg = createSelector(
         selectIncomeSourcesState,
         incomeSourcesState => incomeSourcesState.successMessage
     );
