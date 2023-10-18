@@ -1,0 +1,41 @@
+<tr class="row" >
+    <th class="col">
+      <h5 class="text-secondary">
+        {{ incomeSource.id }}
+      </h5>
+    </th>
+    <th class="col">
+      <h5 class="text-secondary">
+        <a [routerLink]="['/authenticated-user/income/edit-income-source', incomeSource.id]">
+          {{ incomeSource.income_source_name }}
+        </a>
+      </h5>
+    </th>
+    <th class="col">
+      <div *ngIf="!deletionPopupVisible; else delAccount" class="text-center">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="showDeletionPopup()"
+          >
+          Remove
+        </button>
+      </div>
+      <ng-template #delAccount class="row">
+        <div class="col text-center">
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="hideDeletionPopup()">
+            Don't Delete
+          </button>
+        </div>
+        <div class="col text-center">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="onRemoveIncomeSource()"
+            >
+            Confirm Delete
+          </button>
+        </div>
+      </ng-template>
+    </th>
+</tr>

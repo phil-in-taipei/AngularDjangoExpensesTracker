@@ -16,9 +16,10 @@ import { currenciesReducer } from './currencies/currencies.reducers';
 import { UserEffects } from './user.effects';
 import { userProfileReducer } from './user.reducers';
 import { EditProfileFormComponent } from './user-profile/edit-profile-form/edit-profile-form.component';
-import { IncomeSourcesComponent } from './income-sources/income-sources.component';
+import { IncomeSourcesComponent } from './income-sources/income-sources-list/income-sources.component';
 import { CreateIncomeSourceComponent } from './income-sources/create-income-source/create-income-source.component';
 import { IncomeSourceSubmitFormComponent } from './income-sources/create-income-source/income-source-submit-form/income-source-submit-form.component';
+import { SingleIncomeSourceComponent } from './income-sources/income-sources-list/single-income-source/single-income-source.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { IncomeSourceSubmitFormComponent } from './income-sources/create-income-
     IncomeSourcesComponent,
     CreateIncomeSourceComponent,
     IncomeSourceSubmitFormComponent,
+    SingleIncomeSourceComponent,
   ],
   imports: [
     CommonModule,

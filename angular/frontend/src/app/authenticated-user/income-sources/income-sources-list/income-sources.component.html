@@ -1,0 +1,19 @@
+<h3>Income Sources</h3>
+<div *ngIf="incomeSources$ | async as incomeSources" class="container">
+    <div class="large-scr-tbl">
+        <table class="table">
+            <thead class="table-dark">
+              <tr class="row">
+                <th class="col"><h5 class="text-secondary">ID</h5></th>
+                <th class="col"><h5 class="text-secondary">Income Source Name</h5></th>
+              </tr>
+            </thead>
+            <tbody class="table-dark">
+              <div *ngFor="let incomeSource of incomeSources" >
+                <app-single-income-source [incomeSource]=incomeSource>
+                </app-single-income-source>
+              </div>
+            </tbody>
+        </table>
+    </div>
+</div>
