@@ -14,7 +14,7 @@ import {
 
 import { IncomeSourcesService } from './income-sources.service';
 
-fdescribe('IncomeSourcesService', () => {
+describe('IncomeSourcesService', () => {
   let service: IncomeSourcesService;
   let httpTestingController: HttpTestingController;
   let authServiceSpy: jasmine.SpyObj<AuthService>;

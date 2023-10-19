@@ -51,11 +51,8 @@ export function incomeSourcesReducer(
                 }
             );
         case IncomeSourcesActionTypes.IncomeSourceAddedCancelled:
-            //console.log('error adding income source!');
-            //console.log(action.payload);
             let errorMessage: string = "Error! Income Source Submission Failed!";
             if (action.payload.err.error.Error) {
-                //console.log(action.payload.err.error.Error)
                 errorMessage = action.payload.err.error.Error;
             }
             return {
@@ -66,7 +63,6 @@ export function incomeSourcesReducer(
         case IncomeSourcesActionTypes.IncomeSourceDeletionCancelled:
             let errMsg: string = "Error! Income Source Deletion Failed!";
             if (action.payload.err.error.Error) {
-                //console.log(action.payload.err.error.Error)
                 errMsg = action.payload.err.error.Error;
             }
             return {
@@ -75,8 +71,6 @@ export function incomeSourcesReducer(
             }
 
         case IncomeSourcesActionTypes.IncomeSourceDeletionSaved:
-            //console.log('now deleting the account')
-            //console.log(action.payload);
             return adapter.removeOne(action.payload.id, 
                 { 
                     ...state,
@@ -101,7 +95,7 @@ export function incomeSourcesReducer(
                 {
                     ...state,
                     errorMessage:undefined,
-                    successMessage: 'You have successfully updated the account info!'
+                    successMessage: 'You have successfully updated the income source info!'
                 }
             );
     
@@ -110,7 +104,7 @@ export function incomeSourcesReducer(
 
         case IncomeSourcesActionTypes.IncomeSourcesLoaded:
             return adapter.setAll(action.payload.incomeSources, 
-                {...state, savingsAccountsLoaded:true});
+                {...state, incomeSourcesLoaded:true });
     
         case IncomeSourcesActionTypes.IncomeSourcesMessagesCleared:
             return {

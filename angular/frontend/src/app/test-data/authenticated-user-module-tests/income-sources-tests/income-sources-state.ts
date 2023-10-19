@@ -7,7 +7,7 @@ import { IncomeSourceModel } from "src/app/models/income-source.model";
 
 const ids:number[] = [ incomeSourcesData[0].id, incomeSourcesData[1].id ];
 const idsAfterNewIncomeSourceAdded:number[] = [ ...ids ];
-idsAfterNewIncomeSourceAdded.unshift(createdIncomeSource.id);
+idsAfterNewIncomeSourceAdded.push(createdIncomeSource.id);
 
 const entities:Dictionary<IncomeSourceModel> = {
     '1': incomeSourcesData[0],

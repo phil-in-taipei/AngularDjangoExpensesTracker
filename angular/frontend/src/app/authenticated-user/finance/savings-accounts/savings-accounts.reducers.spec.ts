@@ -83,14 +83,14 @@ describe('savingsAccountsReducer', () => {
 
     it('returns the state after savings accounts entity has been added ' 
     + 'and indicates that the deletion of the third savings account failed', () => {
-     const state = savingsAccountsReducer(stateAfterNewAccountSubmitted.accounts, 
-     new SavingsAccountDeletionCancelled({ 
-         err: {
-            error: {
-                Error: "Error! Savings Account Deletion Failed!"
-            }
-         } 
-     }));
-     expect(state).toEqual(stateAfterAccountDeletedFailure.accounts);
- });
+        const state = savingsAccountsReducer(stateAfterNewAccountSubmitted.accounts, 
+        new SavingsAccountDeletionCancelled({ 
+            err: {
+                error: {
+                    Error: "Error! Savings Account Deletion Failed!"
+                }
+            } 
+        }));
+        expect(state).toEqual(stateAfterAccountDeletedFailure.accounts);
+    });
 });
