@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'authapp',
 
     'currencies',
+    'expenses',
     'financial_accounts',
     'income',
     'user_profiles',
