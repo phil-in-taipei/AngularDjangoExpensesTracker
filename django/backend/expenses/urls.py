@@ -14,6 +14,9 @@ urlpatterns = [
     path('spending-records/by-month-year/<int:month>/<int:year>/',
          SpendingRecordListView.as_view(),
          name='spending-records-by-month-year'),
+    path('spending-records/',
+         SpendingRecordListView.as_view(),
+         name='spending-records'),
     path('spending-record/<int:id>/',
          SpendingRecordDeleteView.as_view(), name="spending-record"),
 ]

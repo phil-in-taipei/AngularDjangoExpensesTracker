@@ -85,16 +85,16 @@ class SpendingRecordListView(APIView):
         spending_records = SpendingRecord.objects.filter(
             date__gte=start_date,
             date__lt=finish_date,
-            user=self.request.user).order_by('date')
+            expense__user=self.request.user).order_by('date')
         serializer = SpendingRecordSerializer(spending_records, many=True)
         return Response(serializer.data)
 
     def post(self, request, *args, **kwargs):
         serializer = SpendingRecordSerializer(data=request.data)
+        print(serializer)
         if serializer.is_valid():
             serializer.save(expense_id=request.data['expense']['id'],
-                            currency_id=request.data['currency']['id'],
-                            account_owner_id=request.user.id)
+                            currency_id=request.data['currency']['id'])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
