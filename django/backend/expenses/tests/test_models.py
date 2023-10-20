@@ -38,26 +38,47 @@ class ExpenseModelTests(TestCase):
         )
 
 
-class SpendingRecordModelTests(TestCase):
+class SpendingRecordTests(TestCase):
     """Test the Spending Record Model"""
 
-    def setUp(self):
-        self.test_date=datetime.date.today
-        self.test_user = User.objects.create_user(
+    def setUp(self) -> None:
+        self.user = get_user_model().objects.create_user(
             'testuser',
             'testpassword'
         )
-        self.test_currency = Currency.objects.create(
-            currency_name='Test Currency',
-            currency_code="TCO"
+
+        self.currency = Currency.objects.create(
+            currency_name="Test Currency",
+            currency_code="TRY"
         )
-        self.test_expense = Expense.objects.create(
-            user=self.test_user,
-            expense_name="Test Expense 1"
+
+        self.expense = Expense.objects.create(
+            expense_name='Test Expense',
+            user=self.user
         )
-        self.test_spending_record = SpendingRecord.objects.create(
-            amount=2000.00,
-            currency=self.test_currency,
-            date=self.test_date,
-            user=self.test_user
+
+        self.spending_record = SpendingRecord.objects.create(
+            amount=100.00,
+            currency=self.currency,
+            expense=self.expense
         )
+
+        self.today = datetime.date.today()
+
+    def test_spending_record_model_fields(self):
+        """Test the Spending Record fields"""
+        print("Test the Spending Record fields")
+        self.assertEqual(self.spending_record.amount, 100)
+        self.assertEqual(self.spending_record.currency, self.currency)
+        self.assertEqual(self.spending_record.expense.expense_name, 'Test Expense')
+        self.assertEqual(self.spending_record.expense.user, self.user)
+        self.assertEqual(self.spending_record.date, self.today)
+
+    def test_spending_record_model_str(self):
+        """Test the Spending Record string representation"""
+        print("Test the Spending Record string representation")
+        self.assertEqual(str(self.spending_record), "{} | {} | Amount: {}".format(
+            self.expense,
+            self.spending_record.date,
+            self.spending_record.amount,
+        ).title())
