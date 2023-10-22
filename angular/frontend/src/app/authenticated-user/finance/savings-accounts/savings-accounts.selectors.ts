@@ -21,12 +21,12 @@ export const savingsAccountsLoaded = createSelector(
 );
 
 
-export const savingsAccountSubmissionErrorMsg = createSelector(
+export const savingsAccountErrorMsg = createSelector(
     selectSavingsAccountsState,
     savingsAccountState => savingsAccountState.errorMessage
   );
   
-  export const savingsAccountSubmissionSuccessMsg = createSelector(
+  export const savingsAccountSuccessMsg = createSelector(
     selectSavingsAccountsState,
     savingsAccountState => savingsAccountState.successMessage
   );

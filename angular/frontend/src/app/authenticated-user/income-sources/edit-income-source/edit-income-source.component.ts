@@ -7,7 +7,7 @@ import { AppState } from 'src/app/reducers';
 import { IncomeSourceMessagesCleared } from '../income-sources.actions';
 import { IncomeSourceModel } from 'src/app/models/income-source.model';
 import { 
-  incomeSourceSubmissionErrorMsg, incomeSourceSubmissionSuccessMsg,
+  incomeSourceErrorMsg, incomeSourceSuccessMsg,
   selectIncomeSourcesById 
 } from '../income-sources.selectors';
 
@@ -34,10 +34,10 @@ export class EditIncomeSourceComponent implements OnInit {
       selectIncomeSourcesById(this.idFromRouteData)
     ));
     this.incomeSourceSubmitErrMsg$ = this.store.pipe(
-      select(incomeSourceSubmissionErrorMsg)
+      select(incomeSourceErrorMsg)
     );
     this.incomeSourceSubmitSuccessMsg$ = this.store.pipe(
-          select(incomeSourceSubmissionSuccessMsg)
+          select(incomeSourceSuccessMsg)
         );
   }
 

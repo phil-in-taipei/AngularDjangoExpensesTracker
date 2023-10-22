@@ -3,8 +3,8 @@ import {select, Store} from '@ngrx/store';
 import {Observable} from "rxjs";
 import { AppState } from 'src/app/reducers';
 import { 
-  savingsAccountSubmissionErrorMsg, 
-  savingsAccountSubmissionSuccessMsg 
+  savingsAccountErrorMsg, 
+  savingsAccountSuccessMsg 
 } from '../savings-accounts.selectors';
 import { selectAllBanks } from 'src/app/authenticated-user/banks/banks.selectors';
 import { selectAllCurrencies } from 'src/app/authenticated-user/currencies/currencies.selectors';
@@ -39,10 +39,10 @@ export class CreateAccountComponent implements OnInit {
     this.banks$ = this.store.pipe(select(selectAllBanks));
     this.currencies$ = this.store.pipe(select(selectAllCurrencies));
     this.accountSubmitErrMsg$ = this.store.pipe(
-                select(savingsAccountSubmissionErrorMsg)
+                select(savingsAccountErrorMsg)
               );
     this.accountSubmitSuccessMsg$ = this.store.pipe(
-                select(savingsAccountSubmissionSuccessMsg)
+                select(savingsAccountSuccessMsg)
               );
   }
 

@@ -22,7 +22,7 @@
       </h5>
     </th>
     <th class="col">
-      <div *ngIf="!deletionPopupVisible; else delAccount" class="text-center">
+      <div *ngIf="!deletionPopupVisible; else delAccount" class="col text-left">
         <button
           class="btn btn-sm btn-outline-secondary"
           (click)="showDeletionPopup()"
@@ -31,14 +31,14 @@
         </button>
       </div>
       <ng-template #delAccount class="row">
-        <div class="col text-center">
+        <div class="col text-left">
           <button
             class="btn btn-sm btn-outline-secondary"
             (click)="hideDeletionPopup()">
             Don't Delete
           </button>
         </div>
-        <div class="col text-center">
+        <div class="col text-left">
           <button
             class="btn btn-sm btn-outline-danger"
             (click)="onRemoveSavingsAccount()"

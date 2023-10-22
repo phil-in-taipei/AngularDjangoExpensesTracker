@@ -7,7 +7,7 @@ import { IncomeSourceModel } from 'src/app/models/income-source.model';
 import { selectAllIncomeSources } from '../income-sources.selectors';
 import { IncomeSourceMessagesCleared } from '../income-sources.actions';
 import { 
-  incomeSourceSubmissionErrorMsg, incomeSourceSubmissionSuccessMsg 
+  incomeSourceErrorMsg, incomeSourceSuccessMsg 
 } from '../income-sources.selectors';
 
 @Component({
@@ -28,10 +28,10 @@ export class IncomeSourcesComponent implements OnInit {
       select(selectAllIncomeSources)
     );
     this.incomeSourceDeleteErrMsg$ = this.store.pipe(
-      select(incomeSourceSubmissionErrorMsg)
+      select(incomeSourceErrorMsg)
     );
     this.incomeSourceDeleteSuccessMsg$ = this.store.pipe(
-          select(incomeSourceSubmissionSuccessMsg)
+          select(incomeSourceSuccessMsg)
         );
   }
 

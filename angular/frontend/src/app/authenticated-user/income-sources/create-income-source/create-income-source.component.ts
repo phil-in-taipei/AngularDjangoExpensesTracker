@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import { AppState } from 'src/app/reducers';
 import { IncomeSourceMessagesCleared } from '../income-sources.actions';
 import { 
-  incomeSourceSubmissionErrorMsg, incomeSourceSubmissionSuccessMsg 
+  incomeSourceErrorMsg, incomeSourceSuccessMsg 
 } from '../income-sources.selectors';
 
 
@@ -24,10 +24,10 @@ export class CreateIncomeSourceComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(new IncomeSourceMessagesCleared());
     this.incomeSourceSubmitErrMsg$ = this.store.pipe(
-      select(incomeSourceSubmissionErrorMsg)
+      select(incomeSourceErrorMsg)
     );
     this.incomeSourceSubmitSuccessMsg$ = this.store.pipe(
-          select(incomeSourceSubmissionSuccessMsg)
+          select(incomeSourceSuccessMsg)
         );
   }
 

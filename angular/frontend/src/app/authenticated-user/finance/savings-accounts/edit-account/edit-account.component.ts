@@ -7,8 +7,8 @@ import { AppState } from 'src/app/reducers';
 import { SavingsAccountMessagesCleared } from '../savings-accounts.actions';
 import { SavingsAccountModel } from 'src/app/models/savings-account.model';
 import { 
-  savingsAccountSubmissionErrorMsg, 
-  savingsAccountSubmissionSuccessMsg 
+  savingsAccountErrorMsg, 
+  savingsAccountSuccessMsg 
 } from '../savings-accounts.selectors';
 import { selectSavingsAccountById } from '../savings-accounts.selectors';
 
@@ -34,10 +34,10 @@ export class EditAccountComponent implements OnInit {
       selectSavingsAccountById(this.idFromRouteData)
     ));
     this.accountSubmitErrMsg$ = this.store.pipe(
-      select(savingsAccountSubmissionErrorMsg)
+      select(savingsAccountErrorMsg)
     );
     this.accountSubmitSuccessMsg$ = this.store.pipe(
-      select(savingsAccountSubmissionSuccessMsg)
+      select(savingsAccountSuccessMsg)
     );
   };
 
