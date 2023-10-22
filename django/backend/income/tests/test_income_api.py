@@ -108,8 +108,9 @@ class IncomeSourcesPrivateApiTests(TestCase):
         self.assertTrue(
             res.status_code == status.HTTP_200_OK)
 
-        # message indicates successful deletion
+        # message indicates successful deletion with correct id
         self.assertEquals(res.data['message'], "Income source successfully deleted!")
+        self.assertEquals(res.data['id'], income_source_id)
 
         # savings account no longer exists
         with self.assertRaises(IncomeSource.DoesNotExist):
