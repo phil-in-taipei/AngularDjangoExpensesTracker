@@ -19,6 +19,7 @@ import { UnauthenticatedFooterComponent } from './unauthenticated-layout/unauthe
 import { ContactComponent } from './contact/contact.component';
 import { InformationComponent } from './information/information.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { SpendingModule } from './authenticated-user/spending/spending.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { RegistrationComponent } from './registration/registration.component';
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({stateKey:'router'})
+    StoreRouterConnectingModule.forRoot({stateKey:'router'}),
+    SpendingModule
   ],
   providers: [
     { provide: RouterStateSerializer, useClass: CustomSerializer },
