@@ -107,7 +107,7 @@ export class SavingsAccountSubmitted implements Action {
     constructor(
         public payload: { savingsAccount: SavingsAccountCreateModel }
         ){}
-  }
+}
 
 export type SavingsAccountActions =  SavingsAccountAdded | 
     SavingsAccountEditCancelled | SavingsAccountEditSubmitted |
