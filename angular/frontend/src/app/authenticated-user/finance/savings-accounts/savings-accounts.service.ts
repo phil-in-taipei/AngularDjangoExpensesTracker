@@ -19,14 +19,14 @@ export class SavingsAccountsService {
     private http: HttpClient,
     private authService: AuthService) { }
 
-    deleteSavingsAccount(id: number) {
-      let token = this.authService.getAuthToken();
-      return this.http.delete<SavingsAccountDeletionResponse>(
-        `${environment.apiUrl}/api/financial-accounts/savings-account/${id}/`,
-          {
-            headers: new HttpHeaders({ 'Authorization': `Token ${token}` })
-          })
-    }
+  deleteSavingsAccount(id: number) {
+    let token = this.authService.getAuthToken();
+    return this.http.delete<SavingsAccountDeletionResponse>(
+      `${environment.apiUrl}/api/financial-accounts/savings-account/${id}/`,
+        {
+          headers: new HttpHeaders({ 'Authorization': `Token ${token}` })
+        })
+  }
 
     fetchAllSavingsAccounts() {
       let token = this.authService.getAuthToken();
