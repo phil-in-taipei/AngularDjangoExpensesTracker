@@ -20,7 +20,6 @@ export const savingsAccountsLoaded = createSelector(
     savingsAccountState => savingsAccountState.savingsAccountsLoaded
 );
 
-
 export const savingsAccountErrorMsg = createSelector(
     selectSavingsAccountsState,
     savingsAccountState => savingsAccountState.errorMessage
