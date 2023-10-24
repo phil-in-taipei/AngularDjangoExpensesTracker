@@ -26,7 +26,7 @@ export class ExpenseAdded implements Action {
     readonly type = ExpensesActionTypes.ExpenseAdded;
   
     constructor(public payload: 
-        {  savingsAccount: ExpenseModel }) {}
+        {  expense: ExpenseModel }) {}
 }
 
 export class ExpenseAddedCancelled implements Action {
