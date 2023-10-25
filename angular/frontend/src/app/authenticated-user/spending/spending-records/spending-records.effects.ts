@@ -24,13 +24,8 @@ export class SpendingRecordsEffects {
       .pipe(
         ofType<SpendingRecordsRequested>(SpendingRecordsActionTypes
           .SpendingRecordsRequested),
-              withLatestFrom(this.store.pipe(
-                  select(spendingRecordsLoaded))
-               ),
-              filter(
-                ([action, spendingRecordsLoaded]) => !spendingRecordsLoaded),
-              mergeMap(action => this.spendingRecordsService
-                .fetchSpendingRecordsByMonthAndYear()
+              mergeMap(({payload}) => this.spendingRecordsService
+                .fetchSpendingRecordsByMonthAndYear(payload.month, payload.year)
                     .pipe(
                         map(spendingRecords => new SpendingRecordsLoaded(
                             { spendingRecords })

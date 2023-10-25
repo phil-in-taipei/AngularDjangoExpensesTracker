@@ -68,6 +68,8 @@ export class SpendingRecordsMessagesCleared implements Action {
 
 export class SpendingRecordsRequested implements Action {
     readonly type = SpendingRecordsActionTypes.SpendingRecordsRequested;
+
+    constructor(public payload: { month: number, year: number }) {}
 }
 
 export class SpendingRecordSubmitted implements Action {

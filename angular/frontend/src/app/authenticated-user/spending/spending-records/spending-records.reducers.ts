@@ -20,7 +20,37 @@ function compareSpendingRecordsByDate(
     return comparison;
 };
 
+function getfirstDateStr(month: number, year: number):string {
+    let dateStr: string;
+    if (month < 10) {
+      dateStr = `${year}-0${month}-01`;
+    } else {
+      dateStr = `${year}-${month}-01`;
+    }
+    return dateStr
+  }
+  
+  function getLastDateStr(month: number, year: number):string {
+    let dateStr: string;
+    let newMonth: number;
+    let newYear: number;
+    if (month == 12) {
+      newMonth = 1
+      newYear = year + 1
+    } else {
+      newMonth = month + 1
+      newYear = year
+    }
+    if (newMonth < 10) {
+      dateStr = `${newYear}-0${newMonth}-01`;
+    } else {
+      dateStr = `${newYear}-${newMonth}-01`;
+    }
+    return dateStr
+  }
+
 export interface SpendingRecordsState extends EntityState<SpendingRecordModel> {
+    dateRange: [string, string] | undefined;
     errorMessage: string | undefined,
     spendingRecordsLoaded:boolean;
     successMessage: string | undefined,
@@ -31,10 +61,12 @@ export const adapter: EntityAdapter<SpendingRecordModel> =
         { sortComparer: compareSpendingRecordsByDate }
     );
 
-export const initialSpendingRecordsState: SpendingRecordsState = adapter.getInitialState({
-     errorMessage: undefined,
-     spendingRecordsLoaded: false,
-    successMessage: undefined
+export const initialSpendingRecordsState: SpendingRecordsState = 
+    adapter.getInitialState({
+        dateRange: undefined,
+        errorMessage: undefined,
+        spendingRecordsLoaded: false,
+        successMessage: undefined
 });
 
 
@@ -93,6 +125,16 @@ export function spendingRecordsReducer(
         case SpendingRecordsActionTypes.SpendingRecordsLoaded:
             return adapter.setAll(action.payload.spendingRecords, 
                 {...state, spendingRecordsLoaded:true});
+
+        case SpendingRecordsActionTypes.SpendingRecordsRequested:
+            let month:number = +action.payload.month;
+            let year:number = +action.payload.year;
+            let firstDate = getfirstDateStr(month, year);
+            let lastDate = getLastDateStr(month, year);
+            return {
+                 ...state,  dateRange: [firstDate, lastDate],
+                  spendingRecordsLoaded:false 
+            }
 
         default: {
             return state;

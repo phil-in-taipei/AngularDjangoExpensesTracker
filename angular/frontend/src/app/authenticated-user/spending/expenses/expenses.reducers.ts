@@ -43,7 +43,7 @@ export function expensesReducer(
     switch(action.type) {
 
         case ExpensesActionTypes.ExpenseAdded:
-            return adapter.addOne(action.payload.savingsAccount, 
+            return adapter.addOne(action.payload.expense, 
                 { ...state,
                   errorMessage: undefined,
                   successMessage: 'You have successfully submitted a new expense!'
