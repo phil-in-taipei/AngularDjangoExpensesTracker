@@ -1,1 +1,29 @@
-<p>expense-edit-form works!</p>
+<div>
+    <form (submit)="onSubmitEditedExpense(expenseForm)" #expenseForm="ngForm">
+      <div>
+          <label>Expense Description</label>
+          <input
+          class="form-control"
+          type="text"
+          minlength="2"
+          rows="4"
+          name="expense_name"
+          ngModel
+          required
+          placeholder="{{ expense.expense_name }}"
+          #expense_name="ngModel"
+          >
+        <div *ngIf="expense_name.touched && expense_name.invalid">
+            Please enter an expense name or description.
+        </div>
+      </div>      
+      <br />
+      <div>
+        <button class="btn btn-outline-secondary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <br />
+</div>
+  

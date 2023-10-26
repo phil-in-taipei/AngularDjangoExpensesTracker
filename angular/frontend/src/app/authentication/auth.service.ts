@@ -10,7 +10,12 @@ import { AuthLoginModel, AuthLoginResponseModel,
   AuthTokenRefreshResponseModel } from '../models/auth-login.model';
 import { AppState } from './../reducers';
 import { BanksCleared } from '../authenticated-user/banks/banks.actions';
-import { CurrenciesCleared } from '../authenticated-user/currencies/currencies.actions';
+import { 
+  CurrenciesCleared 
+} from '../authenticated-user/currencies/currencies.actions';
+import { 
+  ExpensesCleared 
+} from '../authenticated-user/spending/expenses/expenses.actions';
 import { 
   IncomeSourcesCleared 
 } from '../authenticated-user/income-sources/income-sources.actions';
@@ -216,6 +221,7 @@ export class AuthService {
     this.store.dispatch(new UserProfileCleared());
     this.store.dispatch(new BanksCleared());
     this.store.dispatch(new CurrenciesCleared());
+    this.store.dispatch(new ExpensesCleared());
     this.store.dispatch(new IncomeSourcesCleared());
     this.store.dispatch(new SavingsAccountsCleared());
     this.router.navigate(['/']);
