@@ -146,6 +146,23 @@ export class AuthService {
     }
   }
 
+  private clearLocalStorage():void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+    localStorage.removeItem('refresh');
+    localStorage.removeItem('refreshExpiration');
+    localStorage.removeItem('userId');
+  }
+
+  private clearNgrxStore():void {
+    this.store.dispatch(new UserProfileCleared());
+    this.store.dispatch(new BanksCleared());
+    this.store.dispatch(new CurrenciesCleared());
+    this.store.dispatch(new ExpensesCleared());
+    this.store.dispatch(new IncomeSourcesCleared());
+    this.store.dispatch(new SavingsAccountsCleared());
+  }
+
   getAuthToken(): string {
     return this.token;
   }
@@ -213,17 +230,8 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);
-    localStorage.removeItem('token');
-    localStorage.removeItem('expiration');
-    localStorage.removeItem('refresh');
-    localStorage.removeItem('refreshExpiration');
-    localStorage.removeItem('userId');
-    this.store.dispatch(new UserProfileCleared());
-    this.store.dispatch(new BanksCleared());
-    this.store.dispatch(new CurrenciesCleared());
-    this.store.dispatch(new ExpensesCleared());
-    this.store.dispatch(new IncomeSourcesCleared());
-    this.store.dispatch(new SavingsAccountsCleared());
+    this.clearLocalStorage();
+    this.clearNgrxStore();
     this.router.navigate(['/']);
   }
 
