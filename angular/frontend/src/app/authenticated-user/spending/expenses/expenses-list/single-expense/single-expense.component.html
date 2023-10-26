@@ -1,0 +1,36 @@
+<tr class="row" >
+    <th class="col">
+      <h5 class="text-secondary">
+        <a [routerLink]="['/authenticated-user/expenses/edit-expense', expense.id]">
+          {{ expense.expense_name }}
+        </a>
+      </h5>
+    </th>
+    <th class="col">
+      <div *ngIf="!deletionPopupVisible; else delExpense" class="col text-left">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="showDeletionPopup()"
+          >
+          Remove
+        </button>
+      </div>
+      <ng-template #delExpense class="row">
+        <div class="col text-left">
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="hideDeletionPopup()">
+            Don't Delete
+          </button>
+        </div>
+        <div class="col text-left">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="onRemoveExpense()"
+            >
+            Confirm Delete
+          </button>
+        </div>
+      </ng-template>
+    </th>
+  </tr>

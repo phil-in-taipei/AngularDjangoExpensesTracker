@@ -1,0 +1,23 @@
+<br />
+<h3>Create an Expense</h3>
+<div *ngIf="expenseSubmitErrMsg$ | async as expenseErrMsg">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <h4 class="text-danger">{{ expenseErrMsg }}</h4>
+    <button type="button" class="btn-close" (click)="onClearStatusMsgs()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<div *ngIf="expenseSubmitSuccessMsg$ | async as expenseSuccessMsg">
+  <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+    <h6>{{ expenseSuccessMsg }}</h6>
+    <button type="button" class="btn-close" (click)="onClearStatusMsgs()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+<div *ngIf="usrProfile$ | async as usrProfile" class="container">
+    <hr class="thick-br"/>
+    <app-expense-submit-form [usrProfile]=usrProfile> 
+    </app-expense-submit-form>
+    <hr class="thick-br"/>
+</div>

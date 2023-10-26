@@ -1,7 +1,6 @@
 import { UserModel } from "./user-profile.model";
 
 export interface ExpenseCreateAndUpdateModel {
-    user: UserModel,
     expense_name: string;
 }
 

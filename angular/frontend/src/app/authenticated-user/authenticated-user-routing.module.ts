@@ -15,6 +15,9 @@ const routes: Routes = [
     { path: 'finance', loadChildren: () => import('./finance/finance.module').then(
         m => m.FinanceModule) 
     },
+    { path: 'expenditures', loadChildren: () => import('./spending/spending.module').then(
+      m => m.SpendingModule) 
+  },
     {
       path: "**",
       redirectTo: '/user-profile'

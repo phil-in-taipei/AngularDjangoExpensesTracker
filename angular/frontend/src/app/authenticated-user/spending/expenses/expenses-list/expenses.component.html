@@ -1,0 +1,19 @@
+<h3>Expenses</h3>
+<div *ngIf="expenses$ | async as expenses" class="container">
+    <div class="large-scr-tbl">
+        <table class="table">
+            <thead class="table-dark">
+              <tr class="row">
+                <th class="col"><h5 class="text-secondary">Expense Name</h5></th>
+                <th class="col"><h5 class="text-secondary">Delete</h5></th>
+              </tr>
+            </thead>
+            <tbody class="table-dark">
+              <div *ngFor="let expense of expenses" >
+                <app-single-expense [expense]=expense>
+                </app-single-expense>
+              </div>
+            </tbody>
+        </table>
+    </div>
+</div>
