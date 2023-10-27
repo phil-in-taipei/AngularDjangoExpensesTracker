@@ -14,11 +14,17 @@ export const editedExpenseData: ExpenseCreateAndUpdateModel = {
     expense_name: "Test Expense -- edit", 
 };
 
+export const updatedExpense: ExpenseModel = {
+    id: createdExpense.id, 
+    expense_name: editedExpenseData.expense_name,
+    user: createdExpense.user
+}
+
 export const newExpenseData: ExpenseCreateAndUpdateModel = {
     expense_name: "Test Expense 3", 
 };
 
-export const savingsAccountDeletionResponse: ExpenseDeletionResponse = {
+export const expenseDeletionResponse: ExpenseDeletionResponse = {
     id: 2,
     message: "Expense successfully deleted!"
 }

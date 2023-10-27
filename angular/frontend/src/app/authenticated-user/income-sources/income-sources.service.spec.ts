@@ -36,6 +36,7 @@ describe('IncomeSourcesService', () => {
   //it('should be created', () => {
   //  expect(service).toBeTruthy();
   //});
+  
   it("should handle network error when " 
     + "fetching users' income sources", () => {
       authServiceSpy.getAuthToken.and.returnValue(authData.token);

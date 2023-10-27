@@ -29,7 +29,7 @@ import {
 import { IncomeSourcesService } from './income-sources.service';
 import { create } from 'domain';
 
-fdescribe('IncomeSourcesEffects', () => {
+describe('IncomeSourcesEffects', () => {
     let effects: IncomeSourcesEffects;
     let incomeSourcesService: IncomeSourcesService;
 

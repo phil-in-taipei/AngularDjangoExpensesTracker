@@ -21,7 +21,7 @@ import {
     IncomeSourcesCleared, IncomeSourcesLoaded
 } from "./income-sources.actions";
 
-fdescribe('incomeSourcesReducer', () => {
+describe('incomeSourcesReducer', () => {
     it('returns an initial state when cleared', () =>{
         const state = incomeSourcesReducer(
             initialIncomeSourcesState, 
