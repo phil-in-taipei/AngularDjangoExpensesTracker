@@ -15,9 +15,8 @@ import {
 
 import { 
     IncomeSourceAdded, IncomeSourceAddedCancelled,
-    IncomeSourceDeletionCancelled, IncomeSourceDeletionRequested,
-    IncomeSourceDeletionSaved, IncomeSourceEditCancelled,
-    IncomeSourceEditSubmitted, IncomeSourceEditUpdated,
+    IncomeSourceDeletionCancelled, IncomeSourceDeletionSaved, 
+    IncomeSourceEditCancelled, IncomeSourceEditUpdated,
     IncomeSourcesCleared, IncomeSourcesLoaded
 } from "./income-sources.actions";
 
@@ -51,7 +50,6 @@ describe('incomeSourcesReducer', () => {
         } } }));
        expect(state).toEqual(stateAfterNewIncomeSourceSubmittedFailure.income);
     });
-
 
     it('returns the state with updated income sources entity and indicates that ' 
        + 'an income source has been sucessfully revised', () => {

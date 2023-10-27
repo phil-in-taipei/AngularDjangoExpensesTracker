@@ -6,7 +6,7 @@ import { ExpenseModel } from "src/app/models/expense.model";
 
 const ids:number[] = [ expensesData[0].id, expensesData[1].id ];
 const idsAfterNewExpenseAdded:number[] = [ ...ids ];
-idsAfterNewExpenseAdded.unshift(createdExpense.id);
+idsAfterNewExpenseAdded.push(createdExpense.id);
 
 const entities:Dictionary<ExpenseModel> = {
     '1': expensesData[0],
