@@ -14,9 +14,8 @@ import {
     revisedIncomeSource
  } from 'src/app/test-data/authenticated-user-module-tests/income-sources-tests/income-sources-state';
 import { 
-    IncomeSourceAdded, IncomeSourceAddedCancelled, 
-    IncomeSourceDeletionRequested, IncomeSourceDeletionSaved,
-    IncomeSourceEditSubmitted, IncomeSourceEditUpdated,
+    IncomeSourceAdded, IncomeSourceDeletionRequested, 
+    IncomeSourceDeletionSaved, IncomeSourceEditSubmitted, IncomeSourceEditUpdated,
     IncomeSourcesLoaded, IncomeSourcesRequested, IncomeSourceSubmitted
 } from './income-sources.actions';
 import { IncomeSourcesEffects } from './income-sources.effects';
@@ -27,7 +26,6 @@ import {
     IncomeSourceModel
 } from 'src/app/models/income-source.model';
 import { IncomeSourcesService } from './income-sources.service';
-import { create } from 'domain';
 
 describe('IncomeSourcesEffects', () => {
     let effects: IncomeSourcesEffects;
