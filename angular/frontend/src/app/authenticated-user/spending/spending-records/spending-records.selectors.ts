@@ -11,10 +11,15 @@ export const selectSpendingRecordById = (id:number) => createSelector(
     spendingRecordsState => spendingRecordsState.entities[id]
 );
 
-export const selectAllSpendingRecords = createSelector(
+export const selectMonthlySpendingRecords = createSelector(
     selectSpendingRecordsState,
     fromSpendingRecords.selectAll
 );
+
+export const spendingRecordsDateRange = createSelector(
+    selectSpendingRecordsState,
+    spendingRecordsState => spendingRecordsState.dateRange
+)
 
 export const spendingRecordsLoaded = createSelector(
     selectSpendingRecordsState,

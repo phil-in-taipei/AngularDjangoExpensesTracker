@@ -1,1 +1,19 @@
-<p>spending-records works!</p>
+<div *ngIf="showCalendarSubmitForm" class="container content">
+    <div class="color-frame rounded">
+      <hr class="thick-br"/>
+      <div *ngIf="monthlyDateRange$ | async as monthlyDateRange;else no_previous_dates">
+        <h5>Reselect Monthly Spending Records</h5>
+          <app-reselect-monthly-spending-records
+            [monthlyDateRange]=monthlyDateRange
+            (closeMonthlySelectFormEvent)="closeMonthlySelectFormHander($event)">
+          </app-reselect-monthly-spending-records>
+      </div>
+      <ng-template #no_previous_dates>
+        <h5>Select Monthly Spending Records</h5>
+          <app-select-monthly-spending-records
+            (closeMonthlySelectFormEvent)="closeMonthlySelectFormHander($event)">
+          </app-select-monthly-spending-records>
+      </ng-template>
+      <hr class="thick-br"/>
+    </div>
+</div>

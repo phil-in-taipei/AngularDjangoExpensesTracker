@@ -4,8 +4,7 @@ import { AppState } from '../../../reducers';
 import { select, Store } from '@ngrx/store';
 import { throwError, of } from 'rxjs';
 import {
-    catchError, filter, map,
-    mergeMap, withLatestFrom
+    catchError, map, mergeMap
 } from "rxjs/operators";
 
 import { 
@@ -15,7 +14,6 @@ import {
   SpendingRecordsActionTypes, SpendingRecordsLoaded, SpendingRecordsRequested
 } from './spending-records.actions';
 import { SpendingRecordsService } from './spending-records.service';
-import { spendingRecordsLoaded } from './spending-records.selectors';
 
 @Injectable()
 export class SpendingRecordsEffects {
