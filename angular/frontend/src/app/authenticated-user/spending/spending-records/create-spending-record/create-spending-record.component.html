@@ -1,1 +1,27 @@
-<p>create-spending-record works!</p>
+<br />
+<h3>Create a Spending Record</h3>
+<div *ngIf="submitErrMsg$ | async as errMsg">
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <h4 class="text-danger">{{ errMsg }}</h4>
+    <button type="button" class="btn-close" (click)="onClearStatusMsgs()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+
+<div *ngIf="submitSuccessMsg$ | async as successMsg">
+  <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+    <h6>{{ successMsg }}</h6>
+    <button type="button" class="btn-close" (click)="onClearStatusMsgs()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>
+<div *ngIf="currencies$ | async as currencies" class="container">
+    <div *ngIf="expenses$ | async as expenses">
+      <hr class="thick-br"/>
+      <app-spending-record-submit-form
+        [currencies]=currencies
+        [expenses]=expenses>
+      </app-spending-record-submit-form>
+      <hr class="thick-br"/>
+  </div>
+</div>

@@ -15,8 +15,6 @@ import { selectUserProfile } from 'src/app/authenticated-user/user.selectors';
 import { UserProfileModel } from 'src/app/models/user-profile.model';
 
 
-
-
 @Component({
   selector: 'app-create-account',
   templateUrl: './create-account.component.html',

@@ -18,6 +18,7 @@ import { UserProfileModel } from 'src/app/models/user-profile.model';
   styleUrls: ['./account-submit-form.component.css']
 })
 export class AccountSubmitFormComponent implements OnInit {
+  
   @Input() usrProfile: UserProfileModel;
   @Input() banks: BankModel[];
   @Input() currencies: CurrencyModel[];

@@ -1,1 +1,80 @@
-<p>spending-record-submit-form works!</p>
+
+<div>
+    <form (submit)="onSubmitSpendingRecord(spendingRecordForm)" #spendingRecordForm="ngForm">
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                name="date" [(ngModel)]="dateModel" ngbDatepicker #date="ngbDatepicker">
+            <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="date.toggle()" type="button">
+            Select Date</button>
+            </div>
+        </div>
+        <br />
+        <div>
+          <label>Expense</label>
+            <select
+            class="form-control"
+            name="expense"
+            class="form-control"
+            ngModel
+            required
+            #expense="ngModel"
+            >
+            <option *ngFor="let expense of expenses"
+                [ngValue]=expense
+            >{{ expense.expense_name }}
+            </option>
+            </select>
+            <div *ngIf="expense.touched && expense.invalid">
+              Please select an expense.
+            </div>
+          </div>
+          <br />
+          <div>
+            <label>Amount</label>
+            <input
+            class="form-control"
+            type="amount"
+            min="0.00"
+            max="20000"
+            rows="4"
+            name="amount"
+            ngModel
+            required
+            placeholder="0.00"
+            #amount="ngModel"
+            >
+            <div *ngIf="amount.touched && amount.invalid">
+                Please enter an amount.
+            </div>
+            </div>
+            <br />
+          <div>
+            <label>Currency</label>
+              <select
+              class="form-control"
+              name="currency"
+              class="form-control"
+              ngModel
+              required
+              #currency="ngModel"
+              >
+              <option *ngFor="let currency of currencies"
+                  [ngValue]=currency
+              >{{ currency.currency_name}},
+               {{ currency.currency_code }}
+              </option>
+              </select>
+              <div *ngIf="currency.touched && currency.invalid">
+                Please select a currency.
+              </div>
+            </div>
+        <br />
+        <div>
+        <button class="btn btn-outline-secondary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>

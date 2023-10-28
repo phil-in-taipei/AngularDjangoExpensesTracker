@@ -6,7 +6,7 @@ import { AppState } from '../../../../reducers';
 
 import { 
   selectMonthlySpendingRecords, spendingRecordsDateRange, 
-  spendingRecordsErrorMsg, spendingRecordsLoaded 
+  spendingRecordsLoaded 
 } from '../spending-records.selectors';
 import { SpendingRecordModel } from 'src/app/models/spending-record.model';
 
@@ -28,6 +28,7 @@ export class SpendingRecordsComponent implements OnInit {
     this.spendingRecords$ = this.store.pipe(select(selectMonthlySpendingRecords));
     this.monthlyDateRange$ = this.store.pipe(select(spendingRecordsDateRange));
     this.spendingRecordsdLoaded$ = this.store.pipe(select(spendingRecordsLoaded));
+    this.showMonthlySelectForm = true;
   }
 
   closeMonthlySelectFormHander($event: boolean) {

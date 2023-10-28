@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { EffectsModule } from '@ngrx/effects';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 
 import { ExpensesEffects } from './expenses/expenses.effects';
@@ -47,6 +48,7 @@ import { ReselectMonthlySpendingRecordsComponent } from './spending-records/spen
   imports: [
     CommonModule,
     FormsModule,
+    NgbModule,
     SpendingRoutingModule,
     StoreModule.forFeature('expenses', expensesReducer),
     EffectsModule.forFeature([ExpensesEffects]),
