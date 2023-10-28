@@ -16,6 +16,7 @@ import { SpendingRecordsCleared, SpendingRecordsRequested } from '../../spending
 })
 export class SelectMonthlySpendingRecordsComponent implements OnInit {
 
+  monthsAndIntegers: [string, number][] = monthsAndIntegers;
   years: Number[] = [];
   @Output() closeMonthlySelectFormEvent = new EventEmitter<boolean>();
 

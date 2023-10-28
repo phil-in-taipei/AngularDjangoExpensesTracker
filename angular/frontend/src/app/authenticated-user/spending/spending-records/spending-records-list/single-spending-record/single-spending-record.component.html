@@ -1,1 +1,49 @@
-<p>single-spending-record works!</p>
+<tr class="row" >
+    <th class="col">
+      <h5>
+        {{ spendingRecord.date }}
+      </h5>
+    </th>
+    <th class="col">
+      <h5>
+        {{ spendingRecord.expense.expense_name }}
+      </h5>
+    </th>
+    <th class="col">
+      <h5>
+        {{ spendingRecord.amount }}
+      </h5>
+    </th>
+    <th class="col">
+      <h5>
+        {{ spendingRecord.currency.currency_code }}
+      </h5>
+    </th>
+    <th class="col">
+      <div *ngIf="!deletionPopupVisible;else del_time" class="text-center">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="showDelPopup()"
+          >
+          Remove
+        </button>
+      </div>
+      <ng-template #del_time class="row">
+        <div class="col text-center">
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="hideDelPopup()">
+            Don't Delete
+          </button>
+        </div>
+        <div class="col text-center">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="onRemoveSpendingRecord()"
+            >
+            Confirm Delete
+          </button>
+        </div>
+      </ng-template>
+    </th>
+  </tr>

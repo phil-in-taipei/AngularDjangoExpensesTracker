@@ -3,9 +3,6 @@ import { Observable, of } from "rxjs";
 import {select, Store } from '@ngrx/store';
 
 import { AppState } from '../../../../reducers';
-import { 
-  getYearsOptions, monthsAndIntegers 
-} from 'src/app/shared-utils/date-helpers.util';
 
 import { 
   selectMonthlySpendingRecords, spendingRecordsDateRange, 
@@ -24,7 +21,6 @@ export class SpendingRecordsComponent implements OnInit {
   spendingRecordsdLoaded$: Observable<boolean> = of(false);
   monthlyDateRange$: Observable<[string, string] | undefined> = of(undefined);
   showMonthlySelectForm: Boolean = true;
-  years: Number[] = [];
 
   constructor(private store: Store<AppState>) { }
 
@@ -32,7 +28,6 @@ export class SpendingRecordsComponent implements OnInit {
     this.spendingRecords$ = this.store.pipe(select(selectMonthlySpendingRecords));
     this.monthlyDateRange$ = this.store.pipe(select(spendingRecordsDateRange));
     this.spendingRecordsdLoaded$ = this.store.pipe(select(spendingRecordsLoaded));
-    this.years = getYearsOptions();
   }
 
   closeMonthlySelectFormHander($event: boolean) {

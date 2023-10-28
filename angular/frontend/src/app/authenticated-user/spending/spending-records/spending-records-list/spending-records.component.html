@@ -17,3 +17,26 @@
       <hr class="thick-br"/>
     </div>
 </div>
+<div *ngIf="spendingRecords$ | async as spendingRecords" class="container content">
+  <div class="large-scr-tbl" [hidden]="showMonthlySelectForm"
+  [style.opacity]="showMonthlySelectForm ? '0' : '1'"
+  [style.visibility]="showMonthlySelectForm ? 'hidden' : 'visible'">
+      <table class="table">
+          <thead>
+            <tr class="row">
+              <th class="col"><h5>Date</h5></th>
+              <th class="col"><h5>Expense</h5></th>
+              <th class="col"><h5>Amount</h5></th>
+              <th class="col"><h5>Currency</h5></th>
+              <th class="col" id="edit"><h5>Remove</h5></th>
+            </tr>
+          </thead>
+          <tbody>
+            <div *ngFor="let spendingRecord of spendingRecords" >
+              <app-single-spending-record [spendingRecord]=spendingRecord>
+              </app-single-spending-record>
+            </div>
+          </tbody>
+      </table>
+    </div>
+</div>

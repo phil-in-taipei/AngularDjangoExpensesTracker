@@ -16,6 +16,7 @@ import { SpendingRecordsCleared, SpendingRecordsRequested } from '../../spending
 })
 export class ReselectMonthlySpendingRecordsComponent implements OnInit {
 
+  monthsAndIntegers: [string, number][] = monthsAndIntegers;
   @Input() monthlyDateRange: [string, string];
   years: Number[] = [];
   @Output() closeMonthlySelectFormEvent = new EventEmitter<boolean>();
@@ -26,7 +27,7 @@ export class ReselectMonthlySpendingRecordsComponent implements OnInit {
     this.years = getYearsOptions();
   }
 
-  onSubmitCalendar(form: NgForm) {
+  onReSubmitMonthlySpendingRecordsForm(form: NgForm) {
     console.log(form.value);
     if (form.invalid) {
       console.log(form.errors);

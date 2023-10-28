@@ -22,6 +22,9 @@ import {
 import { 
   SavingsAccountsCleared 
 } from '../authenticated-user/finance/savings-accounts/savings-accounts.actions';
+import { 
+  SpendingRecordsCleared 
+} from '../authenticated-user/spending/spending-records/spending-records.actions';
 import { UserProfileCleared } from './../authenticated-user/user.actions';
 
 
@@ -161,6 +164,7 @@ export class AuthService {
     this.store.dispatch(new ExpensesCleared());
     this.store.dispatch(new IncomeSourcesCleared());
     this.store.dispatch(new SavingsAccountsCleared());
+    this.store.dispatch(new SpendingRecordsCleared());
   }
 
   getAuthToken(): string {
