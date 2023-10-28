@@ -28,7 +28,6 @@ export class SpendingRecordsComponent implements OnInit {
     this.spendingRecords$ = this.store.pipe(select(selectMonthlySpendingRecords));
     this.monthlyDateRange$ = this.store.pipe(select(spendingRecordsDateRange));
     this.spendingRecordsdLoaded$ = this.store.pipe(select(spendingRecordsLoaded));
-    this.showMonthlySelectForm = true;
   }
 
   closeMonthlySelectFormHander($event: boolean) {

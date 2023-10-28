@@ -1,13 +1,13 @@
-h1, h5, h6 {
-    text-align: center;
-}
+table {
+    color: grey;
+    text-align: left;
+  }
   
-hr.thick-br {
-    border: 2px solid #758d97;
-}
+  h3 {
+    color: grey;
+    text-align: left;
+  }
   
-h4 {
-    text-align: center;
-    color: red;
-}
-  
+  .small-scr-tbl {
+    display: none;
+  }
