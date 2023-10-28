@@ -17,7 +17,7 @@ import { SpendingRecordsCleared, SpendingRecordsRequested } from '../../spending
 export class SelectMonthlySpendingRecordsComponent implements OnInit {
 
   years: Number[] = [];
-  @Output() closeCalendarFormEvent = new EventEmitter<boolean>();
+  @Output() closeMonthlySelectFormEvent = new EventEmitter<boolean>();
 
   constructor(private store: Store<AppState>) { }
 
@@ -25,10 +25,8 @@ export class SelectMonthlySpendingRecordsComponent implements OnInit {
     this.years = getYearsOptions();
   }
 
-  onSubmitCalendar(form: NgForm) {
-    console.log(form.value);
+  onSubmitMonthlySelectorForm(form: NgForm) {
     if (form.invalid) {
-
       return;
     }
     this.store.dispatch(new SpendingRecordsCleared);
@@ -36,6 +34,6 @@ export class SelectMonthlySpendingRecordsComponent implements OnInit {
     this.store.dispatch(new SpendingRecordsRequested(
       {month: form.value.month, year: form.value.year }
     ));
-    this.closeCalendarFormEvent.emit(false);
+    this.closeMonthlySelectFormEvent.emit(false);
   }
 }
