@@ -1,5 +1,5 @@
 import { currenciesData } from "../currencies-tests/currencies-data";
-import { expensesData } from "./expenses-data";
+import { expensesData, createdExpense } from "./expenses-data";
 import { 
     generateListOfThreeTestDates 
 } from "src/app/shared-utils/date-helpers.util";
@@ -10,20 +10,20 @@ import {
 } from "src/app/models/spending-record.model";
 
 
-const threeDatesThisMonth: string[] = generateListOfThreeTestDates();
+export const threeDatesThisMonth: [string, string, string] = generateListOfThreeTestDates();
 
 export const createdSpendingRecord: SpendingRecordModel = {
     id: 3, amount: 300.00, 
     currency: currenciesData[1],
     date: threeDatesThisMonth[2],
-    expense: expensesData[1],
+    expense: createdExpense,
 };
 
 export const newSpendingRecordData: SpendingRecordCreateModel = {
     amount: 300.00, 
     currency: currenciesData[1],
     date: threeDatesThisMonth[2],
-    expense: expensesData[1]
+    expense: createdExpense
 };
 
 export const spendingRecordDeletionResponse: SpendingRecordDeletionResponse = {

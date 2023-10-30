@@ -14,9 +14,9 @@ export function generateDateString(date: Date): string {
   return `${date.getFullYear()}-${date.getMonth}-${date.getDate}`;;
 }
 
-export function generateListOfThreeTestDates(): string[] {
+export function generateListOfThreeTestDates(): [string, string, string] {
   let today: Date = new Date();
-  const listOfThreeDatesThisMonth: string[]  = [
+  const listOfThreeDatesThisMonth:[string, string, string]  = [
     generateDateString(today), 
     getFirstDateofMonthStr(today.getMonth(), today.getFullYear()),
     getLastDateofMonthStr(today.getMonth(), today.getFullYear())

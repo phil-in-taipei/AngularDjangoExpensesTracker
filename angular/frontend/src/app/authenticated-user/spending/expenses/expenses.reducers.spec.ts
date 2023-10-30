@@ -1,4 +1,4 @@
-import { initialExpensesState, ExpensesState, expensesReducer } from "./expenses.reducers";
+import { initialExpensesState, expensesReducer } from "./expenses.reducers";
 
 import { 
     createdExpense, expensesData 

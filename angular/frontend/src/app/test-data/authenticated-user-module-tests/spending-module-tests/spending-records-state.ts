@@ -1,11 +1,17 @@
 import { Dictionary } from "@ngrx/entity";
 
 import { createdSpendingRecord, spendingRecordsData } from "./spending-records-data";
+import { 
+  generateListOfThreeTestDates 
+} from "src/app/shared-utils/date-helpers.util";
 import { SpendingRecordModel } from "src/app/models/spending-record.model";
 
-const ids:number[] = [ spendingRecordsData[0].id, spendingRecordsData[1].id ];
-const idsAfterNewExpenseAdded:number[] = [ ...ids ];
-idsAfterNewExpenseAdded.push(createdSpendingRecord.id);
+const threeDatesThisMonth: [string, string, string] = generateListOfThreeTestDates();
+const dateRangeThisMonth: [string, string] = [threeDatesThisMonth[1], threeDatesThisMonth[2]]
+const ids:number[] = [ spendingRecordsData[1].id, spendingRecordsData[0].id ];
+const idsAfterNewExpenseAdded:number[] = [
+  spendingRecordsData[1].id, createdSpendingRecord.id, spendingRecordsData[0].id
+];
 
 const entities:Dictionary<SpendingRecordModel> = {
     '1': spendingRecordsData[0],
@@ -24,6 +30,7 @@ const newSpendingRecordSuccessMessage: string = 'You have successfully submitted
 export const stateAfterSpendingRecordDeletedFailure = {
     spending: {
       ids: idsAfterNewExpenseAdded,
+      dateRange: dateRangeThisMonth,
       entities: entitiesWithNewSpendingRecordAdded,
       errorMessage: deletedSpendingRecordFailureMessage,
       spendingRecordsLoaded: true,
@@ -31,9 +38,10 @@ export const stateAfterSpendingRecordDeletedFailure = {
     }
   };
   
-  export const stateAfterSpendinngRecordDeletedSuccess = {
+  export const stateAfterSpendingRecordDeletedSuccess = {
     spending: {
       ids: ids,
+      dateRange: dateRangeThisMonth,
       entities: entities,
       errorMessage: undefined,
       spendingRecordsLoaded: true,
@@ -44,6 +52,7 @@ export const stateAfterSpendingRecordDeletedFailure = {
 export const stateAfterNewSpendingRecordSubmitted = {
     spending: {
       ids: idsAfterNewExpenseAdded,
+      dateRange: dateRangeThisMonth,
       entities: entitiesWithNewSpendingRecordAdded,
       errorMessage: undefined,
       spendingRecordsLoaded: true,
@@ -55,15 +64,29 @@ export const stateAfterNewSpendingRecordSubmittedFailure = {
     spending: {
       ids: ids,
       entities: entities,
+      dateRange: dateRangeThisMonth,
       errorMessage: newSpendingRecordFailureMessage,
       spendingRecordsLoaded: true,
       successMessage: undefined
     }
 };
+
+export const stateAfterSpendingRecordsRequestAwaitingLoading = {
+  spending: {
+    ids: ids,
+    dateRange: dateRangeThisMonth,
+    entities: entities,
+    errorMessage: undefined,
+    spendingRecordsLoaded: false,
+    successMessage: undefined
+  }
+};
+
     
-export const stateWithLoadedSpendingRecords = {
+export const stateWithSpendingRecordsLoaded = {
     spending: {
       ids: ids,
+      dateRange: dateRangeThisMonth,
       entities: entities,
       errorMessage: undefined,
       spendingRecordsLoaded: true,

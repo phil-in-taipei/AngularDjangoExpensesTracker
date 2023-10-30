@@ -9,7 +9,7 @@ import {
 } from './spending-records.actions';
 
 
-function compareSpendingRecordsByDate(
+export function compareSpendingRecordsByDate(
     a:SpendingRecordModel, b:SpendingRecordModel) {
     const sRA = a.date;
     const sRB = b.date;
