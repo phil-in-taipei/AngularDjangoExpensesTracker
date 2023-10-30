@@ -24,7 +24,7 @@ const entitiesWithExpenseRevised: Dictionary<ExpenseModel> = {
     '2': revisedExpense
   }
 
-  const entitiesWithNewExpenseAdded: Dictionary<ExpenseModel> = { 
+const entitiesWithNewExpenseAdded: Dictionary<ExpenseModel> = { 
     ...entities, '3': createdExpense 
   }
 
@@ -76,33 +76,33 @@ export const stateAfterExpenseDeletedFailure = {
     }
   };
   
-  export const stateAfterNewExpenseSubmitted = {
-    expenses: {
-      ids: idsAfterNewExpenseAdded,
-      entities: entitiesWithNewExpenseAdded,
-      errorMessage: undefined,
-      expensesLoaded: true,
-      successMessage: newExpenseSuccessMessage
-    }
-  };
+export const stateAfterNewExpenseSubmitted = {
+  expenses: {
+    ids: idsAfterNewExpenseAdded,
+    entities: entitiesWithNewExpenseAdded,
+    errorMessage: undefined,
+    expensesLoaded: true,
+    successMessage: newExpenseSuccessMessage
+  }
+};
   
-  export const stateAfterNewExpenseSubmittedFailure = {
-    expenses: {
-      ids: ids,
-      entities: entities,
-      errorMessage: newExpenseFailureMessage,
-      expensesLoaded: true,
-      successMessage: undefined
-    }
-  };
+export const stateAfterNewExpenseSubmittedFailure = {
+  expenses: {
+    ids: ids,
+    entities: entities,
+    errorMessage: newExpenseFailureMessage,
+    expensesLoaded: true,
+    successMessage: undefined
+  }
+};
   
 
 export const stateWithLoadedExpenses = {
-    expenses: {
-      ids: ids,
-      entities: entities,
-      errorMessage: undefined,
-      expensesLoaded: true,
-      successMessage: undefined
-    }
+  expenses: {
+    ids: ids,
+    entities: entities,
+    errorMessage: undefined,
+    expensesLoaded: true,
+    successMessage: undefined
+  }
 };
