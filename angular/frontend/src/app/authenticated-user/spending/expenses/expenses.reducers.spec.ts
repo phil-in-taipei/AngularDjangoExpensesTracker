@@ -17,7 +17,7 @@ import {
 } from "./expenses.actions";
 
 
-fdescribe('expensesReducer', () => {
+describe('expensesReducer', () => {
     it('returns an initial state when cleared', () =>{
         const state = expensesReducer(
             initialExpensesState, 

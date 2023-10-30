@@ -95,7 +95,6 @@ describe('ExpensesService', () => {
 
   }));
 
-
   // this response is important because the id value in the response will be used
   // to update state by indicating id of the entity to be removed (ngrx/entity)
   it('should return a response message from backend after deletion ' 
@@ -119,7 +118,6 @@ describe('ExpensesService', () => {
 
    }));
 
-
   it("should return the array of users' expenses from the api", 
     fakeAsync(() => {
       authServiceSpy.getAuthToken.and.returnValue(authData.token);
@@ -138,8 +136,8 @@ describe('ExpensesService', () => {
 
   }));
 
-
   afterEach(() => {
     httpTestingController.verify();
   });
+
 });
