@@ -11,7 +11,7 @@ import {
 } from 'src/app/test-data/authenticated-user-module-tests/spending-module-tests/spending-records-data';
 import { SpendingRecordsService } from './spending-records.service';
 
-fdescribe('SpendingRecordsService', () => {
+describe('SpendingRecordsService', () => {
   let httpTestingController: HttpTestingController;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let service: SpendingRecordsService;

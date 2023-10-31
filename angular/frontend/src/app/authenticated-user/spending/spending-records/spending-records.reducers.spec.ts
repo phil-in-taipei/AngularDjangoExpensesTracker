@@ -3,11 +3,13 @@ import {
 } from "./spending-records.reducers";
 
 import { 
-    createdSpendingRecord, spendingRecordsData 
+    createdSpendingRecord, createdSpendingRecordNextMonth, spendingRecordsData 
 } from "src/app/test-data/authenticated-user-module-tests/spending-module-tests/spending-records-data";
 import { 
     stateAfterSpendingRecordDeletedFailure, stateAfterSpendingRecordDeletedSuccess,
-    stateAfterNewSpendingRecordSubmitted, stateAfterNewSpendingRecordSubmittedFailure,
+    stateAfterNewSpendingRecordSubmittedInDateRange,
+    stateAfterNewSpendingRecordSubmittedOutOfDateRange,
+    stateAfterNewSpendingRecordSubmittedFailure,
     stateWithSpendingRecordsLoaded, stateAfterSpendingRecordsRequestAwaitingLoading
 } from "src/app/test-data/authenticated-user-module-tests/spending-module-tests/spending-records-state";
 import { 
@@ -16,7 +18,7 @@ import {
     SpendingRecordsCleared, SpendingRecordsLoaded, SpendingRecordsRequested
 } from "./spending-records.actions";
 
-describe('spendingRecordsReducer', () => {
+fdescribe('spendingRecordsReducer', () => {
     it('returns an initial state when cleared', () =>{
         const state = spendingRecordsReducer(
             stateWithSpendingRecordsLoaded.spending, 
@@ -41,10 +43,23 @@ describe('spendingRecordsReducer', () => {
     });
 
     it('returns the state with new spending record entity and indicates that ' 
-        + 'the spending record has been sucessfully submitted', () => {
+        + 'the spending record has been sucessfully submitted -- ' 
+        + 'if the new spending record is within the date range', () => {
+            console.log('this is the newly created spending record:')
+            console.log(createdSpendingRecord);
         const state = spendingRecordsReducer(stateWithSpendingRecordsLoaded.spending, 
         new SpendingRecordAdded({ spendingRecord: createdSpendingRecord }));
-        expect(state).toEqual(stateAfterNewSpendingRecordSubmitted.spending);
+        expect(state).toEqual(stateAfterNewSpendingRecordSubmittedInDateRange.spending);
+    });
+
+    it('returns the state without the new spending record entity and indicates that ' 
+        + 'the spending record has been sucessfully submitted -- ' 
+        + 'if the new spending record is in not within the date range', () => {
+            console.log('this is the newly created spending record next month:')
+            console.log(createdSpendingRecordNextMonth);
+        const state = spendingRecordsReducer(stateWithSpendingRecordsLoaded.spending, 
+        new SpendingRecordAdded({ spendingRecord: createdSpendingRecordNextMonth }));
+        expect(state).toEqual(stateAfterNewSpendingRecordSubmittedOutOfDateRange.spending);
     });
 
     it('returns the state with originally loaded spending records entity and indicates that ' 
@@ -58,7 +73,8 @@ describe('spendingRecordsReducer', () => {
 
     it('returns the original state with one less spending record entity and indicates that ' 
        + 'the third spending record has been sucessfully deleted', () => {
-        const state = spendingRecordsReducer(stateAfterNewSpendingRecordSubmitted.spending, 
+        const state = spendingRecordsReducer(
+            stateAfterNewSpendingRecordSubmittedInDateRange.spending, 
         new SpendingRecordDeletionSaved({ 
             id: 3, 
             message: stateAfterSpendingRecordDeletedSuccess.spending.successMessage 
@@ -68,7 +84,8 @@ describe('spendingRecordsReducer', () => {
     
     it('returns the state after an spending recrod entity has been added ' 
     + 'and indicates that the deletion of the third spending record failed', () => {
-        const state = spendingRecordsReducer(stateAfterNewSpendingRecordSubmitted.spending, 
+        const state = spendingRecordsReducer(
+            stateAfterNewSpendingRecordSubmittedInDateRange.spending, 
         new SpendingRecordDeletionCancelled({ 
             err: {
                 error: {

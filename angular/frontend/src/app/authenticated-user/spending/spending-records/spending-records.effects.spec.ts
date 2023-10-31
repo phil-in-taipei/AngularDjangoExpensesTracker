@@ -21,7 +21,7 @@ import {
 } from 'src/app/models/spending-record.model';
 import { SpendingRecordsService } from './spending-records.service';
 
-fdescribe('SpendingRecordsEffects', () => {
+describe('SpendingRecordsEffects', () => {
     let effects: SpendingRecordsEffects;
     let spendingRecordsService: SpendingRecordsService;
     const today: Date = new Date();

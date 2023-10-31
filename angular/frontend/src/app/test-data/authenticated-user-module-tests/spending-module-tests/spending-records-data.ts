@@ -1,6 +1,7 @@
 import { currenciesData } from "../currencies-tests/currencies-data";
 import { expensesData, createdExpense } from "./expenses-data";
 import { 
+    generateDateOneMonthFromToday,
     generateListOfThreeTestDates 
 } from "src/app/shared-utils/date-helpers.util";
 import { 
@@ -11,11 +12,19 @@ import {
 
 
 export const threeDatesThisMonth: [string, string, string] = generateListOfThreeTestDates();
+export const dateOneMonthFromToday: string = generateDateOneMonthFromToday();
 
 export const createdSpendingRecord: SpendingRecordModel = {
     id: 3, amount: 300.00, 
     currency: currenciesData[1],
     date: threeDatesThisMonth[2],
+    expense: createdExpense,
+};
+
+export const createdSpendingRecordNextMonth: SpendingRecordModel = {
+    id: 4, amount: 400.00, 
+    currency: currenciesData[1],
+    date: dateOneMonthFromToday,
     expense: createdExpense,
 };
 

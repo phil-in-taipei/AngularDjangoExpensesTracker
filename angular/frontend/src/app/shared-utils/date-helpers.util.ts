@@ -11,16 +11,38 @@ export function getYearsOptions(): number[] {
 }
 
 export function generateDateString(date: Date): string {
-  return `${date.getFullYear()}-${date.getMonth}-${date.getDate}`;;
+  let monthStr: string;
+  let dayOfMonthStr: string;
+  let month = date.getMonth();
+  let dayOfMonth = date.getDate();
+  if (month < 10) {
+    monthStr = `0${month}`;
+  } else {
+    monthStr = `${month}`;
+  }
+  if (dayOfMonth < 10) {
+    dayOfMonthStr = `0${dayOfMonth}`;
+  } else {
+    dayOfMonthStr = `${dayOfMonth}`;
+  }
+  return `${date.getFullYear()}-${monthStr}-${dayOfMonthStr}`;;
+}
+
+export function generateDateOneMonthFromToday(): string {
+  let date: Date = new Date();
+  date.setMonth(date.getMonth() + 2);
+  return generateDateString(date);
 }
 
 export function generateListOfThreeTestDates(): [string, string, string] {
   let today: Date = new Date();
   const listOfThreeDatesThisMonth:[string, string, string]  = [
     generateDateString(today), 
-    getFirstDateofMonthStr(today.getMonth(), today.getFullYear()),
-    getLastDateofMonthStr(today.getMonth(), today.getFullYear())
+    getFirstDateofMonthStr(today.getMonth() + 1, today.getFullYear()),
+    getLastDateofMonthStr(today.getMonth() + 1, today.getFullYear())
   ];
+  console.log('these are the 3 dates this month being generated:')
+  console.log(listOfThreeDatesThisMonth);
   return listOfThreeDatesThisMonth;
 }
 

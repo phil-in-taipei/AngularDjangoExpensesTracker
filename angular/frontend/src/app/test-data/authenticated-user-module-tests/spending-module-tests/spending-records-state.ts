@@ -38,26 +38,15 @@ export const stateAfterSpendingRecordDeletedFailure = {
     }
   };
   
-  export const stateAfterSpendingRecordDeletedSuccess = {
-    spending: {
+export const stateAfterSpendingRecordDeletedSuccess = {
+  spending: {
       ids: ids,
       dateRange: dateRangeThisMonth,
       entities: entities,
       errorMessage: undefined,
       spendingRecordsLoaded: true,
       successMessage: deletedSpendingRecordSuccessMessage
-    }
-  };
-
-export const stateAfterNewSpendingRecordSubmitted = {
-    spending: {
-      ids: idsAfterNewExpenseAdded,
-      dateRange: dateRangeThisMonth,
-      entities: entitiesWithNewSpendingRecordAdded,
-      errorMessage: undefined,
-      spendingRecordsLoaded: true,
-      successMessage: newSpendingRecordSuccessMessage
-    }
+  }
 };
     
 export const stateAfterNewSpendingRecordSubmittedFailure = {
@@ -70,6 +59,30 @@ export const stateAfterNewSpendingRecordSubmittedFailure = {
       successMessage: undefined
     }
 };
+
+export const stateAfterNewSpendingRecordSubmittedInDateRange = {
+  spending: {
+    ids: idsAfterNewExpenseAdded,
+    dateRange: dateRangeThisMonth,
+    entities: entitiesWithNewSpendingRecordAdded,
+    errorMessage: undefined,
+    spendingRecordsLoaded: true,
+    successMessage: newSpendingRecordSuccessMessage
+  }
+};
+
+
+export const stateAfterNewSpendingRecordSubmittedOutOfDateRange = {
+  spending: {
+    ids: ids,
+    dateRange: dateRangeThisMonth,
+    entities: entities,
+    errorMessage: undefined,
+    spendingRecordsLoaded: true,
+    successMessage: newSpendingRecordSuccessMessage
+  }
+};
+
 
 export const stateAfterSpendingRecordsRequestAwaitingLoading = {
   spending: {

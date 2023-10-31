@@ -53,12 +53,46 @@ export function spendingRecordsReducer(
     switch(action.type) {
 
         case SpendingRecordsActionTypes.SpendingRecordAdded:
-            return adapter.addOne(action.payload.spendingRecord, 
-                { ...state,
-                  errorMessage: undefined,
-                  successMessage: 'You have successfully submitted a new spending record!'
+            // checks if Spending Records have already been loaded into state for a given
+            // month. If dateRange is undefined, it means the state is empty
+            if (state.dateRange) {
+                // checks if the newly submitted spending record is within the date range of the
+                // month of spending records currently in state. If so, it adds the new object to 
+                // the state
+                console.log('this is the new spending record in the reducer function:')
+                console.log(action.payload.spendingRecord);
+                console.log('this is the first date in the date range:')
+                console.log(state.dateRange[0]);
+                console.log('this is the last date in the date range:')
+                console.log(state.dateRange[1]);
+                if(action.payload.spendingRecord.date >= state.dateRange[0] 
+                    && action.payload.spendingRecord.date < state.dateRange[1]) {
+                        return adapter.addOne(action.payload.spendingRecord, 
+                            { ...state,
+                              errorMessage: undefined,
+                              successMessage: 'You have successfully submitted a new spending record!'
+                            }
+                        );
+                } else {
+                    // if the newly created Spending Record is not within the date range of the 
+                    // month of spending records in state, it is not added, but there is still
+                    // a confirmation success message
+                    return { ...state,
+                        errorMessage: undefined,
+                        successMessage: 'You have successfully submitted a new spending record!'
+                      }
                 }
-            );
+
+            } else {
+                // If no spending records are in state (signified by dateRange undefined value), 
+                //it is not added, but there is still a confirmation success message
+                return { ...state,
+                    errorMessage: undefined,
+                    successMessage: 'You have successfully submitted a new spending record!'
+                  }
+            }
+                
+            
 
         case SpendingRecordsActionTypes.SpendingRecordAddedCancelled:
             let errorMessage: string = "Error! Spending Record Submission Failed!";
