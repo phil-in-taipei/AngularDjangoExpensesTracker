@@ -13,7 +13,7 @@ export function getYearsOptions(): number[] {
 export function generateDateString(date: Date): string {
   let monthStr: string;
   let dayOfMonthStr: string;
-  let month = date.getMonth();
+  let month = date.getMonth() + 1;
   let dayOfMonth = date.getDate();
   if (month < 10) {
     monthStr = `0${month}`;
@@ -37,12 +37,10 @@ export function generateDateOneMonthFromToday(): string {
 export function generateListOfThreeTestDates(): [string, string, string] {
   let today: Date = new Date();
   const listOfThreeDatesThisMonth:[string, string, string]  = [
-    generateDateString(today), 
+    getSecondDateofMonthStr(today.getMonth() + 1, today.getFullYear()), 
     getFirstDateofMonthStr(today.getMonth() + 1, today.getFullYear()),
-    getLastDateofMonthStr(today.getMonth() + 1, today.getFullYear())
+    getLastDateOfMonthStr(today.getMonth() + 1, today.getFullYear())
   ];
-  console.log('these are the 3 dates this month being generated:')
-  console.log(listOfThreeDatesThisMonth);
   return listOfThreeDatesThisMonth;
 }
 
@@ -56,7 +54,7 @@ export function getFirstDateofMonthStr(month: number, year: number):string {
   return dateStr
 }
 
-export function getLastDateofMonthStr(month: number, year: number):string {
+export function getFirstDateofNextMonthStr(month: number, year: number):string {
   let dateStr: string;
   let newMonth: number;
   let newYear: number;
@@ -71,6 +69,25 @@ export function getLastDateofMonthStr(month: number, year: number):string {
     dateStr = `${newYear}-0${newMonth}-01`;
   } else {
     dateStr = `${newYear}-${newMonth}-01`;
+  }
+  return dateStr
+}
+
+export function getLastDateOfMonthStr(month: number, year: number):string {
+  let date = new Date();
+  date.setFullYear(year);
+  date.setMonth(month);
+  date.setDate(1);
+  date.setDate(date.getDate() -1);
+  return generateDateString(date);
+}
+
+export function getSecondDateofMonthStr(month: number, year: number):string {
+  let dateStr: string;
+  if (month < 10) {
+    dateStr = `${year}-0${month}-02`;
+  } else {
+    dateStr = `${year}-${month}-02`;
   }
   return dateStr
 }

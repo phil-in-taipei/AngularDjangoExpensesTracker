@@ -1,7 +1,7 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
 import { 
-  getFirstDateofMonthStr, getLastDateofMonthStr 
+  getFirstDateofMonthStr, getLastDateOfMonthStr 
 } from 'src/app/shared-utils/date-helpers.util';
 import { SpendingRecordModel } from 'src/app/models/spending-record.model';
 import { 
@@ -66,7 +66,7 @@ export function spendingRecordsReducer(
                 console.log('this is the last date in the date range:')
                 console.log(state.dateRange[1]);
                 if(action.payload.spendingRecord.date >= state.dateRange[0] 
-                    && action.payload.spendingRecord.date < state.dateRange[1]) {
+                    && action.payload.spendingRecord.date <= state.dateRange[1]) {
                         return adapter.addOne(action.payload.spendingRecord, 
                             { ...state,
                               errorMessage: undefined,
@@ -138,7 +138,7 @@ export function spendingRecordsReducer(
             let month:number = +action.payload.month;
             let year:number = +action.payload.year;
             let firstDate = getFirstDateofMonthStr(month, year);
-            let lastDate = getLastDateofMonthStr(month, year);
+            let lastDate = getLastDateOfMonthStr(month, year);
             return {
                  ...state,  dateRange: [firstDate, lastDate],
                   spendingRecordsLoaded:false 

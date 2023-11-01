@@ -18,7 +18,7 @@ import {
     SpendingRecordsCleared, SpendingRecordsLoaded, SpendingRecordsRequested
 } from "./spending-records.actions";
 
-fdescribe('spendingRecordsReducer', () => {
+describe('spendingRecordsReducer', () => {
     it('returns an initial state when cleared', () =>{
         const state = spendingRecordsReducer(
             stateWithSpendingRecordsLoaded.spending, 
@@ -31,7 +31,7 @@ fdescribe('spendingRecordsReducer', () => {
         () => {
         const today: Date = new Date();
         const state = spendingRecordsReducer(stateAfterSpendingRecordsRequestAwaitingLoading.spending, 
-            new SpendingRecordsRequested({ month: today.getMonth(), year: today.getFullYear() }));
+            new SpendingRecordsRequested({ month: today.getMonth() + 1, year: today.getFullYear() }));
         expect(state).toEqual(stateAfterSpendingRecordsRequestAwaitingLoading.spending);
     });
 
@@ -45,8 +45,6 @@ fdescribe('spendingRecordsReducer', () => {
     it('returns the state with new spending record entity and indicates that ' 
         + 'the spending record has been sucessfully submitted -- ' 
         + 'if the new spending record is within the date range', () => {
-            console.log('this is the newly created spending record:')
-            console.log(createdSpendingRecord);
         const state = spendingRecordsReducer(stateWithSpendingRecordsLoaded.spending, 
         new SpendingRecordAdded({ spendingRecord: createdSpendingRecord }));
         expect(state).toEqual(stateAfterNewSpendingRecordSubmittedInDateRange.spending);
@@ -55,8 +53,6 @@ fdescribe('spendingRecordsReducer', () => {
     it('returns the state without the new spending record entity and indicates that ' 
         + 'the spending record has been sucessfully submitted -- ' 
         + 'if the new spending record is in not within the date range', () => {
-            console.log('this is the newly created spending record next month:')
-            console.log(createdSpendingRecordNextMonth);
         const state = spendingRecordsReducer(stateWithSpendingRecordsLoaded.spending, 
         new SpendingRecordAdded({ spendingRecord: createdSpendingRecordNextMonth }));
         expect(state).toEqual(stateAfterNewSpendingRecordSubmittedOutOfDateRange.spending);

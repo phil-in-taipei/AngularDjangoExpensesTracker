@@ -10,7 +10,7 @@ const threeDatesThisMonth: [string, string, string] = generateListOfThreeTestDat
 const dateRangeThisMonth: [string, string] = [threeDatesThisMonth[1], threeDatesThisMonth[2]]
 const ids:number[] = [ spendingRecordsData[1].id, spendingRecordsData[0].id ];
 const idsAfterNewExpenseAdded:number[] = [
-  spendingRecordsData[1].id, createdSpendingRecord.id, spendingRecordsData[0].id
+  spendingRecordsData[1].id, spendingRecordsData[0].id, createdSpendingRecord.id, 
 ];
 
 const entities:Dictionary<SpendingRecordModel> = {
@@ -86,7 +86,7 @@ export const stateAfterNewSpendingRecordSubmittedOutOfDateRange = {
 
 export const stateAfterSpendingRecordsRequestAwaitingLoading = {
   spending: {
-    ids: ids,
+    ids: [],
     dateRange: dateRangeThisMonth,
     entities: entities,
     errorMessage: undefined,

@@ -57,7 +57,7 @@ describe('SpendingRecordsEffects', () => {
                   new SpendingRecordDeletionRequested(
                       {id: spendingRecordDeletionResponse.id}
                   ),
-                  new SpendingRecordsRequested({ month: today.getMonth(), year: today.getFullYear() }),
+                  new SpendingRecordsRequested({ month: today.getMonth() + 1, year: today.getFullYear() }),
                   new SpendingRecordSubmitted(
                       { spendingRecord: newSpendingRecordData}
                   )
