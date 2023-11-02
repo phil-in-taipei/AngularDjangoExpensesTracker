@@ -1,6 +1,7 @@
 import datetime
 from dateutil.relativedelta import relativedelta
 from django.db import models
+from django.db.models.signals import pre_delete
 from django.utils.translation import gettext as _
 
 from financial_accounts.models import SavingsAccount
@@ -63,6 +64,7 @@ class Deposit(models.Model):
             str(self.savings_account),
             self.amount,
         ).title()
+
 
     def save(self, *args, **kwargs):
         super(Deposit, self).save(*args, **kwargs)
@@ -127,7 +129,29 @@ class Withdrawal(models.Model):
         ).title()
 
     def save(self, *args, **kwargs):
+        print('now saving the withdrawal obj')
+
         super(Withdrawal, self).save(*args, **kwargs)
         # updates the account balance in the foreign key field
         self.savings_account.account_balance -=  self.amount
         self.savings_account.save()
+
+
+def add_amount_back_on_account_balance(sender, instance, **kwargs):
+    print('adding amount back on account balance')
+    savings_account = instance.savings_account
+    amount = instance.amount
+    savings_account.account_balance += amount
+    savings_account.save()
+
+
+def subtract_amount_back_from_account_balance(sender, instance, **kwargs):
+    print('subtracting amount back from account balance')
+    savings_account = instance.savings_account
+    amount = instance.amount
+    savings_account.account_balance -= amount
+    savings_account.save()
+
+
+pre_delete.connect(add_amount_back_on_account_balance, sender=Withdrawal)
+pre_delete.connect(subtract_amount_back_from_account_balance, sender=Deposit)
