@@ -35,17 +35,19 @@ fdescribe('SpendingRecordsService', () => {
       const today: Date = new Date();
       authServiceSpy.getAuthToken.and.returnValue(authData.token);
       service.fetchSpendingRecordsByMonthAndYear(
-        today.getMonth(), today.getFullYear()).subscribe(
+        today.getMonth() + 1, today.getFullYear()).subscribe(
         () => {},
         error => {
           expect(error).toBeTruthy();
         }
       );
-    
+      
+      // getMonth() returns values beginning with '0' -- 1 must be added to get
+      // current month value to be correctly queried on backend 
       const request = httpTestingController.expectOne({
         method: 'GET',
         url:`${environment.apiUrl}/api/expenses/spending-records/by-month-year/` 
-        + `${today.getMonth()}/${today.getFullYear()}/`,
+        + `${today.getMonth() + 1}/${today.getFullYear()}/`,
       });
 
       request.error(new ErrorEvent('network error'));
@@ -98,17 +100,19 @@ fdescribe('SpendingRecordsService', () => {
 
   it("should return the array of users' spending records for this month from the api", 
     fakeAsync(() => {
+      // getMonth() returns values beginning with '0' -- 1 must be added to get
+      // current month value to be correctly queried on backend 
       const today: Date = new Date();
       authServiceSpy.getAuthToken.and.returnValue(authData.token);
       service.fetchSpendingRecordsByMonthAndYear(
-        today.getMonth(), today.getFullYear()
+        today.getMonth() + 1, today.getFullYear()
         ).subscribe(response => {
         expect(response).toEqual(spendingRecordsData);
       });
       const request = httpTestingController.expectOne({
         method: 'GET',
         url:`${environment.apiUrl}/api/expenses/spending-records/by-month-year/` 
-            + `${today.getMonth()}/${today.getFullYear()}/`,
+            + `${today.getMonth() + 1}/${today.getFullYear()}/`,
       });
 
       request.flush(spendingRecordsData);
