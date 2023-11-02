@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'expenses',
     'financial_accounts',
     'income',
+    'transactions',
     'user_profiles',
 ]
 

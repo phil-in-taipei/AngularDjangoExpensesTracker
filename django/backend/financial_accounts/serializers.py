@@ -23,3 +23,12 @@ class SavingsAccountSerializer(serializers.ModelSerializer):
         model = SavingsAccount
         fields = '__all__'
 
+
+class SavingsAccountTransactionFieldSerializer(serializers.ModelSerializer):
+    bank = BankSerializer(read_only=True)
+    currency = CurrencySerializer(read_only=True)
+
+    class Meta:
+        model = SavingsAccount
+        fields = ('id', 'account_name', 'bank', 'currency')
+
