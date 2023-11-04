@@ -40,23 +40,22 @@ class AccountTransactionsByMonthAndYear(APIView):
             # income source if it is a deposit -- the type will
             # be optional in the frontend Typescript interface
             if transaction.transaction == "Deposit":
-                json_obj = {
+                query_list.append({
                     "id": transaction.id,
                     "transaction": transaction.transaction,
                     "amount": transaction.amount,
                     "date": transaction.date,
                     "income_source": transaction.income_source.id,
                     "savings_account": transaction.savings_account.id,
-                }
+                })
             else:
-                json_obj = {
+                query_list.append({
                     "id": transaction.id,
                     "transaction": transaction.transaction,
                     "amount": transaction.amount,
                     "date": transaction.date,
                     "savings_account": transaction.savings_account.id,
-                }
-            query_list.append(json_obj)
+                })
         return Response(query_list)
 
 
