@@ -65,6 +65,9 @@ class Deposit(models.Model):
             self.amount,
         ).title()
 
+    @property
+    def transaction(self):
+        return "Deposit"
 
     def save(self, *args, **kwargs):
         super(Deposit, self).save(*args, **kwargs)
@@ -128,9 +131,11 @@ class Withdrawal(models.Model):
             self.amount,
         ).title()
 
-    def save(self, *args, **kwargs):
-        print('now saving the withdrawal obj')
+    @property
+    def transaction(self):
+        return "Withdrawal"
 
+    def save(self, *args, **kwargs):
         super(Withdrawal, self).save(*args, **kwargs)
         # updates the account balance in the foreign key field
         self.savings_account.account_balance -=  self.amount
@@ -138,7 +143,8 @@ class Withdrawal(models.Model):
 
 
 def add_amount_back_on_account_balance(sender, instance, **kwargs):
-    print('adding amount back on account balance')
+    # adding amount back on account balance after deleting
+    # withdrawal object
     savings_account = instance.savings_account
     amount = instance.amount
     savings_account.account_balance += amount
@@ -146,7 +152,8 @@ def add_amount_back_on_account_balance(sender, instance, **kwargs):
 
 
 def subtract_amount_back_from_account_balance(sender, instance, **kwargs):
-    print('subtracting amount back from account balance')
+    # subtracts amount back from account balance
+    # after deleting deposit object
     savings_account = instance.savings_account
     amount = instance.amount
     savings_account.account_balance -= amount

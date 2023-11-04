@@ -1,11 +1,63 @@
-import datetime
-from rest_framework import generics, status, viewsets
+import json
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Deposit, Withdrawal
 from .serializers import DepositSerializer, WithdrawalSerializer
+
+
+class AccountTransactionsByMonthAndYear(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def get(self, *args, **kwargs):
+        query_list = []
+        transactions = []
+        savings_account_id = self.kwargs.get("savings_account_id")
+        month = self.kwargs.get("month")
+        year = self.kwargs.get("year")
+
+        deposits = Deposit.custom_query \
+            .account_deposits_for_queried_month_and_year(
+                savings_account_id=savings_account_id,
+                month=month, year=year
+        )
+
+        for i in range(len(deposits)):
+            transactions.append(deposits[i])
+
+        withdrawals = Withdrawal.custom_query \
+            .account_withdrawals_for_queried_month_and_year(
+                savings_account_id=savings_account_id,
+                month=month, year=year
+        )
+        for i in range(len(withdrawals)):
+            transactions.append(withdrawals[i])
+
+        for transaction in transactions:
+            # the transaction will have an additional field for the
+            # income source if it is a deposit -- the type will
+            # be optional in the frontend Typescript interface
+            if transaction.transaction == "Deposit":
+                json_obj = {
+                    "id": transaction.id,
+                    "transaction": transaction.transaction,
+                    "amount": transaction.amount,
+                    "date": transaction.date,
+                    "income_source": transaction.income_source.id,
+                    "savings_account": transaction.savings_account.id,
+                }
+            else:
+                json_obj = {
+                    "id": transaction.id,
+                    "transaction": transaction.transaction,
+                    "amount": transaction.amount,
+                    "date": transaction.date,
+                    "savings_account": transaction.savings_account.id,
+                }
+            query_list.append(json_obj)
+        return Response(query_list)
 
 
 class DepositModelViewSet(viewsets.ModelViewSet):
