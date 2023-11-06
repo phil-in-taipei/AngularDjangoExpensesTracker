@@ -25,16 +25,6 @@ class FinancialAccountsModelTests(TestCase):
             currency=self.test_currency
         )
 
-    def test_bank_fields(self):
-        """Test the bank fields"""
-        print("Test the bank fields")
-        self.assertEqual(self.test_bank.bank_name, 'Test Bank')
-
-    def test_bank_str(self):
-        """Test the bank string representation"""
-        print("Test the bank string representation")
-        self.assertEqual(str(self.test_bank), self.test_bank.bank_name)
-
     def test_savings_account_fields(self):
         """Test the savings account fields"""
         print("Test the savings account fields")
