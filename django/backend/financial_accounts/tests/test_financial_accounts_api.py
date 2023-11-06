@@ -1,3 +1,4 @@
+import json
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework import status
@@ -136,4 +137,26 @@ class FinancialAccountsPrivateApiTests(TestCase):
         # savings account no longer exists
         with self.assertRaises(SavingsAccount.DoesNotExist):
             SavingsAccount.objects.get(id=account_id)
+    '''
+        def test_user_can_create_savings_account(self):
+        "Test that user can create savings account"""
+        print("Test that user user can create savings account")
+        payload = {
+                'username': 'TestUser2',
+                'password': 'testpassword',
+                're_password': 'testpassword',
+                'profile': {
+                    'contact_email': 'testemail@gmx.com',
+                    'surname': 'McTest2',
+                    'given_name': 'Test'
+                }
+            }
+        res = self.client.post(
+            SAVINGS_ACCOUNTS_LIST_URL, data=json.dumps(payload),
+            content_type='application/json')
+        self.assertTrue(
+            res.status_code == status.HTTP_201_CREATED)
+        self.assertEquals('TestUser2', User.objects.get(username='TestUser2').username)
+
+    '''
 

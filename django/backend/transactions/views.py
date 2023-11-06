@@ -45,8 +45,8 @@ class AccountTransactionsByMonthAndYear(APIView):
                 query_list.append({
                     "id": transaction.id,
                     "transaction": transaction.transaction,
-                    "amount": transaction.amount,
-                    "date": transaction.date,
+                    "amount": str(transaction.amount),
+                    "date": str(transaction.date),
                     "income_source": transaction.income_source.id,
                     "savings_account": transaction.savings_account.id,
                 })
@@ -54,8 +54,8 @@ class AccountTransactionsByMonthAndYear(APIView):
                 query_list.append({
                     "id": transaction.id,
                     "transaction": transaction.transaction,
-                    "amount": transaction.amount,
-                    "date": transaction.date,
+                    "amount": str(transaction.amount),
+                    "date": str(transaction.date),
                     "savings_account": transaction.savings_account.id,
                 })
         return Response(query_list)
@@ -66,6 +66,13 @@ class DepositModelViewSet(viewsets.ModelViewSet):
     queryset = Deposit.objects.all()
     serializer_class = DepositSerializer
     lookup_field = 'id'
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        id = instance.id
+        self.perform_destroy(instance)
+        return Response(data={"id": id,
+                        "message": "Deposit successfully deleted!"})
 
 
 class DepositsByMonthAndYearListView(APIView):
@@ -87,6 +94,13 @@ class WithdrawalModelViewSet(viewsets.ModelViewSet):
     queryset = Withdrawal.objects.all()
     serializer_class = WithdrawalSerializer
     lookup_field = 'id'
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        id = instance.id
+        self.perform_destroy(instance)
+        return Response(data={"id": id,
+                        "message": "Withdrawal successfully deleted!"})
 
 
 class WithdrawalsByMonthAndYearListView(APIView):
