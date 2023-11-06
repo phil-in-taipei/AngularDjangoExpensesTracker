@@ -9,7 +9,9 @@ from .serializers import DepositSerializer, WithdrawalSerializer
 
 
 class AccountTransactionsByMonthAndYear(APIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (
+        IsAuthenticated,
+    )
 
     def get(self, *args, **kwargs):
         query_list = []
