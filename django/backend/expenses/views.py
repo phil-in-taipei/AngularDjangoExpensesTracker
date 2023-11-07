@@ -91,6 +91,8 @@ class SpendingRecordListView(APIView):
 
     def post(self, request, *args, **kwargs):
         serializer = SpendingRecordSerializer(data=request.data)
+        print('this is the data in the view')
+        print(serializer)
         if serializer.is_valid():
             serializer.save(expense_id=request.data['expense']['id'],
                             currency_id=request.data['currency']['id'])

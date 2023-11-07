@@ -1,4 +1,5 @@
 import datetime
+import json
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework import status
@@ -10,7 +11,12 @@ from expenses.models import Expense, SpendingRecord
 EXPENSES_LIST_URL = '/api/expenses/users-expenses/'
 EXPENSE_URL = '/api/expenses/expense/'
 SPENDING_RECORD_LIST_URL = '/api/expenses/spending-records/by-month-year/'
+SPENDING_RECORD_SUBMIT_URL = '/api/expenses/spending-records/'
 SPENDING_RECORD_URL = '/api/expenses/spending-record/'
+
+CREATE_EXPENSE_PAYLOAD = {
+        'expense_name': 'Test Expense 3',
+}
 
 EDIT_EXPENSE_PAYLOAD = {
         'expense_name': 'Edited expense',
@@ -127,6 +133,19 @@ class ExpensesPrivateApiTests(TestCase):
         )
 
         self.today = datetime.date.today()
+        self.first_day_of_this_month = datetime.date.today().replace(day=1)
+
+    def test_user_can_create_expense(self):
+        "Test that authenticated user can create expense"""
+        print("Test that user user can create expense")
+
+        res = self.client.post(
+            EXPENSES_LIST_URL, data=json.dumps(CREATE_EXPENSE_PAYLOAD),
+            content_type='application/json')
+
+        self.assertTrue(
+            res.status_code == status.HTTP_201_CREATED)
+        self.assertTrue(res.data['expense_name'] == (CREATE_EXPENSE_PAYLOAD['expense_name']))
 
     def test_user_can_retrieve_expenses_list(self):
         """Test that authenticated users can retrieve expenses list"""
@@ -181,6 +200,34 @@ class ExpensesPrivateApiTests(TestCase):
         self.assertEquals(res.data[0]['amount'], '100.00')
         self.assertEquals(res.data[1]['expense']['expense_name'], 'Test Expense 2')
         self.assertEquals(res.data[1]['amount'], '200.00')
+
+    def test_user_can_create_spending_record(self):
+        "Test that authenticated user can create spending record"""
+        print("Test that authenticated user can create spending record")
+
+        payload = {
+            "amount": 200.00,
+            "currency": {
+                "id": self.test_currency.id,
+                "currency_name": self.test_currency.currency_name,
+                "currency_code": self.test_currency.currency_code
+            },
+            "date": str(self.first_day_of_this_month),
+            "expense": {
+                "id": self.test_expense_1.id,
+                "expense_name": self.test_expense_1.expense_name
+            }
+        }
+        res = self.client.post(
+            SPENDING_RECORD_SUBMIT_URL, data=json.dumps(payload),
+            content_type='application/json')
+        print(res.status_code)
+        print(res)
+        self.assertTrue(
+            res.status_code == status.HTTP_201_CREATED)
+        self.assertTrue(res.data['expense']['expense_name'] == (payload['expense']['expense_name']))
+        self.assertTrue(float(res.data['amount']) == (float(payload['amount'])))
+        self.assertTrue(res.data['date'] == str(self.first_day_of_this_month))
 
     def test_user_can_delete_spending_record(self):
         """Test that authenticated user can delete spending record"""
