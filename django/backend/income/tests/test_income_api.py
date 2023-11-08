@@ -1,3 +1,4 @@
+import json
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from rest_framework import status
@@ -74,6 +75,19 @@ class IncomeSourcesPrivateApiTests(TestCase):
             user=self.test_user,
             income_source_name="Test Income Source Name 2"
         )
+
+    def test_user_can_create_income_source(self):
+        "Test that user can create income source"""
+        print("Test that user user can create income source")
+        payload = {
+            "income_source_name": "Test Income Source Name 3",
+        }
+        res = self.client.post(
+            INCOME_SOURCE_LIST_URL, data=json.dumps(payload),
+            content_type='application/json')
+        self.assertTrue(
+            res.status_code == status.HTTP_201_CREATED)
+        self.assertEquals(res.data['income_source_name'], 'Test Income Source Name 3')
 
     def test_user_can_retrieve_income_sources_list(self):
         """Test that authenticated users can retrieve income sources list"""
