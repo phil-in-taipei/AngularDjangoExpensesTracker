@@ -137,26 +137,32 @@ class FinancialAccountsPrivateApiTests(TestCase):
         # savings account no longer exists
         with self.assertRaises(SavingsAccount.DoesNotExist):
             SavingsAccount.objects.get(id=account_id)
-    '''
-        def test_user_can_create_savings_account(self):
+
+    def test_user_can_create_savings_account(self):
         "Test that user can create savings account"""
         print("Test that user user can create savings account")
         payload = {
-                'username': 'TestUser2',
-                'password': 'testpassword',
-                're_password': 'testpassword',
-                'profile': {
-                    'contact_email': 'testemail@gmx.com',
-                    'surname': 'McTest2',
-                    'given_name': 'Test'
-                }
+            "account_name": "Test Account Name 3",
+            "bank": {
+                "id": self.test_bank.id,
+                "bank_name": self.test_bank.bank_name
+            },
+            "currency": {
+                "id": self.test_currency.id,
+                "currency_name": self.test_currency.currency_name,
+                "currency_code": self.test_currency.currency_code
             }
+        }
         res = self.client.post(
             SAVINGS_ACCOUNTS_LIST_URL, data=json.dumps(payload),
             content_type='application/json')
         self.assertTrue(
             res.status_code == status.HTTP_201_CREATED)
-        self.assertEquals('TestUser2', User.objects.get(username='TestUser2').username)
+        self.assertEquals(res.data['account_name'], 'Test Account Name 3')
+        self.assertEquals(res.data['account_owner']['id'], self.test_user.id)
+        self.assertEquals(res.data['currency']['id'], self.test_currency.id)
+        self.assertEquals(res.data['bank']['id'], self.test_bank.id)
 
-    '''
+
+
 
