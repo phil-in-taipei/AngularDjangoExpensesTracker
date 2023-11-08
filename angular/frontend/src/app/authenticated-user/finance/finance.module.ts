@@ -14,6 +14,11 @@ import { AccountSubmitFormComponent } from './savings-accounts/create-account/ac
 import { SingleSavingsAccountComponent } from './savings-accounts/savings-accounts-list/single-savings-account/single-savings-account.component';
 import { EditAccountComponent } from './savings-accounts/edit-account/edit-account.component';
 import { AccountEditFormComponent } from './savings-accounts/edit-account/account-edit-form/account-edit-form.component';
+import { DepositsListComponent } from './transactions/deposits/deposits-list/deposits-list.component';
+import { CreateDepositComponent } from './transactions/deposits/create-deposit/create-deposit.component';
+import { WithdrawalsListComponent } from './transactions/withdrawals/withdrawals-list/withdrawals-list.component';
+import { CreateWithdrawalComponent } from './transactions/withdrawals/create-withdrawal/create-withdrawal.component';
+import { MixedTransactionsByAccountListComponent } from './transactions/mixed-by-account/mixed-transactions-by-account-list/mixed-transactions-by-account-list.component';
 
 
 @NgModule({
@@ -24,7 +29,12 @@ import { AccountEditFormComponent } from './savings-accounts/edit-account/accoun
     AccountSubmitFormComponent,
     SingleSavingsAccountComponent,
     EditAccountComponent,
-    AccountEditFormComponent
+    AccountEditFormComponent,
+    DepositsListComponent,
+    CreateDepositComponent,
+    WithdrawalsListComponent,
+    CreateWithdrawalComponent,
+    MixedTransactionsByAccountListComponent
   ],
   imports: [
     CommonModule,
