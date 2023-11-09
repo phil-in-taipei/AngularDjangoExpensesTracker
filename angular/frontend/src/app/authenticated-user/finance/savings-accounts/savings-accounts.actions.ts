@@ -1,5 +1,5 @@
 import { Action} from "@ngrx/store";
-import { Update } from "@ngrx/entity";
+//import { Update } from "@ngrx/entity";
 
 import { 
     SavingsAccountCreateModel,
@@ -75,9 +75,9 @@ export class SavingsAccountEditSubmitted implements Action {
 }
 
 export class SavingsAccountEditUpdated implements Action {
-    readonly type = SavingsAccountsActionTypes.SavingsAccountEditUpdated;
+    readonly type = SavingsAccountsActionTypes.SavingsAccountEditUpdated; //import { Update } from "@ngrx/entity";
   
-    constructor(public payload: {  savingsAccount: Update<SavingsAccountModel> }) {
+    constructor(public payload: {  savingsAccount: SavingsAccountModel }) { //Update<SavingsAccountModel>
     }
 }
 

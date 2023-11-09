@@ -1,4 +1,6 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
+//import { Update } from "@ngrx/entity";
+
 
 import { 
     SavingsAccountModel 
@@ -99,7 +101,12 @@ export function savingsAccountsReducer(
             }
 
         case SavingsAccountsActionTypes.SavingsAccountEditUpdated:
-            return adapter.updateOne(action.payload.savingsAccount, {...state,
+            console.log('attempting alternative updating approach')
+            return adapter.updateOne(
+                {   id: action.payload.savingsAccount.id, 
+                    changes: action.payload.savingsAccount 
+                }, 
+                {...state,
                 errorMessage:undefined,
                 successMessage: 'You have successfully updated the account info!'}
             );
