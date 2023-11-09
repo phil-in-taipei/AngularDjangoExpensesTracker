@@ -1,1 +1,10 @@
-<p>create-deposit works!</p>
+<div *ngIf="incomeSources$ | async as incomeSources">
+  <div *ngIf="savingsAccounts$ | async as savingsAccounts">
+    <hr class="thick-br"/>
+    <app-deposit-submit-form
+      [incomeSources]=incomeSources
+      [savingsAccounts]=savingsAccounts>
+    </app-deposit-submit-form>
+    <hr class="thick-br"/>
+  </div>
+</div>

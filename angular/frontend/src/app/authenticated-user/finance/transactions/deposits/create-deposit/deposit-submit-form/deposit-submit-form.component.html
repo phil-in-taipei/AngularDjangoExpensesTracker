@@ -1,1 +1,93 @@
-<p>deposit-submit-form works!</p>
+<div *ngIf="newDeposit$ | async as newDeposit">
+    <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+        <h6>Deposit Successfully Submitted!</h6>
+        <button type="button" class="btn-close" (click)="onClearNewlySubmittedDeposit()"
+        data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+<div *ngIf="errorMessage">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h4 class="text-danger">{{ errorMessage }}</h4>
+      <button type="button" class="btn-close" (click)="onClearErrorMessage()"
+      data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+<div>
+    <form (submit)="onSubmitDeposit(depositForm)" #depositForm="ngForm">
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="date" [(ngModel)]="dateModel" ngbDatepicker #date="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="date.toggle()" type="button">
+              Select Date</button>
+            </div>
+          </div>
+      <div>
+          <label>Savings Account</label>
+            <select
+            class="form-control"
+            name="savings_account"
+            class="form-control"
+            ngModel
+            required
+            #savings_account="ngModel"
+            >
+            <option *ngFor="let savingsAccount of savingsAccounts"
+                [value]=savingsAccount.id
+            >{{ savingsAccount.bank.bank_name }} -- Account: {{ savingsAccount.id }}
+            </option>
+            </select>
+            <div *ngIf="savings_account.touched && savings_account.invalid">
+              Please select a savings account.
+            </div>
+      </div>
+      <br />
+      <div>
+        <label>Income Source</label>
+          <select
+          class="form-control"
+          name="income_source"
+          class="form-control"
+          ngModel
+          required
+          #income_source="ngModel"
+          >
+          <option *ngFor="let incomeSource of incomeSources"
+              [value]=incomeSource.id
+          >{{ incomeSource.income_source_name }}
+          </option>
+          </select>
+          <div *ngIf="income_source.touched && income_source.invalid">
+            Please select an income source.
+          </div>
+    </div>
+      <br />
+      <div>
+          <label>Amount</label>
+          <input
+          class="form-control"
+          type="number"
+          min="0.00"
+          max="20000"
+          rows="4"
+          name="amount"
+          ngModel
+          required
+          placeholder="0.00"
+          #amount="ngModel"
+          >
+          <div *ngIf="amount.touched && amount.invalid">
+            Please enter an amount.
+          </div>
+      </div>
+      <br />
+      <div>
+        <button class="btn btn-outline-secondary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <br />
+  </div>

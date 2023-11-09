@@ -24,7 +24,7 @@ export const savingsAccountErrorMsg = createSelector(
     selectSavingsAccountsState,
     savingsAccountState => savingsAccountState.errorMessage
   );
-  
+
   export const savingsAccountSuccessMsg = createSelector(
     selectSavingsAccountsState,
     savingsAccountState => savingsAccountState.successMessage

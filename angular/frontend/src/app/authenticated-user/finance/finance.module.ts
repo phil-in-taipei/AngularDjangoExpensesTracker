@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule }   from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
 
 import { FinanceRoutingModule } from './finance-routing.module';
@@ -44,6 +45,7 @@ import { NewlyCreatedDepositComponent } from './transactions/deposits/create-dep
     CommonModule,
     FinanceRoutingModule,
     FormsModule,
+    NgbModule,
     StoreModule.forFeature('accounts', savingsAccountsReducer),
     EffectsModule.forFeature([SavingsAccountsEffects]),
   ]
