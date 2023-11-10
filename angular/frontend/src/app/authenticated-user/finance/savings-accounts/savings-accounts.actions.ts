@@ -19,6 +19,7 @@ export enum SavingsAccountsActionTypes {
     SavingsAccountEditCancelled= '[Edit Savings Account Page] Edit Savings Account Cancelled',
     SavingsAccountEditSubmitted = '[Edit Savings Account Page] Edited Savings Account Submitted',
     SavingsAccountEditUpdated = '[Savings Accounts Page] Edited Savings Account Updated',
+    SavingsAccountDepositSubmitted = '[Create Deposit Page] Updated Savings Account Balance Submitted',
     SavingsAccountsCleared = '[View User Logout] Savings Accounts Removed',
     SavingsAccountsMessagesCleared = '[Create Savings Accounts Page] Savings Accounts Messages Cleared',
 };
@@ -57,6 +58,13 @@ export class SavingsAccountDeletionSaved implements Action {
   
     constructor(public payload: { id: number, message: string }) {}
 }
+
+export class SavingsAccountDepositSubmitted implements Action {
+    readonly type = SavingsAccountsActionTypes.SavingsAccountDepositSubmitted;
+  
+    constructor(public payload: { id: number, amount: number }) {}
+} 
+
 
 export class SavingsAccountEditCancelled implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountEditCancelled;
@@ -113,6 +121,7 @@ export type SavingsAccountActions =  SavingsAccountAdded |
     SavingsAccountEditCancelled | SavingsAccountEditSubmitted |
     SavingsAccountEditUpdated | SavingsAccountDeletionCancelled |
     SavingsAccountDeletionRequested | SavingsAccountDeletionSaved |
+    SavingsAccountDepositSubmitted |
     SavingsAccountAddedCancelled | SavingsAccountsCleared |
     SavingsAccountsLoaded | SavingsAccountMessagesCleared |
     SavingsAccountsRequested | SavingsAccountSubmitted;

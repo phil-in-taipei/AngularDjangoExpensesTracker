@@ -3,19 +3,22 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AppState } from '../../../reducers';
 import { select, Store } from '@ngrx/store';
 import { throwError, of } from 'rxjs';
-import { catchError, filter, map,
-    mergeMap, withLatestFrom } from "rxjs/operators";
+import { catchError, combineLatestWith, filter, map,
+    mergeMap, switchMap, withLatestFrom, tap } from "rxjs/operators";
 
 import { 
     SavingsAccountAdded, SavingsAccountAddedCancelled, 
     SavingsAccountEditCancelled, SavingsAccountEditSubmitted,
     SavingsAccountEditUpdated, SavingsAccountDeletionCancelled,
     SavingsAccountDeletionRequested, SavingsAccountDeletionSaved,
+    SavingsAccountDepositSubmitted,
     SavingsAccountSubmitted, SavingsAccountsActionTypes, 
     SavingsAccountsLoaded, SavingsAccountsRequested 
 } from './savings-accounts.actions';
 import { SavingsAccountsService } from './savings-accounts.service';
-import { savingsAccountsLoaded } from './savings-accounts.selectors';
+import { 
+    savingsAccountsLoaded, selectSavingsAccountById 
+} from './savings-accounts.selectors';
 
 @Injectable()
 export class SavingsAccountsEffects {
@@ -110,6 +113,24 @@ export class SavingsAccountsEffects {
                 )
             )
     });
+
+    /*
+
+    updateSavingsAccountBalanceAfterDeposit$ = createEffect(() => {
+        return this.actions$.pipe(
+            ofType<SavingsAccountDepositSubmitted>(
+                SavingsAccountsActionTypes.SavingsAccountDepositSubmitted
+                ),
+            switchMap(action =>
+              of(action).pipe(
+                combineLatestWith(
+                  this.store.pipe(select(selectSavingsAccountById(action.payload.id))
+                ),
+                pipe(([action: Action,savingsAccount ]) => {
+                    tap()
+                })
+     });
+     */
 
     constructor(private actions$: Actions, 
         private savingsAccountsService: SavingsAccountsService, 
