@@ -104,8 +104,8 @@ export class SavingsAccountsEffects {
                         )
                   ),
                   map(savingsAccount => new SavingsAccountEditUpdated(
-                    { savingsAccount
-                        //{ id: savingsAccount.id, changes: savingsAccount}
+                    { savingsAccount:
+                        { id: savingsAccount.id, changes: savingsAccount}
                     }),
                 )
             )

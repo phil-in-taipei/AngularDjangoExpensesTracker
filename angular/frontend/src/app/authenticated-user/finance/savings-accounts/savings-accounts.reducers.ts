@@ -102,13 +102,11 @@ export function savingsAccountsReducer(
 
         case SavingsAccountsActionTypes.SavingsAccountEditUpdated:
             console.log('attempting alternative updating approach')
-            return adapter.updateOne(
-                {   id: action.payload.savingsAccount.id, 
-                    changes: action.payload.savingsAccount 
-                }, 
-                {...state,
-                errorMessage:undefined,
-                successMessage: 'You have successfully updated the account info!'}
+            return adapter.updateOne(action.payload.savingsAccount, 
+                {
+                    ...state, errorMessage:undefined,
+                    successMessage: 'You have successfully updated the account info!'
+                }
             );
 
         case SavingsAccountsActionTypes.SavingsAccountsCleared:
