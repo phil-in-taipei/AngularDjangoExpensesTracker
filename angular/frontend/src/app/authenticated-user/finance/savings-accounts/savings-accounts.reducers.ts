@@ -69,7 +69,6 @@ export function savingsAccountsReducer(
             }
 
         case SavingsAccountsActionTypes.SavingsAccountDepositSaved:
-            action.payload.savingsAccount.account_balance += action.payload.amount;
             return adapter.updateOne(
                 {
                     id: action.payload.savingsAccount.id, 

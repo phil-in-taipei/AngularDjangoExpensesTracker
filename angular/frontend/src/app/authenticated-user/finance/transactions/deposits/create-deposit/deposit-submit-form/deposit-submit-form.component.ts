@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable, of, catchError } from "rxjs";
+import { Observable, of, catchError, map, pipe } from "rxjs";
 import { Store } from '@ngrx/store';
 
 import { AppState } from 'src/app/reducers';
@@ -8,6 +8,7 @@ import { DepositCreateModel, TransactionModel } from 'src/app/models/transaction
 import { IncomeSourceModel } from 'src/app/models/income-source.model';
 import { SavingsAccountModel } from 'src/app/models/savings-account.model';
 import { TransactionsService } from '../../../transactions.service';
+import { UpdateAccountBalanceService } from '../../../update-account-balance.service';
 
 @Component({
   selector: 'app-deposit-submit-form',
@@ -17,15 +18,16 @@ import { TransactionsService } from '../../../transactions.service';
 export class DepositSubmitFormComponent implements OnInit {
 
   dateModel: Date;
-  //newDeposit: TransactionModel | undefined = undefined;
+  newDeposit: TransactionModel | undefined = undefined;
   newDeposit$: Observable<TransactionModel | undefined> = of(undefined);
   @Input() incomeSources: IncomeSourceModel[];
   @Input() savingsAccounts: SavingsAccountModel[];
   errorMessage: string | undefined = undefined;
 
   constructor(
-    private store: Store<AppState>, 
-    private transactionsService: TransactionsService
+    private store: Store<AppState>,
+    private transactionsService: TransactionsService,
+    private updateAccountBalanceService: UpdateAccountBalanceService
     ) { }
 
   ngOnInit(): void {
@@ -55,7 +57,33 @@ export class DepositSubmitFormComponent implements OnInit {
     };
     console.log('this is the data to be sent to backend:')
     console.log(data);
-    this.newDeposit$ = this.transactionsService.submitNewDeposit(data).pipe(
+    //this.newDeposit$ = this.transactionsService.submitNewDeposit(data);
+    this.transactionsService.submitNewDeposit(data)
+      .subscribe(
+        res => {
+          console.log('this is the response', res)
+          this.newDeposit = res
+          if (res.savings_account && res.amount) {
+            this.updateAccountBalanceService
+            .updateAccountBalanceFollowingDeposit(res.savings_account, res.amount);
+          }
+        }
+      );
+    /*
+    this.transactionsService.submitNewDeposit(data).pipe(
+      map(((newDeposit: TransactionModel | undefined) => {
+          console.log(newDeposit)
+          if (newDeposit === undefined) {
+
+            console.log('it is undefined')
+          } else {
+            this.newDeposit = newDeposit;
+            console.log('it is defined')
+            this.updateAccountBalanceService
+            .updateAccountBalanceFollowingDeposit(newDeposit.id, newDeposit.amount);
+          }
+        }
+       ),
       catchError(error => {
         if (error.error instanceof ErrorEvent) {
             this.errorMessage = `Error: ${error.error.message}`;
@@ -63,16 +91,10 @@ export class DepositSubmitFormComponent implements OnInit {
             this.errorMessage = `Error: ${error.message}`;
         }
         return of(undefined);
-    })
+    }),
+    ))
 
-    )
-    //this.transactionsService.submitNewDeposit(data).subscribe(
-    //  (response: TransactionModel) => { 
-    //    console.log(response)
-    //  },
-  	//  (error) => { 
-    //    console.log(error); 
-    //  });
+    */
     form.reset();
   };
 

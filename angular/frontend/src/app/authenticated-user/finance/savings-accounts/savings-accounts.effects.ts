@@ -115,8 +115,8 @@ export class SavingsAccountsEffects {
             )
     });
 
-
     /*
+    
     updateSavingsAccountBalanceAfterDeposit$ = createEffect(() => {
        return this.actions$
             .pipe(
@@ -124,13 +124,14 @@ export class SavingsAccountsEffects {
                     SavingsAccountsActionTypes.SavingsAccountDepositSubmitted),
                 switchMap(action =>
                     of(action).pipe(
-                        combineLatestWith(
+                        withLatestFrom( // combineLatestWith
                         this.store.pipe(select(selectSavingsAccountById(action.payload.id)),
                         filter(
                             (savingsAccount) => savingsAccount != undefined),
-                            map(savingsAccount => new SavingsAccountDepositSaved(
-                                { amount: action.payload.amount, savingsAccount: savingsAccount })
-                            ),
+                        mergeMap((savingsAccount) => {
+                            this.store.dispatch(new SavingsAccountDepositSaved(
+                                { amount: action.payload.amount, savingsAccount: savingsAccount }))
+                            }),
                             catchError(err => {
                                 this.store.dispatch(
                                     new SavingsAccountEditCancelled({ err })
