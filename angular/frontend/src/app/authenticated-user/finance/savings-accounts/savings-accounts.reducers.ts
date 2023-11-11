@@ -1,5 +1,4 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
-//import { Update } from "@ngrx/entity";
 
 
 import { 
@@ -68,6 +67,18 @@ export function savingsAccountsReducer(
                 ...state,  successMessage: undefined,
                 errorMessage: errorMessage
             }
+
+        case SavingsAccountsActionTypes.SavingsAccountDepositSaved:
+            action.payload.savingsAccount.account_balance += action.payload.amount;
+            return adapter.updateOne(
+                {
+                    id: action.payload.savingsAccount.id, 
+                    changes: action.payload.savingsAccount}, 
+                {
+                    ...state, errorMessage:undefined,
+                    successMessage: 'You have successfully updated the account info!'
+                }
+            );
 
         case SavingsAccountsActionTypes.SavingsAccountDeletionCancelled:
             let errMsg: string = "Error! Savings Account Deletion Failed!";

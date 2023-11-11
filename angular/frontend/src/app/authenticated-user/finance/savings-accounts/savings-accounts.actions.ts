@@ -1,10 +1,10 @@
 import { Action} from "@ngrx/store";
 import { Update } from "@ngrx/entity";
 
-import { 
+import {
     SavingsAccountCreateModel,
     SavingsAccountEditModel,
-    SavingsAccountModel 
+    SavingsAccountModel
 } from "src/app/models/savings-account.model";
 
 export enum SavingsAccountsActionTypes {
@@ -20,71 +20,77 @@ export enum SavingsAccountsActionTypes {
     SavingsAccountEditSubmitted = '[Edit Savings Account Page] Edited Savings Account Submitted',
     SavingsAccountEditUpdated = '[Savings Accounts Page] Edited Savings Account Updated',
     SavingsAccountDepositSubmitted = '[Create Deposit Page] Updated Savings Account Balance Submitted',
+    SavingsAccountDepositSaved = '[Create Deposit Page] Savings Account Balance Updated Following Deposit',
     SavingsAccountsCleared = '[View User Logout] Savings Accounts Removed',
     SavingsAccountsMessagesCleared = '[Create Savings Accounts Page] Savings Accounts Messages Cleared',
 };
 
 export class SavingsAccountAdded implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountAdded;
-  
-    constructor(public payload: 
+
+    constructor(public payload:
         {  savingsAccount: SavingsAccountModel }) {}
 }
 
 export class SavingsAccountAddedCancelled implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountAddedCancelled;
-  
+
     constructor(public payload: {  err: any }) {
-  
+
     }
 }
 
 export class SavingsAccountDeletionCancelled implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountDeletionCancelled;
-  
+
     constructor(public payload: {  err: any }) {
-  
+
     }
 }
 
 export class SavingsAccountDeletionRequested implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountDeletionRequested;
-  
+
     constructor(public payload: { id: number }) {}
 }
 
 export class SavingsAccountDeletionSaved implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountDeletionSaved;
-  
+
     constructor(public payload: { id: number, message: string }) {}
 }
 
 export class SavingsAccountDepositSubmitted implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountDepositSubmitted;
-  
-    constructor(public payload: { id: number, amount: number }) {}
-} 
 
+    constructor(public payload: { id: number, amount: number }) {}
+}
+
+export class SavingsAccountDepositSaved implements Action {
+  readonly type = SavingsAccountsActionTypes.SavingsAccountDepositSaved;
+
+  constructor(public payload: { amount: number; savingsAccount: SavingsAccountModel}) {}
+}
 
 export class SavingsAccountEditCancelled implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountEditCancelled;
-  
+
     constructor(public payload: {  err: any }) {
-  
+
     }
 }
 
 export class SavingsAccountEditSubmitted implements Action {
 
     readonly type = SavingsAccountsActionTypes.SavingsAccountEditSubmitted;
-  
-    constructor(public payload: 
+
+    constructor(public payload:
         {  id: number, savingsAccount: SavingsAccountEditModel }) {}
 }
 
 export class SavingsAccountEditUpdated implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountEditUpdated;
-  
+
     constructor(public payload: {  savingsAccount: Update<SavingsAccountModel> }) {
     }
 }
@@ -95,7 +101,7 @@ export class SavingsAccountsCleared implements Action {
 
 export class SavingsAccountsLoaded implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountsLoaded;
-  
+
     constructor(
         public payload: { savingsAccounts: SavingsAccountModel[] }
         ) {}
@@ -111,19 +117,17 @@ export class SavingsAccountsRequested implements Action {
 
 export class SavingsAccountSubmitted implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountSubmitted;
-  
+
     constructor(
         public payload: { savingsAccount: SavingsAccountCreateModel }
         ){}
 }
 
-export type SavingsAccountActions =  SavingsAccountAdded | 
+export type SavingsAccountActions =  SavingsAccountAdded |
     SavingsAccountEditCancelled | SavingsAccountEditSubmitted |
     SavingsAccountEditUpdated | SavingsAccountDeletionCancelled |
     SavingsAccountDeletionRequested | SavingsAccountDeletionSaved |
-    SavingsAccountDepositSubmitted |
+    SavingsAccountDepositSubmitted | SavingsAccountDepositSaved |
     SavingsAccountAddedCancelled | SavingsAccountsCleared |
     SavingsAccountsLoaded | SavingsAccountMessagesCleared |
     SavingsAccountsRequested | SavingsAccountSubmitted;
-
-    

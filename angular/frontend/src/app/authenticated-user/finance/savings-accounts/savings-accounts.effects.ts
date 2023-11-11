@@ -6,18 +6,19 @@ import { throwError, of } from 'rxjs';
 import { catchError, combineLatestWith, filter, map,
     mergeMap, switchMap, withLatestFrom, tap } from "rxjs/operators";
 
-import { 
-    SavingsAccountAdded, SavingsAccountAddedCancelled, 
+import {
+    SavingsAccountAdded, SavingsAccountAddedCancelled,
     SavingsAccountEditCancelled, SavingsAccountEditSubmitted,
     SavingsAccountEditUpdated, SavingsAccountDeletionCancelled,
     SavingsAccountDeletionRequested, SavingsAccountDeletionSaved,
-    SavingsAccountDepositSubmitted,
-    SavingsAccountSubmitted, SavingsAccountsActionTypes, 
-    SavingsAccountsLoaded, SavingsAccountsRequested 
+    SavingsAccountDepositSubmitted, SavingsAccountDepositSaved,
+    SavingsAccountSubmitted, SavingsAccountsActionTypes,
+    SavingsAccountsLoaded, SavingsAccountsRequested
 } from './savings-accounts.actions';
+import { SavingsAccountModel } from 'src/app/models/savings-account.model';
 import { SavingsAccountsService } from './savings-accounts.service';
-import { 
-    savingsAccountsLoaded, selectSavingsAccountById 
+import {
+    savingsAccountsLoaded, selectSavingsAccountById
 } from './savings-accounts.selectors';
 
 @Injectable()
@@ -66,7 +67,7 @@ export class SavingsAccountsEffects {
                             )
                     )
             )
-    });  
+    });
 
     submitSavingsAccount$ = createEffect(() => {
         return this.actions$
@@ -114,25 +115,36 @@ export class SavingsAccountsEffects {
             )
     });
 
-    /*
 
+    /*
     updateSavingsAccountBalanceAfterDeposit$ = createEffect(() => {
-        return this.actions$.pipe(
-            ofType<SavingsAccountDepositSubmitted>(
-                SavingsAccountsActionTypes.SavingsAccountDepositSubmitted
-                ),
-            switchMap(action =>
-              of(action).pipe(
-                combineLatestWith(
-                  this.store.pipe(select(selectSavingsAccountById(action.payload.id))
-                ),
-                pipe(([action: Action,savingsAccount ]) => {
-                    tap()
-                })
+       return this.actions$
+            .pipe(
+                ofType<SavingsAccountDepositSubmitted>(
+                    SavingsAccountsActionTypes.SavingsAccountDepositSubmitted),
+                switchMap(action =>
+                    of(action).pipe(
+                        combineLatestWith(
+                        this.store.pipe(select(selectSavingsAccountById(action.payload.id)),
+                        filter(
+                            (savingsAccount) => savingsAccount != undefined),
+                            map(savingsAccount => new SavingsAccountDepositSaved(
+                                { amount: action.payload.amount, savingsAccount: savingsAccount })
+                            ),
+                            catchError(err => {
+                                this.store.dispatch(
+                                    new SavingsAccountEditCancelled({ err })
+                                );
+                                return of();
+                            })
+                        ))
+                    )
+                )
+            )
      });
      */
 
-    constructor(private actions$: Actions, 
-        private savingsAccountsService: SavingsAccountsService, 
+    constructor(private actions$: Actions,
+        private savingsAccountsService: SavingsAccountsService,
         private store: Store<AppState>) {}
 }
