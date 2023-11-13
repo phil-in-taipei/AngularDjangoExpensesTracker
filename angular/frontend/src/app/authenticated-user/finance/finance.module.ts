@@ -21,7 +21,8 @@ import { WithdrawalsListComponent } from './transactions/withdrawals/withdrawals
 import { CreateWithdrawalComponent } from './transactions/withdrawals/create-withdrawal/create-withdrawal.component';
 import { MixedTransactionsByAccountListComponent } from './transactions/mixed-by-account/mixed-transactions-by-account-list/mixed-transactions-by-account-list.component';
 import { DepositSubmitFormComponent } from './transactions/deposits/create-deposit/deposit-submit-form/deposit-submit-form.component';
-import { NewlyCreatedDepositComponent } from './transactions/deposits/create-deposit/newly-created-deposit/newly-created-deposit.component';
+import { NewlyCreatedDepositComponent } from './transactions/deposits/create-deposit/deposit-submit-form/newly-created-deposit/newly-created-deposit.component';
+import { CreateDepositNewBalanceComponent } from './transactions/deposits/create-deposit/deposit-submit-form/newly-created-deposit/create-deposit-new-balance/create-deposit-new-balance.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { NewlyCreatedDepositComponent } from './transactions/deposits/create-dep
     CreateWithdrawalComponent,
     MixedTransactionsByAccountListComponent,
     DepositSubmitFormComponent,
-    NewlyCreatedDepositComponent
+    NewlyCreatedDepositComponent,
+    CreateDepositNewBalanceComponent
   ],
   imports: [
     CommonModule,

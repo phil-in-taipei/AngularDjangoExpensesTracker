@@ -1,0 +1,15 @@
+<p>newly-created-deposit works!</p>
+<div *ngIf="savingsAccount$ | async as savingsAccount">
+  <h1>Here is the savings account</h1>
+    <app-create-deposit-new-balance
+      [deposit]=deposit
+      [savingsAccount]=savingsAccount>
+    </app-create-deposit-new-balance>
+</div>
+<div *ngIf="accountSubmitSuccessMsg$ | async as accountSuccessMsg">
+  <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+    <h6>{{ accountSuccessMsg }}</h6>
+    <button type="button" class="btn-close" (click)="onClearStatusMsgs()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</div>

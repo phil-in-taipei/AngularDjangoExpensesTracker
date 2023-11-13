@@ -71,7 +71,13 @@ export function savingsAccountsReducer(
         case SavingsAccountsActionTypes.SavingsAccountDepositSaved:
             // clone with spead operator and add the new value before saving the clone
             let savingsAccount = { ...action.payload.savingsAccount }
-            savingsAccount.account_balance += action.payload.amount;
+            console.log('this is the account balance prior to ')
+            console.log(savingsAccount.account_balance)
+            let newBalance:number = +savingsAccount.account_balance + +action.payload.amount
+            savingsAccount.account_balance = newBalance;
+        
+            console.log('this is the new account balance:')
+            console.log(savingsAccount.account_balance);
             return adapter.updateOne(
                 {
                     id: action.payload.savingsAccount.id,
