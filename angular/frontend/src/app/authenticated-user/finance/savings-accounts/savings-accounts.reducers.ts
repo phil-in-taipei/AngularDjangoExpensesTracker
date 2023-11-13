@@ -1,11 +1,11 @@
 import {createEntityAdapter, EntityAdapter, EntityState} from '@ngrx/entity';
 
 
-import { 
-    SavingsAccountModel 
+import {
+    SavingsAccountModel
 } from 'src/app/models/savings-account.model';
-import { 
-    SavingsAccountActions, SavingsAccountsActionTypes 
+import {
+    SavingsAccountActions, SavingsAccountsActionTypes
 } from './savings-accounts.actions';
 
 
@@ -13,7 +13,7 @@ function compareSavingsAccountsByBankName(
     a:SavingsAccountModel, b:SavingsAccountModel) {
     const accountA = a.bank.bank_name;
     const accountB = b.bank.bank_name;
-  
+
     let comparison = 0;
     if (accountA > accountB) {
       comparison = 1;
@@ -30,7 +30,7 @@ export interface SavingsAccountsState extends EntityState<SavingsAccountModel> {
     successMessage: string | undefined,
 };
 
-export const adapter: EntityAdapter<SavingsAccountModel> = 
+export const adapter: EntityAdapter<SavingsAccountModel> =
     createEntityAdapter<SavingsAccountModel>(
         { sortComparer: compareSavingsAccountsByBankName }
     );
@@ -45,10 +45,10 @@ export const initialSavingsAccountsState: SavingsAccountsState = adapter.getInit
 export function savingsAccountsReducer(
     state = initialSavingsAccountsState,
     action: SavingsAccountActions): SavingsAccountsState {
-  
+
     switch(action.type) {
         case SavingsAccountsActionTypes.SavingsAccountAdded:
-            return adapter.addOne(action.payload.savingsAccount, 
+            return adapter.addOne(action.payload.savingsAccount,
                 { ...state,
                   errorMessage: undefined,
                   successMessage: 'You have successfully submitted a new account!'
@@ -69,10 +69,14 @@ export function savingsAccountsReducer(
             }
 
         case SavingsAccountsActionTypes.SavingsAccountDepositSaved:
+            // clone with spead operator and add the new value before saving the clone
+            let savingsAccount = { ...action.payload.savingsAccount }
+            savingsAccount.account_balance += action.payload.amount;
             return adapter.updateOne(
                 {
-                    id: action.payload.savingsAccount.id, 
-                    changes: action.payload.savingsAccount}, 
+                    id: action.payload.savingsAccount.id,
+                    changes: savingsAccount
+                },
                 {
                     ...state, errorMessage:undefined,
                     successMessage: 'You have successfully updated the account info!'
@@ -93,7 +97,7 @@ export function savingsAccountsReducer(
         case SavingsAccountsActionTypes.SavingsAccountDeletionSaved:
             //console.log('now deleting the account')
             //console.log(action.payload);
-            return adapter.removeOne(action.payload.id, 
+            return adapter.removeOne(action.payload.id,
                 { ...state,
                   errorMessage: undefined,
                   successMessage: action.payload.message
@@ -112,7 +116,7 @@ export function savingsAccountsReducer(
 
         case SavingsAccountsActionTypes.SavingsAccountEditUpdated:
             console.log('attempting alternative updating approach')
-            return adapter.updateOne(action.payload.savingsAccount, 
+            return adapter.updateOne(action.payload.savingsAccount,
                 {
                     ...state, errorMessage:undefined,
                     successMessage: 'You have successfully updated the account info!'
@@ -123,7 +127,7 @@ export function savingsAccountsReducer(
             return initialSavingsAccountsState;
 
         case SavingsAccountsActionTypes.SavingsAccountsLoaded:
-            return adapter.setAll(action.payload.savingsAccounts, 
+            return adapter.setAll(action.payload.savingsAccounts,
                 {...state, savingsAccountsLoaded:true});
 
         case SavingsAccountsActionTypes.SavingsAccountsMessagesCleared:
@@ -142,4 +146,3 @@ export const {
     selectEntities,
     selectIds,
   } = adapter.getSelectors();
-

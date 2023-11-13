@@ -18,7 +18,7 @@ import { UpdateAccountBalanceService } from '../../../update-account-balance.ser
 export class DepositSubmitFormComponent implements OnInit {
 
   dateModel: Date;
-  newDeposit: TransactionModel | undefined = undefined;
+  //newDeposit: TransactionModel | undefined = undefined;
   newDeposit$: Observable<TransactionModel | undefined> = of(undefined);
   @Input() incomeSources: IncomeSourceModel[];
   @Input() savingsAccounts: SavingsAccountModel[];
@@ -57,7 +57,16 @@ export class DepositSubmitFormComponent implements OnInit {
     };
     console.log('this is the data to be sent to backend:')
     console.log(data);
-    //this.newDeposit$ = this.transactionsService.submitNewDeposit(data);
+    this.newDeposit$ = this.transactionsService.submitNewDeposit(data).pipe(
+     catchError(error => {
+       if (error.error instanceof ErrorEvent) {
+           this.errorMessage = `Error: ${error.error.message}`;
+       } else {
+           this.errorMessage = `Error: ${error.message}`;
+       }
+       return of(undefined);
+   }))
+        /*
     this.transactionsService.submitNewDeposit(data)
       .subscribe(
         res => {
@@ -69,7 +78,7 @@ export class DepositSubmitFormComponent implements OnInit {
           }
         }
       );
-    /*
+
     this.transactionsService.submitNewDeposit(data).pipe(
       map(((newDeposit: TransactionModel | undefined) => {
           console.log(newDeposit)

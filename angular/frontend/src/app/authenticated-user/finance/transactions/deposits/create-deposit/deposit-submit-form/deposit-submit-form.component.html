@@ -1,4 +1,4 @@
-<div *ngIf="newDeposit">
+<div *ngIf="newDeposit$ | async as newDeposit">
     <div class="alert alert-secondary alert-dismissible fade show" role="alert">
         <h6>Deposit Successfully Submitted!</h6>
         <button type="button" class="btn-close" (click)="onClearNewlySubmittedDeposit()"
