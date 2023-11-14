@@ -25,7 +25,7 @@ export interface SavingsAccountModel {
     bank: BankModel,
     account_name: string;
     account_owner: UserModel;
-    account_balance: number;
+    account_balance: string;
     currency: CurrencyModel;
 }
 

@@ -74,7 +74,7 @@ export function savingsAccountsReducer(
             console.log('this is the account balance prior to ')
             console.log(savingsAccount.account_balance)
             let newBalance:number = +savingsAccount.account_balance + +action.payload.amount
-            savingsAccount.account_balance = newBalance;
+            savingsAccount.account_balance = (Math.round(newBalance * 100) / 100).toFixed(2);
         
             console.log('this is the new account balance:')
             console.log(savingsAccount.account_balance);
