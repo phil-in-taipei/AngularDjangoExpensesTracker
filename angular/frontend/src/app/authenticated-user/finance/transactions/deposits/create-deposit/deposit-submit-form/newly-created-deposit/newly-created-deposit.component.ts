@@ -1,13 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 
 import { AppState } from 'src/app/reducers';
 
 import { TransactionModel } from 'src/app/models/transaction-model';
 import { SavingsAccountModel } from 'src/app/models/savings-account.model';
-import { SavingsAccountMessagesCleared } from 'src/app/authenticated-user/finance/savings-accounts/savings-accounts.actions';
-import { savingsAccountSuccessMsg } from 'src/app/authenticated-user/finance/savings-accounts/savings-accounts.selectors';
+
 import { selectSavingsAccountById } from 'src/app/authenticated-user/finance/savings-accounts/savings-accounts.selectors';
 
 @Component({
@@ -19,7 +18,7 @@ export class NewlyCreatedDepositComponent implements OnInit {
 
   @Input() deposit: TransactionModel;
   savingsAccount$: Observable<SavingsAccountModel | undefined>;
-  accountSubmitSuccessMsg$: Observable<string | undefined>;
+  accountSubmitSuccessMsg$: Observable<string | undefined> = of(undefined);
   
 
   constructor(private store: Store<AppState>) { }
@@ -32,13 +31,7 @@ export class NewlyCreatedDepositComponent implements OnInit {
       selectSavingsAccountById(this.deposit.savings_account)
     ));
     // this has to go into a child component:
-    this.accountSubmitSuccessMsg$ = this.store.pipe(
-      select(savingsAccountSuccessMsg)
-    );
-  }
 
-  onClearStatusMsgs() {
-    this.store.dispatch(new SavingsAccountMessagesCleared());
   }
 
 }
