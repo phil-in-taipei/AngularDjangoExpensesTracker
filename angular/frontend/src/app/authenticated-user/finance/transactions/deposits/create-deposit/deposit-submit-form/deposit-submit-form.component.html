@@ -1,4 +1,12 @@
-<div *ngIf="newDeposit$ | async as newDeposit">
+<div *ngIf="errorMessage">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h4 class="text-danger">{{ errorMessage }}</h4>
+      <button type="button" class="btn-close" (click)="onClearErrorMessage()"
+      data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+<div *ngIf="newDeposit$ | async as newDeposit; else depositForm">
     <div class="alert alert-secondary alert-dismissible fade show" role="alert">
         <h6>Deposit Successfully Submitted!</h6>
         <button type="button" class="btn-close" (click)="onClearNewlySubmittedDeposit()"
@@ -9,15 +17,7 @@
     </app-newly-created-deposit>
 </div>
 
-<div *ngIf="errorMessage">
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <h4 class="text-danger">{{ errorMessage }}</h4>
-      <button type="button" class="btn-close" (click)="onClearErrorMessage()"
-      data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-</div>
-
-<div>
+<ng-template #depositForm>
     <form (submit)="onSubmitDeposit(depositForm)" #depositForm="ngForm">
         <div class="input-group">
             <input class="form-control" placeholder="yyyy-mm-dd"
@@ -93,4 +93,4 @@
       </div>
     </form>
     <br />
-  </div>
+</ng-template>

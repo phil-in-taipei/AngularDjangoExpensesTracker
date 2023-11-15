@@ -18,7 +18,6 @@ import { UpdateAccountBalanceService } from '../../../update-account-balance.ser
 export class DepositSubmitFormComponent implements OnInit {
 
   dateModel: Date;
-  //newDeposit: TransactionModel | undefined = undefined;
   newDeposit$: Observable<TransactionModel | undefined> = of(undefined);
   @Input() incomeSources: IncomeSourceModel[];
   @Input() savingsAccounts: SavingsAccountModel[];
@@ -66,44 +65,6 @@ export class DepositSubmitFormComponent implements OnInit {
        }
        return of(undefined);
    }))
-        /*
-    this.transactionsService.submitNewDeposit(data)
-      .subscribe(
-        res => {
-          console.log('this is the response', res)
-          this.newDeposit = res
-          if (res.savings_account && res.amount) {
-            this.updateAccountBalanceService
-            .updateAccountBalanceFollowingDeposit(res.savings_account, res.amount);
-          }
-        }
-      );
-
-    this.transactionsService.submitNewDeposit(data).pipe(
-      map(((newDeposit: TransactionModel | undefined) => {
-          console.log(newDeposit)
-          if (newDeposit === undefined) {
-
-            console.log('it is undefined')
-          } else {
-            this.newDeposit = newDeposit;
-            console.log('it is defined')
-            this.updateAccountBalanceService
-            .updateAccountBalanceFollowingDeposit(newDeposit.id, newDeposit.amount);
-          }
-        }
-       ),
-      catchError(error => {
-        if (error.error instanceof ErrorEvent) {
-            this.errorMessage = `Error: ${error.error.message}`;
-        } else {
-            this.errorMessage = `Error: ${error.message}`;
-        }
-        return of(undefined);
-    }),
-    ))
-
-    */
     form.reset();
   };
 
