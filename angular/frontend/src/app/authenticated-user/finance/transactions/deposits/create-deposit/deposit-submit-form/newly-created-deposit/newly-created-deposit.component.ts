@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, of } from "rxjs";
+import { Observable } from "rxjs";
 
 import { AppState } from 'src/app/reducers';
 
@@ -18,20 +18,14 @@ export class NewlyCreatedDepositComponent implements OnInit {
 
   @Input() deposit: TransactionModel;
   savingsAccount$: Observable<SavingsAccountModel | undefined>;
-  accountSubmitSuccessMsg$: Observable<string | undefined> = of(undefined);
   
 
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    console.log('this is the deposit: ')
-    console.log(this.deposit)
-    console.log('now getting the savings account async:')
     this.savingsAccount$ = this.store.pipe(select(
       selectSavingsAccountById(this.deposit.savings_account)
     ));
-    // this has to go into a child component:
-
   }
 
 }

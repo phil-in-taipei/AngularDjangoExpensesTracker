@@ -1,14 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { Observable, of, catchError, map, pipe } from "rxjs";
-import { Store } from '@ngrx/store';
+import { Observable, of, catchError } from "rxjs";
 
-import { AppState } from 'src/app/reducers';
 import { DepositCreateModel, TransactionModel } from 'src/app/models/transaction-model';
 import { IncomeSourceModel } from 'src/app/models/income-source.model';
 import { SavingsAccountModel } from 'src/app/models/savings-account.model';
 import { TransactionsService } from '../../../transactions.service';
-import { UpdateAccountBalanceService } from '../../../update-account-balance.service';
 
 @Component({
   selector: 'app-deposit-submit-form',
@@ -24,9 +21,7 @@ export class DepositSubmitFormComponent implements OnInit {
   errorMessage: string | undefined = undefined;
 
   constructor(
-    private store: Store<AppState>,
     private transactionsService: TransactionsService,
-    private updateAccountBalanceService: UpdateAccountBalanceService
     ) { }
 
   ngOnInit(): void {

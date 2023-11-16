@@ -24,18 +24,11 @@ export class CreateDepositNewBalanceComponent implements OnInit {
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
-    console.log('this is the savings account in the child component:')
-    console.log(this.savingsAccount);
-    console.log('this is the deposit in the child component:')
-    console.log(this.deposit);
-    console.log('this is the deposit amount')
-    console.log(this.deposit.amount)
     let payload = {
       amount: this.deposit.amount,
       savingsAccount: this.savingsAccount
     }
-    console.log('now updating the account balance')
-    console.log(payload)
+
     this.store.dispatch(
       new SavingsAccountDepositSaved(payload)
     );
