@@ -1,7 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { Observable, map } from 'rxjs';
 import { NgForm } from '@angular/forms';
-import {select, Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 
 import { AppState } from '../../../../../reducers';
 import { 

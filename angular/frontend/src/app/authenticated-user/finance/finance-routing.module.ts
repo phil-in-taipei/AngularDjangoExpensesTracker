@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { FinanceComponent } from './finance.component';
 import { CreateAccountComponent } from './savings-accounts/create-account/create-account.component';
 import { CreateDepositComponent } from './transactions/deposits/create-deposit/create-deposit.component';
+import { DepositsListComponent } from './transactions/deposits/deposits-list/deposits-list.component';
 import { EditAccountComponent } from './savings-accounts/edit-account/edit-account.component';
 import { SavingsAccountsComponent } from './savings-accounts/savings-accounts-list/savings-accounts.component';
 
@@ -12,6 +13,7 @@ const routes: Routes = [
       { path: 'edit-account/:id', component: EditAccountComponent },
       { path: 'create-account', component: CreateAccountComponent },
       { path: 'create-deposit', component: CreateDepositComponent },
+      { path: 'monthly-deposits', component: DepositsListComponent },
     ] 
   },
   

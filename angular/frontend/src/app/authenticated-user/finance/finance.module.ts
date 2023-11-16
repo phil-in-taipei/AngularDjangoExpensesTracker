@@ -4,7 +4,9 @@ import { FormsModule }   from '@angular/forms';
 import { EffectsModule } from '@ngrx/effects';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { StoreModule } from '@ngrx/store';
-
+import { 
+  IncomeSourceTemplateStringComponent 
+} from '../income-sources/income-source-template-string/income-source-template-string.component';
 import { FinanceRoutingModule } from './finance-routing.module';
 import { FinanceComponent } from './finance.component';
 import { SavingsAccountsComponent } from './savings-accounts/savings-accounts-list/savings-accounts.component';
@@ -23,10 +25,12 @@ import { MixedTransactionsByAccountListComponent } from './transactions/mixed-by
 import { DepositSubmitFormComponent } from './transactions/deposits/create-deposit/deposit-submit-form/deposit-submit-form.component';
 import { NewlyCreatedDepositComponent } from './transactions/deposits/create-deposit/deposit-submit-form/newly-created-deposit/newly-created-deposit.component';
 import { CreateDepositNewBalanceComponent } from './transactions/deposits/create-deposit/deposit-submit-form/newly-created-deposit/create-deposit-new-balance/create-deposit-new-balance.component';
+import { SavingsAccountTemplateStringComponent } from './savings-accounts/savings-account-template-string/savings-account-template-string.component';
 
 
 @NgModule({
   declarations: [
+    IncomeSourceTemplateStringComponent,
     FinanceComponent,
     SavingsAccountsComponent,
     CreateAccountComponent,
@@ -41,7 +45,8 @@ import { CreateDepositNewBalanceComponent } from './transactions/deposits/create
     MixedTransactionsByAccountListComponent,
     DepositSubmitFormComponent,
     NewlyCreatedDepositComponent,
-    CreateDepositNewBalanceComponent
+    CreateDepositNewBalanceComponent,
+    SavingsAccountTemplateStringComponent
   ],
   imports: [
     CommonModule,

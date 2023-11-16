@@ -1,1 +1,103 @@
-<p>deposits-list works!</p>
+<div class="container" [hidden]="!showMonthlySelectForm"
+[style.opacity]="!showMonthlySelectForm ? '0' : '1'"
+[style.visibility]="!showMonthlySelectForm ? 'hidden' : 'visible'">
+  <h2>Select Month to View Deposits</h2>
+  <form (submit)="onMonthYearSelect(monthYearSelectForm)"
+    #monthYearSelectForm="ngForm">
+    <div>
+      <label>Month</label>
+        <select
+        class="form-control"
+        name="month"
+        class="form-control"
+        ngModel
+        required
+        #month="ngModel"
+        >
+        <option *ngFor="let opt of monthsAndIntegers"
+            [value]=opt[1]
+        >{{ opt[0] }}</option>
+        </select>
+    </div>
+    <br />
+    <div>
+      <label>Year</label>
+        <select
+        class="form-control"
+        name="year"
+        class="form-control"
+        ngModel
+        required
+        #year="ngModel"
+        >
+        <option *ngFor="let year of years"
+          [value]=year
+        >{{ year }}</option>
+        </select>
+    </div>
+    <br />
+    <div>
+      <button class="btn btn-outline-secondary" type="submit">
+          Submit
+      </button>
+    </div>
+    <br />
+  </form>
+</div>
+<div class="text-center" [hidden]="showMonthlySelectForm"
+[style.opacity]="showMonthlySelectForm ? '0' : '1'"
+[style.visibility]="showMonthlySelectForm ? 'hidden' : 'visible'">
+  <br />
+  <button class="btn btn-sm btn-outline-secondary text"
+   (click)="showMonthlySelect()">
+      Select Another Month
+  </button>
+</div>
+<hr class="thick-br"/>
+<div *ngIf="monthlyDeposits$ | async as monthlyDeposits"
+  [hidden]="showMonthlySelectForm"
+  [style.opacity]="showMonthlySelectForm ? '0' : '1'"
+  [style.visibility]="showMonthlySelectForm ? 'hidden' : 'visible'">
+  <div *ngIf="monthlyDeposits.length > 0; else no_billings" class="container">
+    <br />
+    <h3>Deposits for {{ selectedMonth[0] }} {{ selectedYear }}</h3>
+    <hr class="thick-br"/>
+    <table style="width:100%">
+      <thead>
+      <tr>
+        <th scope="col"><h4>Date</h4></th>
+        <th scope="col"><h4>Amount</h4></th>
+        <th scope="col"><h4>Account</h4></th>
+        <th scope="col"><h4>Income Source</h4></th>
+
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let deposit of monthlyDeposits">
+        <td>{{ deposit.date }}</td>
+        <td>NT${{ formatThousand(deposit.amount) }}</td>
+        <td>
+          <app-savings-account-template-string
+            [savingsAccountId]=deposit.savings_account>
+          </app-savings-account-template-string>
+        </td>
+        <td>
+          <app-income-source-template-string *ngIf="deposit.income_source" 
+          [incomeSourceId]=deposit.income_source>
+          </app-income-source-template-string>
+        </td>
+      </tr>
+    </tbody>
+    </table>
+    <hr class="thick-or"/>
+    <h4>Total: NT${{ calculateTotalDeposits(monthlyDeposits) }}</h4>
+    <hr class="thick-or"/>
+  </div>
+  <ng-template #no_billings>
+    <div class="container">
+      <hr class="thick-br"/>
+      <h4>No payments for {{ selectedMonth[0] }} {{ selectedYear }}!</h4>
+      <hr class="thick-br"/>
+    </div>
+  </ng-template>
+</div>

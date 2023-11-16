@@ -1,0 +1,3 @@
+<div *ngIf="savingsAccount$ | async as savingsAccount">
+    {{ savingsAccount.bank.bank_name }} -- ({{ savingsAccount.id }})
+</div>
