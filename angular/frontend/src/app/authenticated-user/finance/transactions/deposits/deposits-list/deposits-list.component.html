@@ -53,8 +53,11 @@
       Select Another Month
   </button>
 </div>
+
+
+
 <hr class="thick-br"/>
-<div *ngIf="monthlyDeposits$ | async as monthlyDeposits"
+<div *ngIf="monthlyDeposits"
   [hidden]="showMonthlySelectForm"
   [style.opacity]="showMonthlySelectForm ? '0' : '1'"
   [style.visibility]="showMonthlySelectForm ? 'hidden' : 'visible'">

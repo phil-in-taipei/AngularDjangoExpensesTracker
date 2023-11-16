@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
-import { Observable } from 'rxjs';
+//import { Observable } from 'rxjs';
+import { first } from 'rxjs/operators';
 import { 
   getYearsOptions, monthsAndIntegers 
 } from 'src/app/shared-utils/date-helpers.util';
@@ -19,7 +20,8 @@ export class DepositsListComponent implements OnInit {
   selectedMonth: [string, number] = ['January', 1];
   selectedYear: string = '';
   showMonthlySelectForm: boolean = true;
-  monthlyDeposits$: Observable<TransactionModel[]>;
+  //monthlyDeposits$: Observable<TransactionModel[]>;
+  monthlyDeposits: TransactionModel[];
   monthsAndIntegers: [string, number][];
 
   constructor(
@@ -46,8 +48,6 @@ export class DepositsListComponent implements OnInit {
   }
 
   onMonthYearSelect(form: NgForm) {
-    console.log('submit value to navigate now ...')
-    console.log(form.value);
     if (form.invalid) {
       console.log('calandar sumit form is invalid')
       console.log(form.errors);
@@ -58,14 +58,15 @@ export class DepositsListComponent implements OnInit {
     let month = form.value.month;
     this.selectedYear = form.value.year;
     this.selectedMonth = monthsAndIntegers[+month - 1]
-    this.monthlyDeposits$ = this.transactionsService
-                                  .fetchDepositsByMonthAndYear(
+    this.transactionsService
+          .fetchDepositsByMonthAndYear(
                                     month, year
-                                  );
-
+                                  ).pipe(
+            first(),
+            ).subscribe(res => { this.monthlyDeposits = res; } 
+          );
     this.showMonthlySelectForm = false;
   }
-
 
   showMonthlySelect() {
     this.showMonthlySelectForm = true;
