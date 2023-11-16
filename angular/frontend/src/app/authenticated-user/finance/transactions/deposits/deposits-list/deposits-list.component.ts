@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
 //import { Observable } from 'rxjs';
-import { first } from 'rxjs/operators';
+import { first, single } from 'rxjs/operators';
 import { 
   getYearsOptions, monthsAndIntegers 
 } from 'src/app/shared-utils/date-helpers.util';
@@ -60,9 +60,7 @@ export class DepositsListComponent implements OnInit {
     this.selectedMonth = monthsAndIntegers[+month - 1]
     this.transactionsService
           .fetchDepositsByMonthAndYear(
-                                    month, year
-                                  ).pipe(
-            first(),
+              month, year).pipe(single()
             ).subscribe(res => { this.monthlyDeposits = res; } 
           );
     this.showMonthlySelectForm = false;
