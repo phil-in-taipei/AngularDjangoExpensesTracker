@@ -64,6 +64,13 @@ export class TransactionsService {
          })
   }
 
+  formatThousand(value: number) {
+    if (!value) return ''
+    let strValue = value.toString()
+    return strValue.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+
   removeTransactionFromArrayById(
     transactions: TransactionModel[], id: number
     ) {

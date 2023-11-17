@@ -26,6 +26,7 @@ import { DepositSubmitFormComponent } from './transactions/deposits/create-depos
 import { NewlyCreatedDepositComponent } from './transactions/deposits/create-deposit/deposit-submit-form/newly-created-deposit/newly-created-deposit.component';
 import { CreateDepositNewBalanceComponent } from './transactions/deposits/create-deposit/deposit-submit-form/newly-created-deposit/create-deposit-new-balance/create-deposit-new-balance.component';
 import { SavingsAccountTemplateStringComponent } from './savings-accounts/savings-account-template-string/savings-account-template-string.component';
+import { SingleDepositComponent } from './transactions/deposits/deposits-list/single-deposit/single-deposit.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { SavingsAccountTemplateStringComponent } from './savings-accounts/saving
     DepositSubmitFormComponent,
     NewlyCreatedDepositComponent,
     CreateDepositNewBalanceComponent,
-    SavingsAccountTemplateStringComponent
+    SavingsAccountTemplateStringComponent,
+    SingleDepositComponent
   ],
   imports: [
     CommonModule,

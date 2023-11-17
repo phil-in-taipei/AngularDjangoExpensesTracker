@@ -1,0 +1,16 @@
+
+    <td>{{ deposit.date }}</td>
+    <td>NT${{ deposit.amount }}</td>
+    <td>
+      <app-savings-account-template-string
+        [savingsAccountId]=deposit.savings_account>
+      </app-savings-account-template-string>
+    </td>
+    <td>
+      <app-income-source-template-string *ngIf="deposit.income_source" 
+      [incomeSourceId]=deposit.income_source>
+      </app-income-source-template-string>
+    </td>
+
+
+

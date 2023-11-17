@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { NgForm } from '@angular/forms'
 import { Observable, of } from 'rxjs';
 import { single } from 'rxjs/operators';
@@ -14,7 +14,8 @@ import { TransactionsService } from '../../transactions.service';
 @Component({
   selector: 'app-deposits-list',
   templateUrl: './deposits-list.component.html',
-  styleUrls: ['./deposits-list.component.css']
+  styleUrls: ['./deposits-list.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DepositsListComponent implements OnInit {
 
@@ -42,7 +43,7 @@ export class DepositsListComponent implements OnInit {
     }
     return this.formatThousand(value);
   }
-
+  
   formatThousand(value: number) {
     if (!value) return ''
     let strValue = value.toString()
