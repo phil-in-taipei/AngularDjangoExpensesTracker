@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
-//import { Observable } from 'rxjs';
-import { first, single } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { single } from 'rxjs/operators';
 import { 
   getYearsOptions, monthsAndIntegers 
 } from 'src/app/shared-utils/date-helpers.util';
 
-import { TransactionModel } from 'src/app/models/transaction-model';
+import { 
+  TransactionModel, TransactionDeletionResponse 
+} from 'src/app/models/transaction-model';
 import { TransactionsService } from '../../transactions.service';
 
 @Component({
@@ -20,7 +22,7 @@ export class DepositsListComponent implements OnInit {
   selectedMonth: [string, number] = ['January', 1];
   selectedYear: string = '';
   showMonthlySelectForm: boolean = true;
-  //monthlyDeposits$: Observable<TransactionModel[]>;
+  depositDeletionResponse: TransactionDeletionResponse | undefined = undefined;
   monthlyDeposits: TransactionModel[];
   monthsAndIntegers: [string, number][];
 
@@ -45,6 +47,26 @@ export class DepositsListComponent implements OnInit {
     if (!value) return ''
     let strValue = value.toString()
     return strValue.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+
+  onClearDeletionMessage() {
+    this.depositDeletionResponse = undefined;
+  }
+
+  onDeleteDeposit(id: number) {
+    this.transactionsService
+    .deleteDeposit(
+        id).pipe(single()
+      ).subscribe(res => { 
+        console.log('catching the response')
+        this.depositDeletionResponse = res;
+        this.monthlyDeposits = this.transactionsService
+            .removeTransactionFromArrayById(
+              this.monthlyDeposits, id)
+            ;
+      } 
+    );
   }
 
   onMonthYearSelect(form: NgForm) {

@@ -64,6 +64,11 @@ export class TransactionsService {
          })
   }
 
+  removeTransactionFromArrayById(
+    transactions: TransactionModel[], id: number
+    ) {
+    return transactions.filter((transaction) => transaction.id !== id);
+  }
 
   submitNewDeposit(
     submissionForm:DepositCreateModel) {

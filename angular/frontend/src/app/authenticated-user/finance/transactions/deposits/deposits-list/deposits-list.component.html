@@ -54,6 +54,14 @@
   </button>
 </div>
 
+<hr class="thick-br"/>
+<div *ngIf="depositDeletionResponse">
+  <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+    <h6>Deposit Deleted!</h6>
+    <button type="button" class="btn-close" (click)="onClearDeletionMessage()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+</div>
 
 
 <hr class="thick-br"/>
@@ -72,7 +80,7 @@
         <th scope="col"><h4>Amount</h4></th>
         <th scope="col"><h4>Account</h4></th>
         <th scope="col"><h4>Income Source</h4></th>
-
+        <th scope="col"><h4>Remove</h4></th>
       </tr>
     </thead>
     <tbody>
@@ -88,6 +96,14 @@
           <app-income-source-template-string *ngIf="deposit.income_source" 
           [incomeSourceId]=deposit.income_source>
           </app-income-source-template-string>
+        </td>
+        <td>
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="onDeleteDeposit(deposit.id)"
+            >
+            Delete
+          </button>
         </td>
       </tr>
     </tbody>
