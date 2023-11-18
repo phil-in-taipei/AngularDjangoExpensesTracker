@@ -57,10 +57,13 @@
 <hr class="thick-br"/>
 <div *ngIf="depositDeletionResponse">
   <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-    <h6>Deposit Deleted!</h6>
+    <h6>{{ depositDeletionResponse.message }}</h6>
     <button type="button" class="btn-close" (click)="onClearDeletionMessage()"
     data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
+  </div>
+  <app-newly-deleted-deposit
+    [depositDeletionResponse]=depositDeletionResponse>
+  </app-newly-deleted-deposit>
 </div>
 
 
@@ -86,8 +89,8 @@
           </thead>
           <tbody class="table-dark">
             <div *ngFor="let deposit of monthlyDeposits" >
-              <app-single-deposit 
-                [deposit]=deposit 
+              <app-single-deposit
+                [deposit]=deposit
                 (onDeletionConfirmed)="onDeleteDeposit($event)">
               </app-single-deposit>
             </div>

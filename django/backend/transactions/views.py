@@ -70,9 +70,14 @@ class DepositModelViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         id = instance.id
+        amount = instance.amount
+        savings_account = instance.savings_account.id
         self.perform_destroy(instance)
-        return Response(data={"id": id,
-                        "message": "Deposit successfully deleted!"})
+        return Response(data={
+            "id": id, "amount": amount,
+            "savings_account": savings_account,
+            "message": "Deposit successfully deleted!"}
+        )
 
 
 class DepositsByMonthAndYearListView(APIView):
@@ -98,9 +103,14 @@ class WithdrawalModelViewSet(viewsets.ModelViewSet):
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         id = instance.id
+        amount = instance.amount
+        savings_account = instance.savings_account.id
         self.perform_destroy(instance)
-        return Response(data={"id": id,
-                        "message": "Withdrawal successfully deleted!"})
+        return Response(data={
+            "id": id, "amount": amount,
+            "savings_account": savings_account,
+            "message": "Deposit successfully deleted!"}
+        )
 
 
 class WithdrawalsByMonthAndYearListView(APIView):

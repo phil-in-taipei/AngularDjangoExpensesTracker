@@ -24,7 +24,6 @@ import { IncomeSourceSubmitFormComponent } from './income-sources/create-income-
 import { SingleIncomeSourceComponent } from './income-sources/income-sources-list/single-income-source/single-income-source.component';
 import { EditIncomeSourceComponent } from './income-sources/edit-income-source/edit-income-source.component';
 import { EditIncomeSourceFormComponent } from './income-sources/edit-income-source/edit-income-source-form/edit-income-source-form.component';
-//import { IncomeSourceTemplateStringComponent } from './income-sources/income-source-template-string/income-source-template-string.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { EditIncomeSourceFormComponent } from './income-sources/edit-income-sour
     SingleIncomeSourceComponent,
     EditIncomeSourceComponent,
     EditIncomeSourceFormComponent,
-    //IncomeSourceTemplateStringComponent
   ],
   imports: [
     CommonModule,

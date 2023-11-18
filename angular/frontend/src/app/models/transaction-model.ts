@@ -7,6 +7,8 @@ export interface DepositCreateModel {
 
 export interface TransactionDeletionResponse {
    id: number;
+   amount: number;
+   savings_account: number;
    message: string;
 }
 

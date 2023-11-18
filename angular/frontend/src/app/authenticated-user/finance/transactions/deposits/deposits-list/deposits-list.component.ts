@@ -58,6 +58,7 @@ export class DepositsListComponent implements OnInit {
         id).pipe(single()
       ).subscribe(res => {
         console.log('catching the response')
+        console.log(res);
         this.depositDeletionResponse = res;
         this.monthlyDeposits = this.transactionsService
             .removeTransactionFromArrayById(
