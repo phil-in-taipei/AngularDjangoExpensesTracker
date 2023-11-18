@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
-import { Observable, of } from 'rxjs';
 import { single } from 'rxjs/operators';
 import {
   getYearsOptions, monthsAndIntegers

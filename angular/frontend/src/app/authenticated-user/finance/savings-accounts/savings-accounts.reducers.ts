@@ -89,6 +89,26 @@ export function savingsAccountsReducer(
                 }
             );
 
+            case SavingsAccountsActionTypes.SavingsAccountDepositDeletionSaved:
+                // clone with spead operator and add the new value before saving the clone
+                let account = { ...action.payload.savingsAccount }
+                console.log('this is the account balance prior to ')
+                console.log(account.account_balance)
+                let updatedBalance:number = +account.account_balance - +action.payload.amount
+                account.account_balance = (Math.round(updatedBalance * 100) / 100).toFixed(2);
+            
+                console.log('this is the new account balance:')
+                console.log(account.account_balance);
+                return adapter.updateOne(
+                    {
+                        id: action.payload.savingsAccount.id,
+                        changes: account
+                    },
+                    {
+                        ...state, errorMessage:undefined,
+                        successMessage: 'You have successfully updated the account info!'
+                    }
+                ); 
         case SavingsAccountsActionTypes.SavingsAccountDeletionCancelled:
             let errMsg: string = "Error! Savings Account Deletion Failed!";
             if (action.payload.err.error.Error) {
