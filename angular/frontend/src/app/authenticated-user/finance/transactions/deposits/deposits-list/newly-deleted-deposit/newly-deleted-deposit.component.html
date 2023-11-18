@@ -1,1 +1,6 @@
-<p>newly-deleted-deposit works!</p>
+<div *ngIf="savingsAccount$ | async as savingsAccount">
+    <app-delete-deposit-new-balance
+      [depositDeletionResponse]=depositDeletionResponse
+      [savingsAccount]=savingsAccount>
+    </app-delete-deposit-new-balance>
+</div>

@@ -1,6 +1,4 @@
-<p>newly-created-deposit works!</p>
 <div *ngIf="savingsAccount$ | async as savingsAccount">
-  <h1>Here is the savings account</h1>
     <app-create-deposit-new-balance
       [deposit]=deposit
       [savingsAccount]=savingsAccount>
