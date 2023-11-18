@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 
 import { TransactionModel } from 'src/app/models/transaction-model';
 
@@ -10,7 +11,9 @@ import { TransactionModel } from 'src/app/models/transaction-model';
 export class SingleDepositComponent implements OnInit {
 
   @Input() deposit: TransactionModel;
+  @Output() onDeletionConfirmed = new EventEmitter<number>();
   depositAmountString: string = ''
+  deletionPopupVisible: boolean = false;
 ;
   constructor() { }
 
@@ -23,5 +26,15 @@ export class SingleDepositComponent implements OnInit {
     return strValue.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   }
 
+  showDeletionPopup() {
+    this.deletionPopupVisible = true;
+  }
 
+  hideDeletionPopup() {
+    this.deletionPopupVisible = false;
+  }
+
+  onConfirmDeletion() {
+    this.onDeletionConfirmed.emit(+this.deposit.id);
+  }
 }

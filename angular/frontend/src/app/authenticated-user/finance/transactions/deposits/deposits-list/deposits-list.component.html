@@ -69,48 +69,36 @@
   [hidden]="showMonthlySelectForm"
   [style.opacity]="showMonthlySelectForm ? '0' : '1'"
   [style.visibility]="showMonthlySelectForm ? 'hidden' : 'visible'">
-  <div *ngIf="monthlyDeposits.length > 0; else no_billings" class="container">
+  <div *ngIf="monthlyDeposits.length > 0; else no_billings">
     <br />
     <h3>Deposits for {{ selectedMonth[0] }} {{ selectedYear }}</h3>
     <hr class="thick-br"/>
-    <table style="width:100%">
-      <thead>
-      <tr>
-        <th scope="col"><h4>Date</h4></th>
-        <th scope="col"><h4>Amount</h4></th>
-        <th scope="col"><h4>Account</h4></th>
-        <th scope="col"><h4>Income Source</h4></th>
-        <th scope="col"><h4>Remove</h4></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let deposit of monthlyDeposits">
-        <td>{{ deposit.date }}</td>
-        <td>NT${{ formatThousand(deposit.amount) }}</td>
-        <td>
-          <app-savings-account-template-string
-            [savingsAccountId]=deposit.savings_account>
-          </app-savings-account-template-string>
-        </td>
-        <td>
-          <app-income-source-template-string *ngIf="deposit.income_source" 
-          [incomeSourceId]=deposit.income_source>
-          </app-income-source-template-string>
-        </td>
-        <td>
-          <button
-            class="btn btn-sm btn-outline-danger"
-            (click)="onDeleteDeposit(deposit.id)"
-            >
-            Delete
-          </button>
-        </td>
-      </tr>
-    </tbody>
-    </table>
-    <hr class="thick-or"/>
-    <h4>Total: NT${{ calculateTotalDeposits(monthlyDeposits) }}</h4>
-    <hr class="thick-or"/>
+    <div *ngIf="!depositDeletionResponse" class="large-scr-tbl" class="container">
+      <table class="table" style="width:100%">
+          <thead class="table-dark">
+            <tr class="row">
+              <th class="col"><h5 class="text-secondary">Date</h5></th>
+              <th class="col"><h5 class="text-secondary">Amount</h5></th>
+              <th class="col"><h5 class="text-secondary">Account</h5></th>
+              <th class="col"><h5 class="text-secondary">Income Source</h5></th>
+              <th class="col"><h5 class="text-secondary">Delete</h5></th>
+            </tr>
+          </thead>
+          <tbody class="table-dark">
+            <div *ngFor="let deposit of monthlyDeposits" >
+              <app-single-deposit 
+                [deposit]=deposit 
+                (onDeletionConfirmed)="onDeleteDeposit($event)">
+              </app-single-deposit>
+            </div>
+          </tbody>
+      </table>
+    </div>
+    <div>
+      <hr class="thick-or"/>
+      <h4>Total: NT${{ calculateTotalDeposits(monthlyDeposits) }}</h4>
+      <hr class="thick-or"/>
+    </div>
   </div>
   <ng-template #no_billings>
     <div class="container">

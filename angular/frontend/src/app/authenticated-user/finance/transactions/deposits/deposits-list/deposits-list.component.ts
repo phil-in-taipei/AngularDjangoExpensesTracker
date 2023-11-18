@@ -1,13 +1,12 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms'
 import { Observable, of } from 'rxjs';
 import { single } from 'rxjs/operators';
-import { 
-  getYearsOptions, monthsAndIntegers 
+import {
+  getYearsOptions, monthsAndIntegers
 } from 'src/app/shared-utils/date-helpers.util';
-
-import { 
-  TransactionModel, TransactionDeletionResponse 
+import {
+  TransactionModel, TransactionDeletionResponse
 } from 'src/app/models/transaction-model';
 import { TransactionsService } from '../../transactions.service';
 
@@ -15,7 +14,6 @@ import { TransactionsService } from '../../transactions.service';
   selector: 'app-deposits-list',
   templateUrl: './deposits-list.component.html',
   styleUrls: ['./deposits-list.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class DepositsListComponent implements OnInit {
 
@@ -43,7 +41,7 @@ export class DepositsListComponent implements OnInit {
     }
     return this.formatThousand(value);
   }
-  
+
   formatThousand(value: number) {
     if (!value) return ''
     let strValue = value.toString()
@@ -59,14 +57,14 @@ export class DepositsListComponent implements OnInit {
     this.transactionsService
     .deleteDeposit(
         id).pipe(single()
-      ).subscribe(res => { 
+      ).subscribe(res => {
         console.log('catching the response')
         this.depositDeletionResponse = res;
         this.monthlyDeposits = this.transactionsService
             .removeTransactionFromArrayById(
               this.monthlyDeposits, id)
             ;
-      } 
+      }
     );
   }
 
@@ -84,7 +82,7 @@ export class DepositsListComponent implements OnInit {
     this.transactionsService
           .fetchDepositsByMonthAndYear(
               month, year).pipe(single()
-            ).subscribe(res => { this.monthlyDeposits = res; } 
+            ).subscribe(res => { this.monthlyDeposits = res; }
           );
     this.showMonthlySelectForm = false;
   }

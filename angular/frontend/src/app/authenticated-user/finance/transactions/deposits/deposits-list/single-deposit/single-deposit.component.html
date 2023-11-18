@@ -1,16 +1,55 @@
-
-    <td>{{ deposit.date }}</td>
-    <td>NT${{ deposit.amount }}</td>
-    <td>
+<tr class="row" >
+  <th class="col">
+    <h5 class="text-secondary">
+      {{ deposit.date }}
+    </h5>
+  </th>
+  <th class="col">
+    <h5 class="text-secondary">
+      NT${{ deposit.amount }} 
+    </h5>
+  </th>
+  <th class="col">
+    <h5 class="text-secondary">
       <app-savings-account-template-string
         [savingsAccountId]=deposit.savings_account>
-      </app-savings-account-template-string>
-    </td>
-    <td>
+    </app-savings-account-template-string>
+    </h5>
+  </th>
+  <th class="col">
+    <h5 class="text-secondary">
       <app-income-source-template-string *ngIf="deposit.income_source" 
-      [incomeSourceId]=deposit.income_source>
+        [incomeSourceId]=deposit.income_source>
       </app-income-source-template-string>
-    </td>
-
+    </h5>
+  </th>
+  <th class="col">
+    <div *ngIf="!deletionPopupVisible; else delAccount" class="col text-left">
+      <button
+        class="btn btn-sm btn-outline-secondary"
+        (click)="showDeletionPopup()"
+        >
+        Remove
+      </button>
+    </div>
+    <ng-template #delAccount class="row">
+      <div class="col text-left">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="hideDeletionPopup()">
+          Don't Delete
+        </button>
+      </div>
+      <div class="col text-left">
+        <button
+          class="btn btn-sm btn-outline-danger"
+          (click)="onConfirmDeletion()"
+          >
+          Confirm Delete
+        </button>
+      </div>
+    </ng-template>
+  </th>
+</tr>
 
 
