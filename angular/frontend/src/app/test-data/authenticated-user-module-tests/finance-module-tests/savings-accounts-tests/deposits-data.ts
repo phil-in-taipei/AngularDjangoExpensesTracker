@@ -16,15 +16,15 @@ export const createdDeposit: TransactionModel = {
     id: 3, transaction: "Deposit", 
     amount: '300.00',
     date: threeDatesThisMonth[2],
-    income_source: incomeSourcesData[2].id,
-    savings_account: savingsAccountsData[2].id,
+    income_source: incomeSourcesData[1].id,
+    savings_account: savingsAccountsData[1].id,
 };
 
 export const newDepositData: DepositCreateModel = {
     amount: 300.00,
     date: threeDatesThisMonth[2],
-    income_source: incomeSourcesData[2].id,
-    savings_account: savingsAccountsData[2].id,
+    income_source: incomeSourcesData[1].id,
+    savings_account: savingsAccountsData[1].id,
 };
 
 export const depositDeletionResponse: TransactionDeletionResponse = {
@@ -39,8 +39,8 @@ export const depositsData: TransactionModel[] = [
         id: 1, transaction: "Deposit", 
         amount: '100.00',
         date: threeDatesThisMonth[0],
-        income_source: incomeSourcesData[0].id,
-        savings_account: savingsAccountsData[0].id,
+        income_source: 1,
+        savings_account: 1,
     },
     { 
         id: 2, transaction: "Deposit", 
