@@ -17,7 +17,7 @@ export interface SavingsAccountDeletionResponse {
 
 export interface SavingsAccountEditModel {
   account_name: string;
-  account_balance: number;
+  account_balance: string;
 }
 
 export interface SavingsAccountModel {

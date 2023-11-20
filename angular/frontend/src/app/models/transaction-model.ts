@@ -15,7 +15,7 @@ export interface TransactionDeletionResponse {
 export interface TransactionModel {
     id: number;
     transaction: string;
-    amount: number;
+    amount: string;
     date: string;
     income_source?: number;
     savings_account: number;

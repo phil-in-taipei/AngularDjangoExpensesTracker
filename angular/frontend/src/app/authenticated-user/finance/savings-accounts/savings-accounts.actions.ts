@@ -70,7 +70,7 @@ export class SavingsAccountDepositSubmitted implements Action {
 export class SavingsAccountDepositSaved implements Action {
   readonly type = SavingsAccountsActionTypes.SavingsAccountDepositSaved;
 
-  constructor(public payload: { amount: number; savingsAccount: SavingsAccountModel}) {}
+  constructor(public payload: { amount: string; savingsAccount: SavingsAccountModel}) {}
 }
 
 export class SavingsAccountDepositDeletionSaved implements Action {

@@ -8,7 +8,7 @@ import {
 
 export const createdSavingsAccount: SavingsAccountModel = {
     id: 3, account_name: "Test Savings Account 3", 
-    account_balance: 0.00,
+    account_balance: '0.00',
     account_owner: userProfileData.user,
     currency: currenciesData[1],
     bank: banksData[0] 
@@ -16,7 +16,7 @@ export const createdSavingsAccount: SavingsAccountModel = {
 
 export const editedSavingsAccountData: SavingsAccountEditModel = {
     account_name: "Test Savings Account -- edit", 
-    account_balance: 200.00,
+    account_balance: '200.00',
 };
 
 export const newSavingsAccountData: SavingsAccountCreateModel = {
@@ -35,14 +35,14 @@ export const savingsAccountDeletionResponse: SavingsAccountDeletionResponse = {
 export const savingsAccountsData: SavingsAccountModel[] = [
     { 
         id: 1, account_name: "Test Savings Account 1", 
-        account_balance: 0.00,
+        account_balance: '0.00',
         account_owner: userProfileData.user,
         currency: currenciesData[0],
         bank: banksData[0] 
     },
     { 
         id: 2, account_name: "Test Savings Account 2", 
-        account_balance: 0.00,
+        account_balance: '0.00',
         account_owner: userProfileData.user,
         currency: currenciesData[1],
         bank: banksData[0] 
