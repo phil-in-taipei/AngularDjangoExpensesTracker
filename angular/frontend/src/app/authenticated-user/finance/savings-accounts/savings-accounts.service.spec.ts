@@ -120,17 +120,21 @@ describe('SavingsAccountsService', () => {
     + 'data to edit the account', 
       fakeAsync(() => {
         authServiceSpy.getAuthToken.and.returnValue(authData.token);
-        let revisedSavingsAccount = { ...newSavingsAccountData, id: 3 };
+        let revisedSavingsAccount = { ...savingsAccountsData[1] };
         revisedSavingsAccount.account_balance = editedSavingsAccountData.account_balance;
         revisedSavingsAccount.account_name = editedSavingsAccountData.account_name;
 
-        service.submitEditedSavingsAccount(3, editedSavingsAccountData).subscribe(response => {
-          expect(response).toEqual(revisedSavingsAccount);
+        service.submitEditedSavingsAccount(
+          savingsAccountsData[1].id, editedSavingsAccountData).subscribe(
+            response => {
+              expect(response).toEqual(revisedSavingsAccount);
         });
 
         const request = httpTestingController.expectOne({
           method: 'PATCH',
-          url:`${environment.apiUrl}/api/financial-accounts/savings-account/3/`,
+          url:`${environment.apiUrl}/api/financial-accounts/savings-account/${
+            savingsAccountsData[1].id
+            }/`,
         });
 
         request.flush(revisedSavingsAccount);
