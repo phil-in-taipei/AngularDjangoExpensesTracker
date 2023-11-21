@@ -1,1 +1,7 @@
-<p>create-withdrawal works!</p>
+<div *ngIf="savingsAccounts$ | async as savingsAccounts">
+    <hr class="thick-br"/>
+    <app-withdrawal-submit-form
+        [savingsAccounts]=savingsAccounts>
+    </app-withdrawal-submit-form>
+    <hr class="thick-br"/>
+</div>

@@ -31,6 +31,9 @@ import { NewlyDeletedDepositComponent } from './transactions/deposits/deposits-l
 import {
   DeleteDepositNewBalanceComponent
 }  from './transactions/deposits/deposits-list/newly-deleted-deposit/delete-deposit-new-balance/delete-deposit-new-balance.component';
+import { WithdrawalSubmitFormComponent } from './transactions/withdrawals/create-withdrawal/withdrawal-submit-form/withdrawal-submit-form.component';
+import { NewlyCreatedWithdrawalComponent } from './transactions/withdrawals/create-withdrawal/withdrawal-submit-form/newly-created-withdrawal/newly-created-withdrawal.component';
+import { CreateWithdrawalNewBalanceComponent } from './transactions/withdrawals/create-withdrawal/withdrawal-submit-form/newly-created-withdrawal/create-withdrawal-new-balance/create-withdrawal-new-balance.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +56,10 @@ import {
     SavingsAccountTemplateStringComponent,
     SingleDepositComponent,
     NewlyDeletedDepositComponent,
-    DeleteDepositNewBalanceComponent
+    DeleteDepositNewBalanceComponent,
+    WithdrawalSubmitFormComponent,
+    NewlyCreatedWithdrawalComponent,
+    CreateWithdrawalNewBalanceComponent
   ],
   imports: [
     CommonModule,

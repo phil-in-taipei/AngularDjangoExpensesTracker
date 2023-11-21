@@ -1,0 +1,77 @@
+<div *ngIf="errorMessage">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <h4 class="text-danger">{{ errorMessage }}</h4>
+      <button type="button" class="btn-close" (click)="onClearErrorMessage()"
+      data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+</div>
+
+<div *ngIf="newWithdrawal$ | async as newWithdrawal; else withdrawalForm">
+    <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+        <h6>Withdrawal Successfully Submitted!</h6>
+        <button type="button" class="btn-close" (click)="onClearNewlySubmittedWithdrawal()"
+        data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    <app-newly-created-withdrawal
+        [withdrawal]=newWithdrawal>
+    </app-newly-created-withdrawal>
+</div>
+
+<ng-template #withdrawalForm>
+    <form (submit)="onSubmitWithdrawal(withdrawalForm)" #withdrawalForm="ngForm">
+        <div class="input-group">
+            <input class="form-control" placeholder="yyyy-mm-dd"
+                   name="date" [(ngModel)]="dateModel" ngbDatepicker #date="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="date.toggle()" type="button">
+              Select Date</button>
+            </div>
+          </div>
+      <div>
+          <label>Savings Account</label>
+            <select
+            class="form-control"
+            name="savings_account"
+            class="form-control"
+            ngModel
+            required
+            #savings_account="ngModel"
+            >
+            <option *ngFor="let savingsAccount of savingsAccounts"
+                [value]=savingsAccount.id
+            >{{ savingsAccount.bank.bank_name }} -- Account: {{ savingsAccount.id }}
+            </option>
+            </select>
+            <div *ngIf="savings_account.touched && savings_account.invalid">
+              Please select a savings account.
+            </div>
+      </div>
+      <br />
+      <div>
+          <label>Amount</label>
+          <input
+          class="form-control"
+          type="number"
+          min="0.00"
+          max="20000"
+          rows="4"
+          name="amount"
+          ngModel
+          required
+          placeholder="0.00"
+          #amount="ngModel"
+          >
+          <div *ngIf="amount.touched && amount.invalid">
+            Please enter an amount.
+          </div>
+      </div>
+      <br />
+      <div>
+        <button class="btn btn-outline-secondary" type="submit">
+          Submit
+        </button>
+      </div>
+    </form>
+    <br />
+</ng-template>
+
