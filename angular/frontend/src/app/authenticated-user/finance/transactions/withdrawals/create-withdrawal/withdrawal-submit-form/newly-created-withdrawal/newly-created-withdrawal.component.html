@@ -1,1 +1,6 @@
-<p>newly-created-withdrawal works!</p>
+<div *ngIf="savingsAccount$ | async as savingsAccount">
+    <app-create-withdrawal-new-balance
+      [withdrawal]=withdrawal
+      [savingsAccount]=savingsAccount>
+    </app-create-withdrawal-new-balance>
+</div>
