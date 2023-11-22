@@ -1,0 +1,6 @@
+<div *ngIf="savingsAccount$ | async as savingsAccount">
+    <app-delete-withdrawal-new-balance
+      [withdrawalDeletionResponse]=withdrawalDeletionResponse
+      [savingsAccount]=savingsAccount>
+    </app-delete-withdrawal-new-balance>
+</div>

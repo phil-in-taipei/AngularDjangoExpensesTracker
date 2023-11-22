@@ -19,6 +19,9 @@ import {
 import { 
   SavingsAccountsComponent 
 } from './savings-accounts/savings-accounts-list/savings-accounts.component';
+import { 
+  WithdrawalsListComponent 
+} from './transactions/withdrawals/withdrawals-list/withdrawals-list.component';
 
 const routes: Routes = [
   { path: '', component: FinanceComponent, children: [ 
@@ -28,6 +31,7 @@ const routes: Routes = [
       { path: 'create-deposit', component: CreateDepositComponent },
       { path: 'create-withdrawal', component: CreateWithdrawalComponent },
       { path: 'monthly-deposits', component: DepositsListComponent },
+      { path: 'monthly-withdrawals', component: WithdrawalsListComponent },
     ] 
   },
   

@@ -34,6 +34,9 @@ import {
 import { WithdrawalSubmitFormComponent } from './transactions/withdrawals/create-withdrawal/withdrawal-submit-form/withdrawal-submit-form.component';
 import { NewlyCreatedWithdrawalComponent } from './transactions/withdrawals/create-withdrawal/withdrawal-submit-form/newly-created-withdrawal/newly-created-withdrawal.component';
 import { CreateWithdrawalNewBalanceComponent } from './transactions/withdrawals/create-withdrawal/withdrawal-submit-form/newly-created-withdrawal/create-withdrawal-new-balance/create-withdrawal-new-balance.component';
+import { SingleWithdrawalComponent } from './transactions/withdrawals/withdrawals-list/single-withdrawal/single-withdrawal.component';
+import { NewlyDeletedWithdrawalComponent } from './transactions/withdrawals/withdrawals-list/newly-deleted-withdrawal/newly-deleted-withdrawal.component';
+import { DeleteWithdrawalNewBalanceComponent } from './transactions/withdrawals/withdrawals-list/newly-deleted-withdrawal/delete-withdrawal-new-balance/delete-withdrawal-new-balance.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +62,10 @@ import { CreateWithdrawalNewBalanceComponent } from './transactions/withdrawals/
     DeleteDepositNewBalanceComponent,
     WithdrawalSubmitFormComponent,
     NewlyCreatedWithdrawalComponent,
-    CreateWithdrawalNewBalanceComponent
+    CreateWithdrawalNewBalanceComponent,
+    SingleWithdrawalComponent,
+    NewlyDeletedWithdrawalComponent,
+    DeleteWithdrawalNewBalanceComponent
   ],
   imports: [
     CommonModule,

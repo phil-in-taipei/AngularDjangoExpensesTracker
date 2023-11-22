@@ -1,0 +1,48 @@
+<tr class="row" >
+    <th class="col">
+      <h5 class="text-secondary">
+        {{ withdrawal.date }}
+      </h5>
+    </th>
+    <th class="col">
+      <h5 class="text-secondary">
+        NT${{ withdrawal.amount }} 
+      </h5>
+    </th>
+    <th class="col">
+      <h5 class="text-secondary">
+        <app-savings-account-template-string
+          [savingsAccountId]=withdrawal.savings_account>
+      </app-savings-account-template-string>
+      </h5>
+    </th>
+    <th class="col">
+      <div *ngIf="!deletionPopupVisible; else delWithdrawal" class="col text-left">
+        <button
+          class="btn btn-sm btn-outline-secondary"
+          (click)="showDeletionPopup()"
+          >
+          Remove
+        </button>
+      </div>
+      <ng-template #delWithdrawal class="row">
+        <div class="col text-left">
+          <button
+            class="btn btn-sm btn-outline-secondary"
+            (click)="hideDeletionPopup()">
+            Don't Delete
+          </button>
+        </div>
+        <div class="col text-left">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="onConfirmDeletion()"
+            >
+            Confirm Delete
+          </button>
+        </div>
+      </ng-template>
+    </th>
+</tr>
+  
+    

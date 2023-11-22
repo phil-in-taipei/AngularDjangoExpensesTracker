@@ -109,7 +109,7 @@ class WithdrawalModelViewSet(viewsets.ModelViewSet):
         return Response(data={
             "id": id, "amount": amount,
             "savings_account": savings_account,
-            "message": "Deposit successfully deleted!"}
+            "message": "Withdrawal successfully deleted!"}
         )
 
 

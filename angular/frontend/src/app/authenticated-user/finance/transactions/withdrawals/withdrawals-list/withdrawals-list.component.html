@@ -1,1 +1,112 @@
-<p>withdrawals-list works!</p>
+<div class="container" [hidden]="!showMonthlySelectForm"
+[style.opacity]="!showMonthlySelectForm ? '0' : '1'"
+[style.visibility]="!showMonthlySelectForm ? 'hidden' : 'visible'">
+  <h2>Select Month to View Withdrawals</h2>
+  <form (submit)="onMonthYearSelect(monthYearSelectForm)"
+    #monthYearSelectForm="ngForm">
+    <div>
+      <label>Month</label>
+        <select
+        class="form-control"
+        name="month"
+        class="form-control"
+        ngModel
+        required
+        #month="ngModel"
+        >
+        <option *ngFor="let opt of monthsAndIntegers"
+            [value]=opt[1]
+        >{{ opt[0] }}</option>
+        </select>
+    </div>
+    <br />
+    <div>
+      <label>Year</label>
+        <select
+        class="form-control"
+        name="year"
+        class="form-control"
+        ngModel
+        required
+        #year="ngModel"
+        >
+        <option *ngFor="let year of years"
+          [value]=year
+        >{{ year }}</option>
+        </select>
+    </div>
+    <br />
+    <div>
+      <button class="btn btn-outline-secondary" type="submit">
+          Submit
+      </button>
+    </div>
+    <br />
+  </form>
+</div>
+<div class="text-center" [hidden]="showMonthlySelectForm"
+[style.opacity]="showMonthlySelectForm ? '0' : '1'"
+[style.visibility]="showMonthlySelectForm ? 'hidden' : 'visible'">
+  <br />
+  <button class="btn btn-sm btn-outline-secondary text"
+   (click)="showMonthlySelect()">
+      Select Another Month
+  </button>
+</div>
+
+<hr class="thick-br"/>
+<div *ngIf="withdrawalDeletionResponse">
+  <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+    <h6>{{ withdrawalDeletionResponse.message }}</h6>
+    <button type="button" class="btn-close" (click)="onClearDeletionMessage()"
+    data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  <app-newly-deleted-withdrawal
+    [withdrawalDeletionResponse]=withdrawalDeletionResponse>
+  </app-newly-deleted-withdrawal>
+</div>
+
+
+<hr class="thick-br"/>
+<div *ngIf="monthlyWithdrawals"
+  [hidden]="showMonthlySelectForm"
+  [style.opacity]="showMonthlySelectForm ? '0' : '1'"
+  [style.visibility]="showMonthlySelectForm ? 'hidden' : 'visible'">
+  <div *ngIf="monthlyWithdrawals.length > 0; else no_billings">
+    <br />
+    <h3>Withdrawals for {{ selectedMonth[0] }} {{ selectedYear }}</h3>
+    <hr class="thick-br"/>
+    <div *ngIf="!withdrawalDeletionResponse" class="large-scr-tbl" class="container">
+      <table class="table" style="width:100%">
+          <thead class="table-dark">
+            <tr class="row">
+              <th class="col"><h5 class="text-secondary">Date</h5></th>
+              <th class="col"><h5 class="text-secondary">Amount</h5></th>
+              <th class="col"><h5 class="text-secondary">Account</h5></th>
+              <th class="col"><h5 class="text-secondary">Delete</h5></th>
+            </tr>
+          </thead>
+          <tbody class="table-dark">
+            <div *ngFor="let withdrawal of monthlyWithdrawals" >
+              <app-single-withdrawal
+                [withdrawal]=withdrawal
+                (onDeletionConfirmed)="onDeleteWithdrawal($event)">
+              </app-single-withdrawal>
+            </div>
+          </tbody>
+      </table>
+    </div>
+    <div>
+      <hr class="thick-or"/>
+      <h4>Total: NT${{ calculateTotalWithdrawals(monthlyWithdrawals) }}</h4>
+      <hr class="thick-or"/>
+    </div>
+  </div>
+  <ng-template #no_billings>
+    <div class="container">
+      <hr class="thick-br"/>
+      <h4>No payments for {{ selectedMonth[0] }} {{ selectedYear }}!</h4>
+      <hr class="thick-br"/>
+    </div>
+  </ng-template>
+</div>
