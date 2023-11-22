@@ -1,0 +1,7 @@
+<div *ngIf="savingsAccounts$ | async as savingsAccounts">
+    <hr class="thick-br"/>
+    <app-mixed-transactions-by-account-list
+      [savingsAccounts]=savingsAccounts>
+    </app-mixed-transactions-by-account-list>
+    <hr class="thick-br"/>
+</div>

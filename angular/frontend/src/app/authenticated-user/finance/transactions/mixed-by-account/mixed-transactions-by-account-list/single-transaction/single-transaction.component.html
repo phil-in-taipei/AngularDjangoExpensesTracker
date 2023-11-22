@@ -1,0 +1,28 @@
+<tr class="row" >
+    <th class="col">
+      <h5 class="text-secondary">
+        {{ transaction.date }}
+      </h5>
+    </th>
+    <th class="col">
+        <h5 class="text-secondary">
+          {{ transaction.transaction }}
+        </h5>
+      </th>
+    <th class="col">
+      <h5 class="text-secondary">
+        NT${{ transaction.amount }} 
+      </h5>
+    </th>
+    <th class="col">
+      <h5 class="text-secondary">
+        <app-income-source-template-string *ngIf="transaction.income_source; else blank" 
+          [incomeSourceId]=transaction.income_source>
+        </app-income-source-template-string>
+        <ng-template #blank>&nbsp;</ng-template>
+      </h5>
+    </th>
+  </tr>
+  
+  
+  

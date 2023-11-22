@@ -90,6 +90,4 @@ export class WithdrawalsListComponent implements OnInit {
     this.showMonthlySelectForm = true;
   }
 
-
-
 }

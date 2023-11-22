@@ -17,6 +17,9 @@ import {
   EditAccountComponent 
 } from './savings-accounts/edit-account/edit-account.component';
 import { 
+  MixedByAccountComponent 
+} from './transactions/mixed-by-account/mixed-by-account.component';
+import { 
   SavingsAccountsComponent 
 } from './savings-accounts/savings-accounts-list/savings-accounts.component';
 import { 
@@ -30,6 +33,7 @@ const routes: Routes = [
       { path: 'create-account', component: CreateAccountComponent },
       { path: 'create-deposit', component: CreateDepositComponent },
       { path: 'create-withdrawal', component: CreateWithdrawalComponent },
+      { path: 'monthly-account-transactions', component: MixedByAccountComponent },
       { path: 'monthly-deposits', component: DepositsListComponent },
       { path: 'monthly-withdrawals', component: WithdrawalsListComponent },
     ] 

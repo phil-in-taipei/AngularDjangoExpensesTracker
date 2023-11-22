@@ -37,6 +37,8 @@ import { CreateWithdrawalNewBalanceComponent } from './transactions/withdrawals/
 import { SingleWithdrawalComponent } from './transactions/withdrawals/withdrawals-list/single-withdrawal/single-withdrawal.component';
 import { NewlyDeletedWithdrawalComponent } from './transactions/withdrawals/withdrawals-list/newly-deleted-withdrawal/newly-deleted-withdrawal.component';
 import { DeleteWithdrawalNewBalanceComponent } from './transactions/withdrawals/withdrawals-list/newly-deleted-withdrawal/delete-withdrawal-new-balance/delete-withdrawal-new-balance.component';
+import { SingleTransactionComponent } from './transactions/mixed-by-account/mixed-transactions-by-account-list/single-transaction/single-transaction.component';
+import { MixedByAccountComponent } from './transactions/mixed-by-account/mixed-by-account.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +67,9 @@ import { DeleteWithdrawalNewBalanceComponent } from './transactions/withdrawals/
     CreateWithdrawalNewBalanceComponent,
     SingleWithdrawalComponent,
     NewlyDeletedWithdrawalComponent,
-    DeleteWithdrawalNewBalanceComponent
+    DeleteWithdrawalNewBalanceComponent,
+    SingleTransactionComponent,
+    MixedByAccountComponent
   ],
   imports: [
     CommonModule,

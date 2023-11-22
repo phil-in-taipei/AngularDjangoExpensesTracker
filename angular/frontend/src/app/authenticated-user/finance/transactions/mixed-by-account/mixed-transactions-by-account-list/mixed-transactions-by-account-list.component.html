@@ -1,1 +1,134 @@
-<p>mixed-transactions-by-account-list works!</p>
+<div class="container" [hidden]="!showAccountandMonthSelectForm"
+[style.opacity]="!showAccountandMonthSelectForm ? '0' : '1'"
+[style.visibility]="!showAccountandMonthSelectForm ? 'hidden' : 'visible'">
+  <h2>Select Account and Month to View Transactions</h2>
+  <form (submit)="onMonthYearSelect(monthYearSelectForm)"
+    #monthYearSelectForm="ngForm">
+    <div>
+      <label>Savings Account</label>
+        <select
+        class="form-control"
+        name="accountId"
+        class="form-control"
+        ngModel
+        required
+        #accountId="ngModel"
+        >
+        <option *ngFor="let savingsAccount of savingsAccounts"
+            [value]=savingsAccount.id
+        >{{ savingsAccount.bank.bank_name }} -- Account: {{ savingsAccount.id }}
+        </option>
+        </select>
+        <div *ngIf="accountId.touched && accountId.invalid">
+          Please select a savings account.
+        </div>
+    </div>
+    <br />
+    <div>
+      <label>Month</label>
+        <select
+        class="form-control"
+        name="month"
+        class="form-control"
+        ngModel
+        required
+        #month="ngModel"
+        >
+        <option *ngFor="let opt of monthsAndIntegers"
+            [value]=opt[1]
+        >{{ opt[0] }}</option>
+        </select>
+    </div>
+    <br />
+    <div>
+      <label>Year</label>
+        <select
+        class="form-control"
+        name="year"
+        class="form-control"
+        ngModel
+        required
+        #year="ngModel"
+        >
+        <option *ngFor="let year of years"
+          [value]=year
+        >{{ year }}</option>
+        </select>
+    </div>
+    <br />
+    <div>
+      <button class="btn btn-outline-secondary" type="submit">
+          Submit
+      </button>
+    </div>
+    <br />
+  </form>
+</div>
+<div class="text-center" [hidden]="showAccountandMonthSelectForm"
+[style.opacity]="showAccountandMonthSelectForm ? '0' : '1'"
+[style.visibility]="showAccountandMonthSelectForm ? 'hidden' : 'visible'">
+  <br />
+  <button class="btn btn-sm btn-outline-secondary text"
+   (click)="showAccountAndMonthSelect()">
+      Select Another Account and Month
+  </button>
+</div>
+
+
+<hr class="thick-br"/>
+<div *ngIf="monthlyTransactions"
+  [hidden]="showAccountandMonthSelectForm"
+  [style.opacity]="showAccountandMonthSelectForm ? '0' : '1'"
+  [style.visibility]="showAccountandMonthSelectForm ? 'hidden' : 'visible'">
+  <div *ngIf="monthlyTransactions.length > 0; else no_billings">
+    <br />
+    <h3>Transactions for {{ selectedMonth[0] }} {{ selectedYear }}</h3>
+    <div *ngIf="selectedAccountId">
+      <h3>Account: <app-savings-account-template-string
+        [savingsAccountId]=selectedAccountId>
+      </app-savings-account-template-string></h3>
+    </div>
+    <hr class="thick-br"/>
+    <div class="large-scr-tbl" class="container">
+      <table class="table" style="width:100%">
+          <thead class="table-dark">
+            <tr class="row">
+              <th class="col"><h5 class="text-secondary">Date</h5></th>
+              <th class="col"><h5 class="text-secondary">Transaction</h5></th>
+              <th class="col"><h5 class="text-secondary">Amount</h5></th>
+              <th class="col"><h5 class="text-secondary">Income Source</h5></th>
+            </tr>
+          </thead>
+          <tbody class="table-dark">
+            <div *ngFor="let transaction of monthlyTransactions" >
+                <app-single-transaction
+                 [transaction]=transaction>
+                </app-single-transaction>
+            </div>
+          </tbody>
+      </table>
+    </div>
+    <div>
+        <hr class="thick-or"/>
+        <h4>Total Deposits: NT${{ calculateTotalDeposits(monthlyTransactions) }}</h4>
+        <hr class="thick-or"/>
+      </div>
+    <div>
+      <hr class="thick-or"/>
+      <h4>Total Withdrawals: NT${{ calculateTotalWithdrawals(monthlyTransactions) }}</h4>
+      <hr class="thick-or"/>
+    </div>
+  </div>
+  <ng-template #no_billings>
+    <div class="container">
+      <hr class="thick-br"/>
+      <h4>No payments for {{ selectedMonth[0] }} {{ selectedYear }}!</h4>
+      <hr class="thick-br"/>
+      <div *ngIf="selectedAccountId">
+        <app-savings-account-template-string
+          [savingsAccountId]=selectedAccountId>
+        </app-savings-account-template-string>
+      </div>
+    </div>
+  </ng-template>
+</div>
