@@ -19,7 +19,6 @@ export enum SavingsAccountsActionTypes {
     SavingsAccountEditCancelled= '[Edit Savings Account Page] Edit Savings Account Cancelled',
     SavingsAccountEditSubmitted = '[Edit Savings Account Page] Edited Savings Account Submitted',
     SavingsAccountEditUpdated = '[Savings Accounts Page] Edited Savings Account Updated',
-    SavingsAccountDepositSubmitted = '[Create Deposit Page] Updated Savings Account Balance Submitted',
     SavingsAccountDepositSaved = '[Create Deposit Page] Savings Account Balance Updated Following Deposit',
     SavingsAccountDepositDeletionSaved = '[Deposits List Page] Savings Account Balance Updated Following Deletion of Deposit',
     SavingsAccountWithdrawalSaved = '[Create Withdrawal Page] Savings Account Balance Updated Following Withdrawal',
@@ -61,12 +60,6 @@ export class SavingsAccountDeletionSaved implements Action {
     readonly type = SavingsAccountsActionTypes.SavingsAccountDeletionSaved;
 
     constructor(public payload: { id: number, message: string }) {}
-}
-
-export class SavingsAccountDepositSubmitted implements Action {
-    readonly type = SavingsAccountsActionTypes.SavingsAccountDepositSubmitted;
-
-    constructor(public payload: { id: number, amount: number }) {}
 }
 
 export class SavingsAccountDepositSaved implements Action {
@@ -141,16 +134,15 @@ export class SavingsAccountSubmitted implements Action {
 
     constructor(
         public payload: { savingsAccount: SavingsAccountCreateModel }
-        ){}
+    ){}
 }
 
 export type SavingsAccountActions =  SavingsAccountAdded |
     SavingsAccountEditCancelled | SavingsAccountEditSubmitted |
     SavingsAccountEditUpdated | SavingsAccountDeletionCancelled |
     SavingsAccountDeletionRequested | SavingsAccountDeletionSaved |
-    SavingsAccountDepositSubmitted | SavingsAccountDepositSaved |
-    SavingsAccountDepositDeletionSaved | SavingsAccountWithdrawalSaved |
-    SavingsAccountWithdrawalDeletionSaved |
+    SavingsAccountDepositSaved | SavingsAccountDepositDeletionSaved | 
+    SavingsAccountWithdrawalSaved | SavingsAccountWithdrawalDeletionSaved |
     SavingsAccountAddedCancelled | SavingsAccountsCleared |
     SavingsAccountsLoaded | SavingsAccountMessagesCleared |
     SavingsAccountsRequested | SavingsAccountSubmitted;
