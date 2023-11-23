@@ -12,12 +12,15 @@ import { TransactionsService } from './transactions.service';
 import { 
   createdDeposit, depositsData, depositDeletionResponse, newDepositData
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/deposits-data';
-
+import { 
+  mixedTransactionsData 
+} from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/mixed-transactions-data';
 import { 
   createdWithdrawal, newWithdrawalData, withdrawalDeletionResponse, withdrawalsData 
 } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/withdrawals-data';
+import { savingsAccountsData } from 'src/app/test-data/authenticated-user-module-tests/finance-module-tests/savings-accounts-tests/savings-accounts-data';
 
-fdescribe('TransactionsService', () => {
+describe('TransactionsService', () => {
   let httpTestingController: HttpTestingController;
   let authServiceSpy: jasmine.SpyObj<AuthService>;
   let service: TransactionsService;
@@ -84,8 +87,6 @@ fdescribe('TransactionsService', () => {
       
   });
 
-
-
   it("should return the array of users' deposits for this month from the api", 
     fakeAsync(() => {
     const today: Date = new Date();
@@ -102,6 +103,32 @@ fdescribe('TransactionsService', () => {
       method: 'GET',
       url:`${environment.apiUrl}/api/transactions/deposits/by-month-year/` 
           + `${today.getMonth() + 1}/${today.getFullYear()}/`,
+    });
+
+    request.flush(depositsData);
+
+    flush();
+
+  }));
+
+
+  it("should return the array of users' transactions for this month " 
+    + "with the first Savings Account in the mock data from the api", 
+    fakeAsync(() => {
+    const today: Date = new Date();
+
+    authServiceSpy.getAuthToken.and.returnValue(authData.token);
+
+    service.fetchAccountTransactionsByMonthAndYear(
+      today.getMonth() + 1, today.getFullYear(), savingsAccountsData[0].id
+      ).subscribe(response => {
+      expect(response).toEqual(depositsData);
+    });
+
+    const request = httpTestingController.expectOne({
+      method: 'GET',
+      url:`${environment.apiUrl}/api/transactions/account-transactions/by-month-year/` 
+          + `${today.getMonth() + 1}/${today.getFullYear()}/${savingsAccountsData[0].id}/`,
     });
 
     request.flush(depositsData);
